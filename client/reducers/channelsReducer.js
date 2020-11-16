@@ -16,11 +16,20 @@ const initialState = {
     channelList = [],
 };
 
-const channelsReducer = (state = initialState, action) => { 
-    //add channel 
-    //delete channel
-    //update channel subscribers
-    //update channel messages
+const channelsReducer = (state = initialState, action) => {
+  let channelList;
+  
+    switch(action.type){
+
+        //add channel 
+        //delete channel
+        //update channel subscribers
+        //update channel messages
+
+        default:
+            return state;
+    }
+
 }
   
 export default channelsReducer; 
