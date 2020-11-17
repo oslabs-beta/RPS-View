@@ -21,9 +21,9 @@ const channelsReducer = (state = initialState, action) => {
   let channelList;
 
     switch(action.type){
-
         //add channel 
         case types.ADD_CHANNEL:
+            
             //create a new channel object
             let newChannel = {
                 //connect with ws and redis? 
@@ -34,7 +34,7 @@ const channelsReducer = (state = initialState, action) => {
             channelList.push(newChannel);
 
             return{
-                totalChannels : totalChannels + 1,
+                totalChannels : state.totalChannels + 1,
                 channelList
             }
         
@@ -55,7 +55,7 @@ const channelsReducer = (state = initialState, action) => {
               }
             })
             return {
-                totalChannels : totalChannels -1,
+                totalChannels : state.totalChannels -1,
                 channelList : updatedArr
             }
         

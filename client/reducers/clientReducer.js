@@ -113,7 +113,7 @@ const clientReducer = (state = initialState, action) => {
       //create a new client object with an empty log and empty channels array
       const newClient = {log: [], channels: []};
       //initialize a copyOfClients object, made from clients in state
-      // const copyOfClients = {...state.clients};
+      const copyOfClients = {...state.clients};
       //add new client object to the copyOfClients object
       copyOfClients[newNext] = newClient;
       //return updated state with incremented nextClientId and updated clients
