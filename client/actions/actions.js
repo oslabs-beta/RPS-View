@@ -20,6 +20,7 @@ import * as types from '../constants/actionTypes.js';
  * each action is exported, has a type and payload
  */
 
+ /**TODO later: Add a cloneClient action */
 
 export const subscribe = () => ({
   type: types.SUBSCRIBE
@@ -50,4 +51,33 @@ export const handleClientInput = (payload) => ({
 
 })
 
-/**TODO later: Add a cloneClient action */
+
+
+/**These are the channel related actions */
+
+export const addChannel = (channelName) => ({
+    type: types.ADD_CHANNEL,
+    payload: channelName,
+  });
+
+export const deleteChannel = (channelName) => ({
+    type: types.DELETE_CHANNEL,
+    payload: channelName,
+});
+
+// export const addChannelSubscriber = (channelName, userName) => ({
+//     type: types.ADD_CHANNEL_SUBSCRIBER,
+//     payload: {
+//         channelName,
+//         userName
+//     },
+// });
+
+// export const deleteChannelSubscriber = (channelName, userName) => ({
+//     type: types.DELETE_CHANNEL_SUBSCRIBER,
+//     payload: {
+//         channelName,
+//         userName
+//     },
+// });
+

@@ -9,13 +9,18 @@
  * ************************************
  */
 
- import {combineReducers} from 'redux';
+import {combineReducers} from 'redux';
 
- import clientReducer  from './clientReducer.js';
+import clientReducer  from './clientReducer.js';
+import channelsReducer from './channelsReducer';
 
- const reducers = combineReducers({
-   client: clientReducer,
-   //add channels reducer here
- })
+const reducers = combineReducers({
+  client: clientReducer,
+  //add channels reducer here
+  channels: channelsReducer,
+})
 
- export default reducers;
+
+// make the combined reducers available for import
+export default reducers;
+
