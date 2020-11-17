@@ -2,7 +2,7 @@
  * ************************************
  *
  * @module  clientReducer.js
- * @author
+ * @author Elise and Lara
  * @date
  * @description all the reducers related to client state
  *
