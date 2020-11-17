@@ -12,8 +12,9 @@
 import * as types from "../constants/actionTypes";
 
 const initialState = {
-    totalChannels = 0,
-    channelList = [],
+    totalChannels : 0,
+    channelList : [{name:"Joe"}],
+    //add state for currently clicked channel
 };
 
 const channelsReducer = (state = initialState, action) => {
@@ -27,7 +28,6 @@ const channelsReducer = (state = initialState, action) => {
             let newChannel = {
                 //connect with ws and redis? 
                 name : action.payload,
-                messages: []
             }
 
             channelList = state.channelList.slice();
