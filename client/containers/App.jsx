@@ -11,15 +11,18 @@
 
 import React, {Component} from 'react';
 import '../styles/styles.scss';
+import ClientMenu from './ClientMenu.jsx';
 import ChannelContainer from './ChannelContainer.jsx';
 
 class App extends Component {
   render(){
     return (
-      <div>
+      <>
         <h2>hello the app is loading</h2>
+        <ClientMenu />
         <ChannelContainer />
-      </div>
+      </>
+      
     )
     
   }
