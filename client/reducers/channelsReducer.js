@@ -13,7 +13,7 @@ import * as types from "../constants/actionTypes";
 
 const initialState = {
     totalChannels : 0,
-    channelList : [{name:"Joe"}],
+    channelList : [{name:"Joe"}, {name:"politics"}, {name:"food"}],
     //add state for currently clicked channel
 };
 
