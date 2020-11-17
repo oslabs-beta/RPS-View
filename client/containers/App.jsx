@@ -11,11 +11,15 @@
 
 import React, {Component} from 'react';
 import '../styles/styles.scss';
+import ClientMenu from './ClientMenu.jsx';
 
 class App extends Component {
   render(){
     return (
-      <h2>hello the app is loading</h2>
+      <>
+        <h2>hello the app is loading</h2>
+        <ClientMenu />
+      </>
     )
     
   }
