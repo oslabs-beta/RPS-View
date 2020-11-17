@@ -16,25 +16,26 @@ import * as types from '../constants/actionTypes.js';
 const initialState = {
   message: '',
   currClient: null,
-  nextClientId: 0, //used to create a serial id for each id
+  nextClientId: 2, //used to create a serial id for each id
   channel: '',
   /**TODO change channels to a set instead of an array */
-  clients: {}, //will have the structure id: {log: [{channel: str, type: 'published'/'received', timestamp: ISO string, message: str}], channels: [arrs]}
+  clients: {1: {log: [{channel: 'politics', type: 'received', timestamp: 'DATEHERE', message: 'election called'}], channels: ['politics', 'food']}, 2: {log: [], channels: []}}, //will have the structure id: {log: [{channel: str, type: 'published'/'received', timestamp: ISO string, message: str}], channels: [arrs]}
 }
 
 const clientReducer = (state = initialState, action) => {
 //subscribe, unsubscribe, message, addClient
-
+  const copyClientList = {...state.clients};
+  let copyOfChannelsForClient;
   switch(action.type) {
     /**subscribe adds the channel to the client's channels array */
     case types.SUBSCRIBE:
       //some functionality adding a given channel to the appropriate client obj
       //take channel from state & currClient from state to find the right client object
       //push the channel onto their channels array and arrange alphabetically
-      const copyClientList = {...state.clients};
+      
       //TODO: optimize the re-render
       //make shallow copy of channels
-      const copyOfChannelsForClient = [...copyClientList[state.currClient][channels]]
+      copyOfChannelsForClient = [...copyClientList[state.currClient][channels]]
       //push new channel and then sort alphabetically
       copyOfChannelsForClient.push(state.channel);
       copyOfChannelsForClient.sort();
@@ -53,9 +54,9 @@ const clientReducer = (state = initialState, action) => {
      */
     case types.UNSUBSCRIBE:
       //set new copyClientList variable equal to clients from state
-      const copyClientList = {...state.clients};
+      // const copyClientList = {...state.clients};
       //initialize a variablle equal to the channels of a particular client (this will be an array)
-      const copyOfChannelsForClient = [...copyClientList[state.currClient][channels]]
+      copyOfChannelsForClient = [...copyClientList[state.currClient][channels]]
       //find the index in the array that corresponds with the current channel (to be deleted)
       const index = copyOfChannelsForClient.indexOf(state.channel);
       //remove one element at that index to remove the channel
@@ -66,7 +67,7 @@ const clientReducer = (state = initialState, action) => {
       //add the altered copyClientListObject to the updated state
       return {
         ...state,
-        clients = copyClientList
+        clients: copyClientList,
       };
     
     /** Message takes the message, channel, and client in state and adds a message to every client subscribed to that channel */
@@ -79,7 +80,7 @@ const clientReducer = (state = initialState, action) => {
       let now = new Date().toISOString;
       const newMessage = {channel: state.channel, timestamp: now, type: 'received', message: state.message}
       //new object
-      const copyOfClients = {...state.clients}
+      // const copyOfClients = {...state.clients}
       //go through all clients
       for (let clientId in copyOfClients) {
         const newLog = [...client.log];
@@ -112,7 +113,7 @@ const clientReducer = (state = initialState, action) => {
       //create a new client object with an empty log and empty channels array
       const newClient = {log: [], channels: []};
       //initialize a copyOfClients object, made from clients in state
-      const copyOfClients = {...state.clients};
+      // const copyOfClients = {...state.clients};
       //add new client object to the copyOfClients object
       copyOfClients[newNext] = newClient;
       //return updated state with incremented nextClientId and updated clients
