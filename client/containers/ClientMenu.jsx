@@ -2,14 +2,13 @@
  * ************************************
  *
  * @module  ClientMenu.jsx
- * @author
+ * @author Lara, Elise
  * @date
  * @description stateful container, has access to clientReducers
  * clientMenu -- loops through each client, gets custom style & renders passing custom style as prop
  * render individual client cards - need currClient and clients from client clientReducer
  * ***TO DO **** they also need access to channels from channels reducer and currChannel from channelsReducer
- * a client card has to render client window to the left, has setClient action
- * client window has subscribe, unsubscribe, message, handleClientInput
+ * a client card needs setClient action
  *
  * ************************************
  */
@@ -34,9 +33,11 @@ const mapStateToProps = (state) => {
 };
 
 //mapDispatch
-// const mapDispatchToProps = dispatch => ({
-  
-// })
+const mapDispatchToProps = dispatch => ({
+  setClient: (clientId) => {
+    dispatch(actions.setClient(clientId))
+  }
+})
 
 
 //class ClientMenu
@@ -48,12 +49,14 @@ class ClientMenu extends Component{
   render(){
     const clients = [];
     for (let clientId in this.props.clients) {
-      clients.push(<p>clientId is {clientId}</p>)
+      clients.push(<ClientCard id={clientId} setClient={this.props.setClient} />)
     }
     return (
       <>
         <h2> these are clients</h2>
-        {clients}
+        <div className = "clientMenuContainer">
+          {clients}
+        </div>
       </>
     )
   }
@@ -63,4 +66,4 @@ class ClientMenu extends Component{
 
 
 //use connect to connect mapState, etc.
-export default connect(mapStateToProps)(ClientMenu);
+export default connect(mapStateToProps, mapDispatchToProps)(ClientMenu);
