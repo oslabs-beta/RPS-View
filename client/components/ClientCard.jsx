@@ -20,16 +20,16 @@ const ClientCard = (props) => {
   
   //FIND subbed channel 
   let selectedChannel = props.selectedChannel;
-  let channelList = props.channelList;
-  let noColor = 'red';
-  channelList.forEach(element => {
+  let channels = props.channels;
+  let highlight = 'unhighlighted';
+  channels.forEach(element => {
     if(element === selectedChannel){
-      noColor = 'blue';
+      highlight = 'highlighted';
     }
   });
   return (
     <button
-      className = "clientCard" 
+      className = {`clientCard ${highlight}`}
       // selectedChannel = {this.props.selectedChannel}
       id = {props.id} 
       key = {props.id} 

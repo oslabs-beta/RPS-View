@@ -19,7 +19,7 @@ const initialState = {
   nextClientId: 2, //used to create a serial id for each id
   channel: '',
   /**TODO change channels to a set instead of an array */
-  clients: {1: {log: [{channel: 'politics', type: 'received', timestamp: 'DATEHERE', message: 'election called'}], channels: ['politics', 'food']}, 2: {log: [], channels: []}}, //will have the structure id: {log: [{channel: str, type: 'published'/'received', timestamp: ISO string, message: str}], channels: [arrs]}
+  clients: {1: {log: [{channel: 'politics', type: 'received', timestamp: 'DATEHERE', message: 'election called'}], channels: ['politics', 'food']}, 2: {log: [], channels: ['food']}}, //will have the structure id: {log: [{channel: str, type: 'published'/'received', timestamp: ISO string, message: str}], channels: [arrs]}
 }
 
 const clientReducer = (state = initialState, action) => {
