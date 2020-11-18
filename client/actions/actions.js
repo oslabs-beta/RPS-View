@@ -30,7 +30,7 @@ export const unsubscribe = () => ({
   type: types.UNSUBSCRIBE
 });
 
-export const message = () => ({
+export const addMessage = () => ({
   type: types.MESSAGE
 });
 
@@ -51,20 +51,23 @@ export const handleClientInput = (payload) => ({
 
 })
 
+
+
 /**These are the channel related actions */
+
 export const selectChannel = (channelName) => ({
   type : types.SELECT_CHANNEL,
   payload: channelName
 })
 
 export const addChannel = (channelName) => ({
-  type: types.ADD_CHANNEL,
-  payload: channelName,
-});
+    type: types.ADD_CHANNEL,
+    payload: channelName,
+  });
 
 export const deleteChannel = (channelName) => ({
-  type: types.DELETE_CHANNEL,
-  payload: channelName,
+    type: types.DELETE_CHANNEL,
+    payload: channelName,
 });
 
 // export const addChannelSubscriber = (channelName, userName) => ({
@@ -83,3 +86,26 @@ export const deleteChannel = (channelName) => ({
 //     },
 // });
 
+  
+//redux thunk
+export const handleGoClick = (selectedAction) => (dispatch) => {
+  console.log('handle go click running, selected action is ', selectedAction)
+  switch (selectedAction){
+    case "addMessage":
+      dispatch(addMessage());
+      return;
+      // dispatch({type: 'ADD_MESSAGE'})
+    case "subscribe":
+      dispatch(subscribe());
+      return;
+    case "unsubscribe":
+      dispatch(unsubscribe());
+      return;
+    default: 
+      return;
+  }
+}
+
+//todo add function for new Date before message
+
+//run fetch requests, then dispatch reducer

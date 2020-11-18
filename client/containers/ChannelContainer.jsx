@@ -14,6 +14,7 @@ import { connect } from "react-redux";
 import ChannelsDisplay from "../components/ChannelsDisplay.jsx";
 import * as actions from "../actions/actions";
 
+
 const mapStateToProps = (store) => ({
     totalChannels : store.channels.totalChannels,
     channelList : store.channels.channelList,

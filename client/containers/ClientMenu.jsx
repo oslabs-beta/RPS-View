@@ -50,6 +50,7 @@ class ClientMenu extends Component{
   render(){
     const clients = [];
     for (let clientId in this.props.clients) {
+      
       clients.push(<ClientCard 
         channels = {this.props.clients[clientId].channels} 
         selectedChannel = {this.props.selectedChannel}
