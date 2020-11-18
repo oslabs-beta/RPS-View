@@ -82,7 +82,7 @@ export const deleteChannel = (channelName) => ({
 // });
 
   
-  
+//redux thunk
 export const handleGoClick = (selectedAction) => (dispatch) => {
   console.log('handle go click running, selected action is ', selectedAction)
   switch (selectedAction){
