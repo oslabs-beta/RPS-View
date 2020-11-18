@@ -49,7 +49,7 @@ class ClientMenu extends Component{
   render(){
     const clients = [];
     for (let clientId in this.props.clients) {
-      clients.push(<ClientCard id={clientId} setClient={this.props.setClient} />)
+      clients.push(<ClientCard key={`clientCard${clientId}`} id={clientId} setClient={this.props.setClient} />)
     }
     return (
       <>
