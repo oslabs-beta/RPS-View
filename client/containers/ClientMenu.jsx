@@ -55,6 +55,7 @@ class ClientMenu extends Component{
         channels = {this.props.clients[clientId].channels} 
         selectedChannel = {this.props.selectedChannel}
         id={clientId} 
+        key={`ClientCard${clientId}`}
         setClient={this.props.setClient} />)
     }
     return (
