@@ -21,7 +21,8 @@ const initialState = {
   channel: '',
   /**TODO change channels to a set instead of an array */
   clients: {1: {log: [{channel: 'politics', type: 'received', timestamp: 'DATEHERE', message: 'election called'}], channels: ['politics', 'food']}, 
-  2: {log: [{channel: 'Joe', type: 'received', timestamp: 'DATEHERE', message: 'joe sent a message'}, {channel: 'food', type: 'received', timestamp: 'DATEHERE', message: 'how to make pickles'}], channels: ['Joe', 'food']}}, //will have the structure id: {log: [{channel: str, type: 'published'/'received', timestamp: ISO string, message: str}], channels: [arrs]}
+  2: {log: [{channel: 'Joe', type: 'received', timestamp: 'DATEHERE', message: 'joe sent a message'}, {channel: 'food', type: 'received', timestamp: 'DATEHERE', message: 'how to make pickles'}], channels: ['Joe', 'food']}}, 
+  //will have the structure id: {log: [{channel: str, type: 'published'/'received', timestamp: ISO string, message: str}], channels: [arrs]}
 }
 
 const clientReducer = (state = initialState, action) => {

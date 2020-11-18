@@ -14,7 +14,7 @@ import React from "react";
 const OneChannel = (props)=>{
     return(
     <div className="OneChannel">
-        <p>Name of Channel: {props.name}</p>
+        <button className={props.highlight} onClick={props.selectChannel}>{props.name}</button>
       
     </div>
     )

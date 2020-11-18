@@ -55,6 +55,11 @@ export const handleClientInput = (payload) => ({
 
 /**These are the channel related actions */
 
+export const selectChannel = (channelName) => ({
+  type : types.SELECT_CHANNEL,
+  payload: channelName
+})
+
 export const addChannel = (channelName) => ({
     type: types.ADD_CHANNEL,
     payload: channelName,
@@ -100,3 +105,7 @@ export const handleGoClick = (selectedAction) => (dispatch) => {
       return;
   }
 }
+
+//todo add function for new Date before message
+
+//run fetch requests, then dispatch reducer
