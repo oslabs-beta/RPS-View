@@ -15,11 +15,13 @@ import * as types from '../constants/actionTypes.js';
 //set up initial state for clients
 const initialState = {
   message: '',
+  selectedAction: '',
   currClient: null,
   nextClientId: 2, //used to create a serial id for each id
   channel: '',
   /**TODO change channels to a set instead of an array */
-  clients: {1: {log: [{channel: 'politics', type: 'received', timestamp: 'DATEHERE', message: 'election called'}], channels: ['politics', 'food']}, 2: {log: [], channels: []}}, //will have the structure id: {log: [{channel: str, type: 'published'/'received', timestamp: ISO string, message: str}], channels: [arrs]}
+  clients: {1: {log: [{channel: 'politics', type: 'received', timestamp: 'DATEHERE', message: 'election called'}], channels: ['politics', 'food']}, 
+  2: {log: [{channel: 'Joe', type: 'received', timestamp: 'DATEHERE', message: 'joe sent a message'}, {channel: 'food', type: 'received', timestamp: 'DATEHERE', message: 'how to make pickles'}], channels: ['Joe', 'food']}}, //will have the structure id: {log: [{channel: str, type: 'published'/'received', timestamp: ISO string, message: str}], channels: [arrs]}
 }
 
 const clientReducer = (state = initialState, action) => {
@@ -47,6 +49,7 @@ const clientReducer = (state = initialState, action) => {
         ...state,
         //reassign channels key 
         clients: copyClientList,
+        message: '',
       };
 
     /**unsubscribe removes the channel from the client's channel array
@@ -68,6 +71,7 @@ const clientReducer = (state = initialState, action) => {
       return {
         ...state,
         clients: copyClientList,
+        message: '',
       };
     
     /** Message takes the message, channel, and client in state and adds a message to every client subscribed to that channel */

@@ -24,7 +24,9 @@ import { connect } from 'react-redux';
 //import actions
 import * as actions from '../actions/actions.js';
 //import child components
-import MessageLogDisplay from '../components/MessageLogDisplay.jsx'
+import MessageLogDisplay from '../components/MessageLogDisplay.jsx';
+import SubscribedChannels from '../components/SubscribedChannelsDisplay.jsx';
+import ClientActionBar from './ClientActionBar.jsx';
 
 //mapstate
 const mapStateToProps = (state) => ({
@@ -32,12 +34,6 @@ const mapStateToProps = (state) => ({
   currClient: state.client.currClient,
   //clients will be the object for the currClient only
   clients: state.client.clients[state.client.currClient],
-  channels: state.channels.channels,
-});
-
-//map dispatch
-const mapDispatchToProps = (dispatch) => ({
-  
 });
 
 //create class
@@ -49,11 +45,24 @@ class ClientWindow extends Component {
   render() {
     if (this.props.currClient !== null) {
       return (
-        <div className="messageLogDisplay">
-          <MessageLogDisplay
-            log = {this.props.clients.log}
-          />
+        <div className = "clientWindow">
+          <div className="messageLogDisplay">
+            <h4>Recent Messages</h4>
+            <MessageLogDisplay
+              log = {this.props.clients.log}
+            />
+            
+          </div>
+          <div className="subscribedChannels">
+            <h4>Subscribed Channels</h4>
+            <SubscribedChannels channels = {this.props.clients.channels}/>
+          </div>
+          <div className = "clientActionBar">
+            
+            <ClientActionBar />
+          </div>
         </div>
+
       )
     } 
     return (<></>)
@@ -63,4 +72,4 @@ class ClientWindow extends Component {
  
  
  
- export default connect(mapStateToProps, mapDispatchToProps)(ClientWindow);
+ export default connect(mapStateToProps)(ClientWindow);
