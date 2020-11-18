@@ -31,27 +31,30 @@ const mapDispatchToProps = (dispatch) => ({
   //unsubscribe
   unsubscribe: () => dispatch(actions.unsubscribe),
   //publish
-  addMessage: () => dispatch(actions.addMessage)
+  addMessage: () => dispatch(actions.addMessage),
+  //get handleGoClick
+  handleGoClick: (selectedAction) => dispatch(actions.handleGoClick(selectedAction))
 });
 
 class ClientActionBar extends Component{
   constructor(props){
     super(props);
-    this.handleGoClick = this.handleGoClick.bind(this);
+    // this.handleGoClick = this.handleGoClick.bind(this);
   }
   
-  handleGoClick(e){
-    switch (this.props.selectedAction){
-      case "addMessage":
-        return this.props.addMessage();
-      case "subscribe":
-        return this.props.subscribe();
-      case "unsubscribe":
-        return this.props.unsubscribe();
-      default: 
-        return;
-    }
-  }
+  // handleGoClick(){
+  //   console.log('handle go click running, selected action is ', this.props.selectedAction)
+  //   switch (this.props.selectedAction){
+  //     case "addMessage":
+  //       this.props.addMessage();
+  //     case "subscribe":
+  //       this.props.subscribe();
+  //     case "unsubscribe":
+  //       this.props.unsubscribe();
+  //     default: 
+  //       return;
+  //   }
+  // }
 
   render(){
     console.log('props in CAB', this.props)
@@ -99,7 +102,7 @@ class ClientActionBar extends Component{
             {property: 'message', value: e.target.value}
           )}/>
 
-        <button onClick={this.handleGoClick()}>
+        <button onClick={(e) => {this.props.handleGoClick(this.props.selectedAction)}}>
           Go
         </button>
         
