@@ -28,6 +28,8 @@ const initialState = {
 const clientReducer = (state = initialState, action) => {
 //subscribe, unsubscribe, message, addClient
   const copyClientList = JSON.parse(JSON.stringify({...state.clients}));
+  console.log('copyClientList', copyClientList);
+  console.log('console loggin whether copyClientList is strictly equal to the state object clients', copyClientList === state.clients);
   let copyOfChannelsForClient;
   switch(action.type) {
     /**subscribe adds the channel to the client's channels array */
@@ -82,32 +84,37 @@ const clientReducer = (state = initialState, action) => {
        * external call REST request or WS sendMessage (Thunk)
        * */
       //create messages object
-      let now = new Date().toISOString;
+      let now = '10-23-2000'
+      //adjust for async
       const newMessage = {channel: state.channel, timestamp: now, type: 'received', message: state.message}
-      //new object
-      // const copyOfClients = {...state.clients}
+     
       //go through all clients
-      for (let clientId in copyOfClients) {
-        const newLog = [...client.log];
-        
+      for (let clientId in copyClientList) {
+        console.log('iterating, the client id is ', clientId)
+        // declare log, which is the log for the current clientId on iteration
+        const newLog = copyClientList[clientId].log;
+        console.log('state.channel: ', state.channel);
+        console.log('copyClientList[clientId].channels', copyClientList[clientId].channels)
         //if we're on the currClient, add the message with type: published
         if (clientId === state.currClient) {
           const publisherMessage = Object.assign({}, newMessage, {type: 'published'});
           const updated = newLog.concat([publisherMessage]);
-          client.log = updated;
+          copyClientList[clientId].log = updated;
         } 
 
         //are they subscribed to that channel?
         //if so add a message to their log array 
-        if (state.channel in copyOfClients[clientId][channels] && clientId !== state.currClient) {
-          client.log = updated;
+        
+        else if (copyClientList[clientId].channels.includes(state.channel)) {
           const updated = newLog.concat(newMessage);
+          copyClientList[clientId].log = updated;
         };
       };
+      console.log('copyClientList after reducer should be', copyClientList)
       //reset message to '' after external call, reassign clients
       return {
         ...state,
-        clients: copyOfClients,
+        clients: copyClientList,
         message: '',
       }
      
