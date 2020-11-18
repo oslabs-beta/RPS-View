@@ -12,6 +12,7 @@
 import * as types from "../constants/actionTypes";
 
 const initialState = {
+    selectedChannel: null,
     totalChannels : 0,
     channelList : [{name:"Joe"}, {name:"politics"}, {name:"food"}],
     //add state for currently clicked channel
@@ -34,6 +35,7 @@ const channelsReducer = (state = initialState, action) => {
             channelList.push(newChannel);
 
             return{
+                ...state,
                 totalChannels : state.totalChannels + 1,
                 channelList
             }
@@ -55,8 +57,15 @@ const channelsReducer = (state = initialState, action) => {
               }
             })
             return {
+                ...state,
                 totalChannels : state.totalChannels -1,
                 channelList : updatedArr
+            }
+        
+        case types.SELECT_CHANNEL:
+            return{
+                ...state,
+                selectedChannel : action.payload
             }
         
         //add channel subscribers
