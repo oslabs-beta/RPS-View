@@ -13,7 +13,7 @@ import React from 'react';
 import MessageBox from './MessageBox.jsx';
 
 const MessageLogDisplay = (props) => {
-  console.log(props);
+  // console.log(props);
   //props.log is an array of objects
   //for each message, display <div> with className = "messageBox"
   //need message, timestamp, type, channel  
