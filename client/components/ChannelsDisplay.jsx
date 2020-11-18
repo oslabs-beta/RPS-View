@@ -16,8 +16,16 @@ const ChannelsDisplay = (props) => {
     
     const displayArr = [];
     for(let i = 0; i < props.channelList.length; i++){
+        let highlight = 'unhighlighted';
+        // console.log(props.selectedChannel === props.channelList[i].name)
+        if(props.selectedChannel === props.channelList[i].name){
+            highlight = 'highlighted'
+        }
+
         displayArr.push(<OneChannel
+        selectChannel = {props.selectChannel}
         name={props.channelList[i].name}
+        highlight = {highlight}
         key={i}
         />)
     }
