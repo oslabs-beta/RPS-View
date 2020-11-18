@@ -26,7 +26,7 @@ const initialState = {
 
 const clientReducer = (state = initialState, action) => {
 //subscribe, unsubscribe, message, addClient
-  const copyClientList = {...state.clients};
+  const copyClientList = JSON.parse(JSON.stringify({...state.clients}));
   let copyOfChannelsForClient;
   switch(action.type) {
     /**subscribe adds the channel to the client's channels array */
@@ -37,13 +37,13 @@ const clientReducer = (state = initialState, action) => {
       
       //TODO: optimize the re-render
       //make shallow copy of channels
-      copyOfChannelsForClient = [...copyClientList[state.currClient][channels]]
+      copyOfChannelsForClient = [...copyClientList[state.currClient].channels]
       //push new channel and then sort alphabetically
       copyOfChannelsForClient.push(state.channel);
       copyOfChannelsForClient.sort();
       
       //reassign the channels property on currClient to copyOfChannelsForClient
-      copyClientList[state.currClient][channels] = copyOfChannelsForClient;
+      copyClientList[state.currClient].channels = copyOfChannelsForClient;
 
       return {
         ...state,
@@ -59,13 +59,13 @@ const clientReducer = (state = initialState, action) => {
       //set new copyClientList variable equal to clients from state
       // const copyClientList = {...state.clients};
       //initialize a variablle equal to the channels of a particular client (this will be an array)
-      copyOfChannelsForClient = [...copyClientList[state.currClient][channels]]
+      copyOfChannelsForClient = [...copyClientList[state.currClient].channels]
       //find the index in the array that corresponds with the current channel (to be deleted)
       const index = copyOfChannelsForClient.indexOf(state.channel);
       //remove one element at that index to remove the channel
       copyOfChannelsForClient.splice(index, 1);
       //add the new array to the copyClientList object
-      copyClientList[state.currClient][channels] = copyOfChannelsForClient;
+      copyClientList[state.currClient].channels = copyOfChannelsForClient;
 
       //add the altered copyClientListObject to the updated state
       return {
