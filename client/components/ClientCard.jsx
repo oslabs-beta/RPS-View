@@ -17,9 +17,20 @@ const ClientCard = (props) => {
   //id of clientID
   //key of clientID (react needs unique keys for re rendering)
   //onclick functionality -- setClient (from props) -- pass in the clientId event.target.id
+  
+  //FIND subbed channel 
+  let selectedChannel = props.selectedChannel;
+  let channelList = props.channelList;
+  let noColor = 'red';
+  channelList.forEach(element => {
+    if(element === selectedChannel){
+      noColor = 'blue';
+    }
+  });
   return (
     <button
       className = "clientCard" 
+      // selectedChannel = {this.props.selectedChannel}
       id = {props.id} 
       key = {props.id} 
       onClick = {e => {

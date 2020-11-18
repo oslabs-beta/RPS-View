@@ -28,7 +28,8 @@ const mapStateToProps = (state) => {
     message,
     currClient,
     channel, 
-    clients
+    clients,
+    selectedChannel: state.channels.selectedChannel
   })
 };
 
@@ -49,7 +50,11 @@ class ClientMenu extends Component{
   render(){
     const clients = [];
     for (let clientId in this.props.clients) {
-      clients.push(<ClientCard id={clientId} setClient={this.props.setClient} />)
+      clients.push(<ClientCard 
+        channels = {this.props.clients[clientId].channels} 
+        selectedChannel = {this.props.selectedChannel}
+        id={clientId} 
+        setClient={this.props.setClient} />)
     }
     return (
       <>
