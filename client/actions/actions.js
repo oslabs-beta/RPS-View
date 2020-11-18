@@ -30,7 +30,7 @@ export const unsubscribe = () => ({
   type: types.UNSUBSCRIBE
 });
 
-export const message = () => ({
+export const addMessage = () => ({
   type: types.MESSAGE
 });
 
