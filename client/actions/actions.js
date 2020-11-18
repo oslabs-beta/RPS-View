@@ -81,3 +81,22 @@ export const deleteChannel = (channelName) => ({
 //     },
 // });
 
+  
+  
+export const handleGoClick = (selectedAction) => (dispatch) => {
+  console.log('handle go click running, selected action is ', selectedAction)
+  switch (selectedAction){
+    case "addMessage":
+      dispatch(addMessage());
+      return;
+      // dispatch({type: 'ADD_MESSAGE'})
+    case "subscribe":
+      dispatch(subscribe());
+      return;
+    case "unsubscribe":
+      dispatch(unsubscribe());
+      return;
+    default: 
+      return;
+  }
+}
