@@ -30,8 +30,9 @@ export const unsubscribe = () => ({
   type: types.UNSUBSCRIBE
 });
 
-export const addMessage = () => ({
-  type: types.MESSAGE
+export const addMessage = (dateString) => ({
+  type: types.MESSAGE,
+  payload: dateString,
 });
 
 export const addClient = () => ({
@@ -87,14 +88,13 @@ export const deleteChannel = (channelName) => ({
 // });
 
   
-//redux thunk
+//redux thunk for handleGoClick determines which reducer case to call
 export const handleGoClick = (selectedAction) => (dispatch) => {
   console.log('handle go click running, selected action is ', selectedAction)
   switch (selectedAction){
     case "addMessage":
-      dispatch(addMessage());
+      dispatch(getDate());
       return;
-      // dispatch({type: 'ADD_MESSAGE'})
     case "subscribe":
       dispatch(subscribe());
       return;
@@ -106,6 +106,9 @@ export const handleGoClick = (selectedAction) => (dispatch) => {
   }
 }
 
-//todo add function for new Date before message
-
+//message middleware - create new iso string for current time, then call dipsatch for message
+export const getDate = () => (dispatch) => {
+  const date = new Date(Date.now()).toISOString();
+  dispatch(addMessage(date));
+}
 //run fetch requests, then dispatch reducer
