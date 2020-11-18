@@ -37,6 +37,20 @@ const mapDispatchToProps = (dispatch) => ({
 class ClientActionBar extends Component{
   constructor(props){
     super(props);
+    this.handleGoClick = this.handleGoClick.bind(this);
+  }
+  
+  handleGoClick(e){
+    switch (this.props.selectedAction){
+      case "addMessage":
+        return this.props.addMessage();
+      case "subscribe":
+        return this.props.subscribe();
+      case "unsubscribe":
+        return this.props.unsubscribe();
+      default: 
+        return;
+    }
   }
 
   render(){
@@ -77,7 +91,15 @@ class ClientActionBar extends Component{
           <option value="subscribe">Subscribe</option>
           <option value="unsubscribe">Unsubscribe</option>
         </select>
-        <button >
+
+        <input type="text" 
+          id="actionBarInput" 
+          name="actionBarInput" 
+          onChange={(e) => this.props.handleClientInput(
+            {property: 'message', value: e.target.value}
+          )}/>
+
+        <button onClick={this.handleGoClick()}>
           Go
         </button>
         
