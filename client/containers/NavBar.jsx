@@ -41,18 +41,26 @@ class NavBar extends Component {
       
       return(
         <div className="navBar">
+          <div className="navLeft">
           {/* connect to server, require input and a submit button */}
           <input className="serverInput" placeholder = "Input Server IP"/>
-          <button type="button">CONNECT</button>
-          {/* add client, require input and a submit button
-              connect to client reducer */}
-          {/* <input className="clientInput" placeholder = "Input Client Name"/> */}
-          <button type="button" onClick={this.props.addClient}>Add Client</button>
+          <button className="primaryButton" type="button">CONNECT</button>
+          </div>
+
+          <div className="navCenter">
           {/* add channel, require input and a submit button
               connect to channel reducer */}
           <input className="channelInput" placeholder="Input Channel Name" onChange={event => this.handleChannelChange(event)} />
-          <button type="button" onClick= {event=>this.handleChannelSubmit(event)}>Add Channel</button>
+          <button className = "secondaryButton" type="button" onClick= {event=>this.handleChannelSubmit(event)}>Add Channel</button>
+          </div>
 
+          <div className="navRight">
+          {/* add client, require input and a submit button
+              connect to client reducer */}
+          {/* <input className="clientInput" placeholder = "Input Client Name"/> */}
+          <button className="secondaryButton" type="button" onClick={this.props.addClient}>Add Client</button>
+          </div>
+          
         </div>
       )
   }
