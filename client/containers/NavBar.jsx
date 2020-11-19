@@ -3,13 +3,19 @@ import { connect } from "react-redux";
 import * as actions from "../actions/actions";
 
 
-const mapStateToProps = (store) => ({})
+const mapStateToProps = (state) => ({
+  portErrorMessage: state.channels.portErrorMessage,
+})
+
 const mapDispatchToProps = (dispatch) => ({
     addChannel: (e)=>{
         dispatch(actions.addChannel(e))
     },
     addClient: ()=>{
         dispatch(actions.addClient())
+    },
+    fetchConnect: (port) => {
+      dispatch(actions.fetchConnect(port))
     }
 });
 
@@ -21,7 +27,15 @@ class NavBar extends Component {
 
   state = {
     channelText: '',
-    IPtext: '',
+    port: '',
+  }
+
+ 
+  //trigger fetch request and add port to state when connect button is clicked
+  handlePortSubmit = (event) => {
+    event.preventDefault();
+    this.props.fetchConnect(this.state.port);
+    this.setState({...this.state, port: ''});
   }
 
   handleChannelChange = (event, key) =>{
@@ -42,27 +56,52 @@ class NavBar extends Component {
   }
 
   render(){
-      
+      console.log('navbar rendering, props are', this.props)
       return(
         <div className="navBar">
           <div className="navLeft">
           {/* connect to server, require input and a submit button */}
-          <input className="serverInput" placeholder = "Input Server IP" value = {this.state.IPtext} onChange={event => this.handleChannelChange(event, 'IPtext')}/>
-          <button className="primaryButton" type="button" onClick={(e) => {this.setState({...this.state, IPtext: ''})}}>CONNECT</button>
+            <div className="navLeftTop">
+              <input 
+                className="serverInput" 
+                placeholder = "Input Server IP" 
+                value = {this.state.port} 
+                onChange={event => this.handleChannelChange(event, 'port')}/>
+              {/* add fetchconnect to onclick */}
+              <button 
+                className="primaryButton" 
+                type="button" 
+                onClick={event => this.handlePortSubmit(event)}>CONNECT
+              </button>
+            </div>
+            <div className="navLeftBotton"> 
+              <p>{this.props.portErrorMessage}</p>
+            </div>
           </div>
 
           <div className="navCenter">
           {/* add channel, require input and a submit button
               connect to channel reducer */}
-          <input className="channelInput" placeholder="Input Channel Name" value ={this.state.channelText} onChange={event => this.handleChannelChange(event, 'channelText')} />
-          <button className = "secondaryButton" type="button" onClick= {event=>this.handleChannelSubmit(event)}>Add Channel</button>
+          <input 
+            className="channelInput" 
+            placeholder="Input Channel Name" 
+            value ={this.state.channelText} 
+            onChange={event => this.handleChannelChange(event, 'channelText')} />
+          <button 
+            className = "secondaryButton" 
+            type="button" 
+            onClick= {event=>this.handleChannelSubmit(event)}>Add Channel
+          </button>
           </div>
 
           <div className="navRight">
           {/* add client, require input and a submit button
               connect to client reducer */}
           {/* <input className="clientInput" placeholder = "Input Client Name"/> */}
-          <button className="secondaryButton" type="button" onClick={this.props.addClient}>Add Client</button>
+          <button 
+            className="secondaryButton" 
+            type="button" 
+            onClick={this.props.addClient}>Add Client</button>
           </div>
           
         </div>
