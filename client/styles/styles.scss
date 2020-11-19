@@ -1,15 +1,160 @@
-h2 {
-  background-color: lightsalmon;
-}
+@import 'variables';
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,500;0,600;1,300&display=swap');
+// Note font-family Poppins
 
 body {
-  background-color: lightblue;
+  background-color: $bg;
+  font-family: 'Poppins', 'sans-serif';
 }
 
+
+
 .unhighlighted{
-  background-color: blue;
+  padding: .2em;
+  margin: .1em;
+  background-color: $component-bg;
+  color: $accentDark;
+  border: $accentDark;
 }
 
 .highlighted{
-  background-color: red;
+  padding: 0.2em;
+  background-color: $highlight;
+  color: $highlightDark;
+  border: $highlightDark;
+  
 }
+
+.highlighted :focus {
+  outline: 0 !important;
+  outline-color: $accentDark;
+  border: none;
+}
+
+.primaryButton {
+  
+  background-color: $accent;
+  color: $accentDark;
+  border: 1px solid $accentDark;
+}
+
+.secondaryButton {
+  background-color: $component-bg;
+  color: $accentDark;
+  border: 1px solid $accentDark;
+}
+
+// .logo {
+//   background-color: purple;
+//   width: 100px;
+//   height: 30px;
+// }
+
+#root {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+    .left {
+      width: 100px;
+      .logo {
+        background-color: $accentDark;
+        width: 100px;
+        height: 80px;
+      }
+      .channelLabel {
+        background-color: $accent;
+        
+        color: $accentDark;
+      }
+      .channel {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: stretch;
+        
+        .oneChannel {
+          button {
+            width: 100%;
+            
+          }
+        }
+      }
+    }
+    .middle {
+
+      width: auto;
+      .navBar {
+        display: flex;
+        flex-direction: row;
+        button {
+          padding: .3em;
+        }
+        input {
+          padding: .3em;
+        }
+        .navLeft {
+          margin: 5px; 
+          .serverInput {
+            border: 1px solid $accentDark;
+          }   
+        }
+        .navCenter {
+          margin: 5px;
+          .channelInput {
+            border: 1px solid $accentDark;
+          }
+        }
+        .navRight {
+          margin: 5px;
+        }
+      }
+      .clientWindow {
+        border: 1px solid black;
+        background-color: $component-bg;
+        .top {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          background-color: $accent;
+        }
+        .center {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          .messageLogDisplay {
+            display: flex;
+            flex-direction: column;
+          }
+          .subscribedChannels {
+            display: flex;
+            flex-direction: column;
+          }
+        }
+        .bottom {
+          display: flex;
+          justify-content: center;
+        }
+      }
+    }
+    .right {
+      width: 100px;
+      .clientMenu {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        .clientLabel {
+          background-color: $accent;
+          
+          color: $accentDark;
+        }
+        .oneClient {
+          button {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
