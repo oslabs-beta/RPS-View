@@ -53,20 +53,24 @@ class ClientWindow extends Component {
     if (this.props.currClient !== null) {
       return (
         <div className = "clientWindow">
-          <button className="exitWindow" onClick={(e) => {this.props.setClient(this.props.currClient)}}>X</button>
-          <div className="messageLogDisplay">
-            <h4>Recent Messages</h4>
-            <MessageLogDisplay
-              log = {this.props.clients.log}
-            />
-            
+          <div className="top">
+            <h3>Client {this.props.currClient}</h3>
+            <button className="secondaryButton" onClick={(e) => {this.props.setClient(this.props.currClient)}}>X</button>
           </div>
-          <div className="subscribedChannels">
-            <h4>Subscribed Channels</h4>
-            <SubscribedChannels channels = {this.props.clients.channels}/>
+          <div className="center">
+            <div className="messageLogDisplay">
+              <h4>Recent Messages</h4>
+              <MessageLogDisplay
+                log = {this.props.clients.log}
+              />
+              
+            </div>
+            <div className="subscribedChannels">
+              <h4>Subscribed Channels</h4>
+              <SubscribedChannels channels = {this.props.clients.channels}/>
+            </div>
           </div>
-          <div className = "clientActionBar">
-            
+          <div className = "bottom">
             <ClientActionBar />
           </div>
         </div>
