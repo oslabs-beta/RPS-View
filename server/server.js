@@ -1,7 +1,15 @@
 const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser');
 
 const app = express();
+
+const menuRouter = require('./routes/menuRouter');
+const clientRouter = require('./routes/clientRouter');
+
+//handle parsing request body
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //serve index
 // app.use('/static', express.static(path.resolve(__dirname,'../static')));
@@ -13,6 +21,10 @@ app.get('/', (req, res) => {
 
 //serve static from webpack build folder or on webpack dev the publicPath /build
 app.use('/build', express.static(path.resolve(__dirname, '../build')));
+
+app.use('/menu', menuRouter);
+app.use('/client', clientRouter);
+
 
 // //serve styles
 
