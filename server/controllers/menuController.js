@@ -2,6 +2,8 @@ let Redis = require('ioredis');
 
 let menuController = {}
 let globalPort;
+let clientObj = {};
+
 menuController.connect = (req,res,next) => {
     globalPort = req.body.port;
     let redis = new Redis(globalPort)
@@ -27,6 +29,10 @@ menuController.addChannel = (req,res,next) => {
 
 }
 
+menuController.addClient = (req, res, next) => {
+    next()
+  };
+
 menuController.test = (req,res,next) => {
     let redis = new Redis(globalPort);
     redis.pubsub('channels', (err, channels) => {
@@ -39,4 +45,4 @@ menuController.test = (req,res,next) => {
     });
 }
 
-module.exports = {menuController, globalPort}
+module.exports = {menuController, globalPort, clientObj}

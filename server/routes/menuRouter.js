@@ -11,6 +11,10 @@ router.post('/addChannel', menuController.addChannel, (req, res) => {
     res.status(200).send("add Channel");
 })
 
+router.post('/addClient', menuController.addClient, (req,res) => {
+    res.status(200).send('got to addClient')
+  })
+
 router.post('/test', menuController.test, (req, res) => {
     res.status(200).send("test");
 })
