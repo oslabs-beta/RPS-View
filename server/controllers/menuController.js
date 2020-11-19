@@ -4,7 +4,6 @@ let menuController = {}
 let globalPort;
 menuController.connect = (req,res,next) => {
     globalPort = req.body.port;
-    console.log(globalPort)
     let redis = new Redis(globalPort)
     redis.subscribe('sup', (error, count)=>{
         if(error){
