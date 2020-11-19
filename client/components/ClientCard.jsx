@@ -28,18 +28,20 @@ const ClientCard = (props) => {
     }
   });
   return (
-    <button
-      className = {`clientCard ${highlight}`}
-      // selectedChannel = {this.props.selectedChannel}
-      id = {props.id} 
-      key = {props.id} 
-      onClick = {e => {
-        props.setClient(e.target.id);
-      }}
-    >
-      {props.id}
+    <div className = "oneClient">
+      <button
+        className = {`clientCard ${highlight}`}
+        // selectedChannel = {this.props.selectedChannel}
+        id = {props.id} 
+        key = {props.id} 
+        onClick = {e => {
+          props.setClient(e.target.id);
+        }}
+      >
+        {props.id}
 
-    </button>
+      </button>
+    </div>
   );
 }
 
