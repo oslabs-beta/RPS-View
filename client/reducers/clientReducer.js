@@ -149,7 +149,10 @@ const clientReducer = (state = initialState, action) => {
       //return updated state with new current client
       return {
         ...state,
-        currClient: newCurrent
+        currClient: newCurrent,
+        selectedAction: '',
+        message: '',
+        channel: '',
       }
 
     case types.HANDLE_CLIENT_INPUT:
