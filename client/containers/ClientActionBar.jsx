@@ -103,7 +103,7 @@ class ClientActionBar extends Component{
             {property: 'message', value: e.target.value}
           )}/>
 
-        <button onClick={(e) => {this.props.handleGoClick(this.props.selectedAction)}}>
+        <button className = "primaryButton" onClick={(e) => {this.props.handleGoClick(this.props.selectedAction)}}>
           Go
         </button>
         
