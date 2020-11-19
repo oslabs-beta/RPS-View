@@ -30,6 +30,20 @@ const channelsReducer = (state = initialState, action) => {
                 //connect with ws and redis? 
                 name : action.payload,
             }
+            
+            //check if the new channel name is already an existing channel, if so, return unaltered state to avoid repetition
+            // let isRepeated = false;
+            // state.channelList.forEach((el) => {
+            //     if (el.name === newChannel.name) isRepeated = true;
+            // })
+            
+            // if (isRepeated === true) return state;
+
+            
+            if (state.channelList.some(el => {
+                console.log('the el is ', el);
+                return el.name === newChannel.name;
+            })) return state;
 
             channelList = state.channelList.slice();
             channelList.push(newChannel);
