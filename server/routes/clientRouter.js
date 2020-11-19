@@ -13,10 +13,6 @@ const router = express.Router();
 const clientController = require('../controllers/clientController')
 
 
-router.post('/addClient', clientController.addClient, (req,res) => {
-  res.status(200).send('got to addClient')
-})
-
 router.post('/unsubscribe', clientController.unsubscribe, (req,res) => {
   res.status(200).send('got to unsub')
 })
