@@ -24,7 +24,7 @@ const channelsReducer = (state = initialState, action) => {
     switch(action.type){
         //add channel 
         case types.ADD_CHANNEL:
-            
+            if (!action.payload) return state;
             //create a new channel object
             let newChannel = {
                 //connect with ws and redis? 
