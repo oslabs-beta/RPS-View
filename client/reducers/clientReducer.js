@@ -135,7 +135,7 @@ const clientReducer = (state = initialState, action) => {
       return {
         ...state,
         nextClientId: newNext,
-        clients: copyOfClients
+        clients: copyClientList
       }
     
     case types.SET_CLIENT:
