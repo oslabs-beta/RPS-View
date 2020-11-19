@@ -71,6 +71,18 @@ export const deleteChannel = (channelName) => ({
     payload: channelName,
 });
 
+//portConnected
+export const portConnected = (port) => ({
+  type: types.PORT_CONNECTED,
+  payload: port,
+});
+
+//portError
+export const portError = (port) => ({
+  type: types.PORT_ERROR,
+  payload: port,
+});
+
 // export const addChannelSubscriber = (channelName, userName) => ({
 //     type: types.ADD_CHANNEL_SUBSCRIBER,
 //     payload: {
@@ -111,4 +123,31 @@ export const getDate = () => (dispatch) => {
   const date = new Date(Date.now()).toISOString();
   dispatch(addMessage(date));
 }
+
 //run fetch requests, then dispatch reducer
+
+//fetchConnect
+export const fetchConnect = (port) => (dispatch) => {
+  //fetch
+  fetch('/menu/connect', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    //check that below is for sure a string
+    body: JSON.stringify({port}),
+  })
+  .then(response => {
+    if (response.status === 200) {
+      console.log("port connected");
+      dispatch(portConnected(port));
+    } else dispatch(portError(port));
+  })
+  .catch((error) => {
+    console.log("Error: ", error);
+    dispatch(portError(port));
+  })
+  
+}
+
+
