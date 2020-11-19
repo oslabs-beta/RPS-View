@@ -36,6 +36,13 @@ const mapStateToProps = (state) => ({
   clients: state.client.clients[state.client.currClient],
 });
 
+//mapDispatch
+const mapDispatchToProps = dispatch => ({
+  setClient: (clientId) => {
+    dispatch(actions.setClient(clientId))
+  }
+})
+
 //create class
 class ClientWindow extends Component {
   constructor(props) {
@@ -46,6 +53,7 @@ class ClientWindow extends Component {
     if (this.props.currClient !== null) {
       return (
         <div className = "clientWindow">
+          <button className="exitWindow" onClick={(e) => {this.props.setClient(this.props.currClient)}}>X</button>
           <div className="messageLogDisplay">
             <h4>Recent Messages</h4>
             <MessageLogDisplay
@@ -72,4 +80,4 @@ class ClientWindow extends Component {
  
  
  
- export default connect(mapStateToProps)(ClientWindow);
+ export default connect(mapStateToProps, mapDispatchToProps)(ClientWindow);
