@@ -31,8 +31,11 @@ const ChannelsDisplay = (props) => {
     }
 
     return (
-        <div className = "channelBarDisplay">
-            {displayArr}
+        <div className = "channel">
+          <div className = "channelLabel">
+            <h2>Channels</h2>
+          </div>
+          {displayArr}
         </div>
     )
 }
