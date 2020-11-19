@@ -63,9 +63,12 @@ const clientReducer = (state = initialState, action) => {
       
       //find the index in the array that corresponds with the current channel (to be deleted)
       const index = channels.indexOf(state.channel);
-
-      //remove one element at that index to remove the channel
-      channels.splice(index, 1);
+      
+      //if index is -1 -- it isn't there, do nothing
+      if (index !== -1) {
+        //remove one element at that index to remove the channel
+        channels.splice(index, 1);
+      }
 
       //add the altered copyClientList to the state & reset message
       return {
