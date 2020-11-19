@@ -1,3 +1,14 @@
+/**
+ * ************************************
+ *
+ * @module  server
+ * @author Mark, Joe
+ * @date 11/18
+ * @description Main entry point for backend. uses express to connect to routers which use controller middleware.
+ *
+ * ************************************
+ */
+
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
