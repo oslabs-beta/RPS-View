@@ -42,9 +42,12 @@ const clientReducer = (state = initialState, action) => {
       //assign currClient's list of channels to channels
       channels = copyClientList[state.currClient].channels;
       
+      //if channels does not include channel
       //push new channel and then sort alphabetically
-      channels.push(state.channel);
-      channels.sort();
+      if (!channels.includes(state.channel)) {
+        channels.push(state.channel);
+        channels.sort();
+      }
 
       //return state with updated clients list and reassign message to empty string
       return {
