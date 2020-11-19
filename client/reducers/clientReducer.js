@@ -84,6 +84,9 @@ const clientReducer = (state = initialState, action) => {
        * external call REST request or WS sendMessage (Thunk)
        * */
 
+      //if there is no message, return out
+      if (state.message === '') return state;
+
       //create messages object
       let now = action.payload;
       //adjust for async
@@ -138,8 +141,11 @@ const clientReducer = (state = initialState, action) => {
     case types.SET_CLIENT:
       
       //set newCurrent equal to the payload, which will be the ID of the new current client
-      const newCurrent = action.payload;
+      let newCurrent = action.payload;
       
+      //if newCurrent is the same as state.currClient, reset newCurrent to null
+      if (newCurrent === state.currClient) newCurrent = null;
+
       //return updated state with new current client
       return {
         ...state,
