@@ -59,12 +59,14 @@ class ClientMenu extends Component{
         setClient={this.props.setClient} />)
     }
     return (
-      <>
-        <h2> these are clients</h2>
-        <div className = "clientMenuContainer">
-          {clients}
+      
+      <div className = "clientMenu">
+        <div className = "clientLabel">
+          <h2>Clients</h2>
         </div>
-      </>
+        {clients}
+      </div>
+      
     )
   }
 }
