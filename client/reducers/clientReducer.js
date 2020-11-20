@@ -22,7 +22,8 @@ const initialState = {
   /**TODO change channels to a set instead of an array */
   clients: {1: {log: [{channel: 'politics', type: 'received', timestamp: 'DATEHERE', message: 'election called'}], channels: ['politics', 'food']}, 
   2: {log: [{channel: 'Joe', type: 'received', timestamp: 'DATEHERE', message: 'joe sent a message'}, {channel: 'food', type: 'received', timestamp: 'DATEHERE', message: 'how to make pickles'}], channels: ['Joe', 'food']}}, 
-  //will have the structure id: {log: [{channel: str, type: 'published'/'received', timestamp: ISO string, message: str}], channels: [arrs]}
+  //will have the structure id: {log: [{channel: str, type: 'published'/'received', timestamp: ISO string, message: str}], channels: [arrs]},
+  errorMessage: '',
 }
 
 const clientReducer = (state = initialState, action) => {
@@ -121,22 +122,28 @@ const clientReducer = (state = initialState, action) => {
      
     /** Add client adds a client to the clients object */
     case types.ADD_CLIENT:
-
-      //increment nextClientID from state
-      const newNext = state.nextClientId + 1;
-      
-      //create a new client object with an empty log and empty channels array
-      const newClient = {log: [], channels: []};
-      
-      //add new client object to the copyOfClients object
-      copyClientList[newNext] = newClient;
-
-      //return updated state with incremented nextClientId and updated clients
-      return {
-        ...state,
-        nextClientId: newNext,
-        clients: copyClientList
+     if (!action.payload) {
+       //increment nextClientID from state
+       const newNext = state.nextClientId + 1;
+       
+       //create a new client object with an empty log and empty channels array
+       const newClient = {log: [], channels: []};
+       
+       //add new client object to the copyOfClients object
+       copyClientList[newNext] = newClient;
+ 
+       //return updated state with incremented nextClientId and updated clients
+       return {
+         ...state,
+         nextClientId: newNext,
+         clients: copyClientList
+       }
       }
+         return {
+          ...state,
+          errorMessage: 'Error trying to add a client'
+        }
+
     
     case types.SET_CLIENT:
       

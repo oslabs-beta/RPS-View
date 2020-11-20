@@ -35,8 +35,9 @@ export const addMessage = (dateString) => ({
   payload: dateString,
 });
 
-export const addClient = () => ({
-  type: types.ADD_CLIENT
+export const addClient = (error) => ({
+  type: types.ADD_CLIENT,
+  payload: error,
 });
 
 export const setClient = (clientID) => ({
@@ -101,21 +102,91 @@ export const portError = (port) => ({
 
   
 //redux thunk for handleGoClick determines which reducer case to call
-export const handleGoClick = (selectedAction) => (dispatch) => {
-  console.log('handle go click running, selected action is ', selectedAction)
-  switch (selectedAction){
+export const handleGoClick = (stateObj) => (dispatch) => {
+  console.log('handle go click running, selected action is ', stateObj.selectedAction)
+
+  switch (stateObj.selectedAction){
     case "addMessage":
-      dispatch(getDate());
+      dispatch(fetchMessage(stateObj));
       return;
     case "subscribe":
-      dispatch(subscribe());
+      dispatch(fetchSubscribe(stateObj));
       return;
     case "unsubscribe":
-      dispatch(unsubscribe());
+      dispatch(fetchUnsubscribe(stateObj));
       return;
     default: 
       return;
   }
+}
+
+export const fetchMessage = (stateObj) => (dispatch) => {
+  fetch("/client/publish", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      clientId: stateObj.currClient,
+      channelName: stateObj.channel,
+      message: stateObj.message
+    })
+  })
+  .then ( response => {
+    if(response.status === 200){
+      console.log('message published!')
+      dispatch(getDate());
+    } else {
+      console.log('published failed!')
+    }
+  })
+  .catch( error => console.log(error))
+}
+
+export const fetchSubscribe = (stateObj) => (dispatch) => {
+  
+  fetch("/client/subscribe", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      clientId: stateObj.currClient,
+      channelName: stateObj.channel
+    })
+  })
+  .then( response => {
+    if(response.status === 200) {
+      console.log('client subscribed')
+      dispatch(subscribe())
+    } else {
+      console.log('subscribe failed!')
+    }
+  })
+  .catch( error => console.log(error))
+}
+
+export const fetchUnsubscribe = (stateObj) => (dispatch) => {
+  console.log(stateObj)
+  fetch("/client/unsubscribe", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      clientId: stateObj.currClient,
+      channelName: stateObj.channel
+    })
+  })
+  .then( response => {
+    if(response.status === 200) {
+      console.log('client unsubscribed :\(!')
+      dispatch(unsubscribe())
+    } else {
+      console.log('unsubscribe failed!')
+    }
+  })
+  .catch( error => console.log(error))
 }
 
 //message middleware - create new iso string for current time, then call dipsatch for message
@@ -150,6 +221,32 @@ export const fetchConnect = (port) => (dispatch) => {
   
 }
 
+//fetchAddClient
+//data in form of 
+// {clientId: #, type: 'publisher' OR 'subscriber'}
+export const fetchAddClient = (data) => (dispatch) => {
+  fetch('/menu/addClient', {
+    method: 'POST', 
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    //check that below is for sure a string
+    body: JSON.stringify(data),
+  })
+  .then(response => {
+    if (response.status === 200) {
+      dispatch(ADD_CLIENT);
+      return;
+    } else {
+      dispatch(ADD_CLIENT({error: 'unsuccessful'}));
+      return;
+    }
+  })
+  .catch(err => {
+    dispatch(ADD_CLIENT({error: 'unsuccessful'}));
+    return;
+  })
+};
 
 //fetchAddChannel
 export const fetchAddChannel = (channelName) => (dispatch) => {

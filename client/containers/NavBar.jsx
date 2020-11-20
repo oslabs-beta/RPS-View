@@ -5,6 +5,8 @@ import * as actions from "../actions/actions";
 
 const mapStateToProps = (state) => ({
   portErrorMessage: state.channels.portErrorMessage,
+  nextClientId: state.client.nextClientId,
+  errorMessage: state.client.errorMessage,
   channels: state.channels.channelList,
 })
 
@@ -12,8 +14,9 @@ const mapDispatchToProps = (dispatch) => ({
     addChannel: (e)=>{
         dispatch(actions.addChannel(e))
     },
-    addClient: ()=>{
-        dispatch(actions.addClient())
+    // data {type, clientId}
+    fetchAddClient: (data)=>{
+        dispatch(actions.addClient(data))
     },
     fetchConnect: (port) => {
       dispatch(actions.fetchConnect(port))
@@ -32,6 +35,7 @@ class NavBar extends Component {
   state = {
     channelText: '',
     port: '',
+    type: '',
   }
 
  
@@ -104,10 +108,32 @@ class NavBar extends Component {
           {/* add client, require input and a submit button
               connect to client reducer */}
           {/* <input className="clientInput" placeholder = "Input Client Name"/> */}
+          <select
+          
+            className="actionSelector" 
+            value={this.state.type} 
+            onChange={(e) => 
+              this.handleChannelChange(e, 'type')
+            }
+          >
+            <option value="">Choose Client Type</option>
+            <option value="publisher">Publisher</option>
+            <option value="subscriber">Subscriber</option>
+       
+          </select>
           <button 
             className="secondaryButton" 
             type="button" 
-            onClick={this.props.addClient}>Add Client</button>
+            onClick={() => {
+              this.props.fetchAddClient(
+                {type: this.state.type, clientId: this.props.nextClientId})
+                this.setState({...this.state, type: ''});
+              }}
+          >
+            Add Client</button>
+            <div > 
+              <p>{this.props.errorMessage}</p>
+            </div>
           </div>
           
         </div>
