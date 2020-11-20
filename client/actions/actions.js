@@ -103,7 +103,7 @@ export const portError = (port) => ({
   
 //redux thunk for handleGoClick determines which reducer case to call
 export const handleGoClick = (stateObj) => (dispatch) => {
-  console.log('handle go click running, selected action is ', stateObj.selectedAction)
+ 
 
   switch (stateObj.selectedAction){
     case "addMessage":
@@ -167,7 +167,7 @@ export const fetchSubscribe = (stateObj) => (dispatch) => {
 }
 
 export const fetchUnsubscribe = (stateObj) => (dispatch) => {
-  console.log(stateObj)
+  
   fetch("/client/unsubscribe", {
     method: 'POST',
     headers: {
@@ -235,7 +235,7 @@ export const fetchAddClient = (data) => (dispatch) => {
     body: JSON.stringify(data),
   })
   .then(response => {
-    console.log('in the then of fetchAddClient', response.status)
+    
     if (response.status === 200) {
       dispatch(addClient());
       return;
