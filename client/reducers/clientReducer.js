@@ -122,7 +122,9 @@ const clientReducer = (state = initialState, action) => {
      
     /** Add client adds a client to the clients object */
     case types.ADD_CLIENT:
+      
      if (!action.payload) {
+       
        //increment nextClientID from state
        const newNext = state.nextClientId + 1;
        

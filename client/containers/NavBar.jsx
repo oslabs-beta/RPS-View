@@ -16,7 +16,7 @@ const mapDispatchToProps = (dispatch) => ({
     },
     // data {type, clientId}
     fetchAddClient: (data)=>{
-        dispatch(actions.addClient(data))
+        dispatch(actions.fetchAddClient(data))
     },
     fetchConnect: (port) => {
       dispatch(actions.fetchConnect(port))
@@ -125,6 +125,7 @@ class NavBar extends Component {
             className="secondaryButton" 
             type="button" 
             onClick={() => {
+              console.log('add client button clicked!')
               this.props.fetchAddClient(
                 {type: this.state.type, clientId: this.props.nextClientId})
                 this.setState({...this.state, type: ''});

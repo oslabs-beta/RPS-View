@@ -44,10 +44,10 @@ class ClientActionBar extends Component{
   }
 
   render(){
-    console.log('props in CAB', this.props)
+    
     //create arr of option value elements
     let channels = this.props.channels;
-    console.log('channels is', channels)
+    
     let channelsArray = [];
     
     channels.forEach((channel, i) => {
