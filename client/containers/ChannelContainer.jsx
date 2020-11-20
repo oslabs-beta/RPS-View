@@ -33,16 +33,11 @@ class ChannelContainer extends Component{
     }
     render () {
       return (
-        <div>
-          <h1>Channel Bar</h1>
+        <>
           <ChannelsDisplay 
-          totalChannels = {this.props.totalChannels}
-          channelList = {this.props.channelList}
-          selectedChannel = {this.props.selectedChannel}
-          
-          selectChannel = {this.props.selectChannel}
+            {...this.props}
           />
-        </div>
+        </>
       )
     }
 }

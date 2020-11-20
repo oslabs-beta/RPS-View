@@ -26,14 +26,16 @@ const ChannelsDisplay = (props) => {
         selectChannel = {props.selectChannel}
         name={props.channelList[i].name}
         highlight = {highlight}
-        key={i}
+        key={`channel${i}`}
         />)
     }
 
     return (
-        <div className = "channelBarDisplay">
-            <p>Display all Channels</p>
-            {displayArr}
+        <div className = "channel">
+          <div className = "channelLabel">
+            <h2>Channels</h2>
+          </div>
+          {displayArr}
         </div>
     )
 }
