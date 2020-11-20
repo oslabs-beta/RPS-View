@@ -225,6 +225,7 @@ export const fetchConnect = (port) => (dispatch) => {
 //data in form of 
 // {clientId: #, type: 'publisher' OR 'subscriber'}
 export const fetchAddClient = (data) => (dispatch) => {
+  console.log('fetchAddClient is running, data: ', data)
   fetch('/menu/addClient', {
     method: 'POST', 
     headers: {
@@ -234,16 +235,17 @@ export const fetchAddClient = (data) => (dispatch) => {
     body: JSON.stringify(data),
   })
   .then(response => {
+    console.log('in the then of fetchAddClient', response.status)
     if (response.status === 200) {
-      dispatch(ADD_CLIENT);
+      dispatch(addClient());
       return;
     } else {
-      dispatch(ADD_CLIENT({error: 'unsuccessful'}));
+      dispatch(addClient({error: 'unsuccessful'}));
       return;
     }
   })
   .catch(err => {
-    dispatch(ADD_CLIENT({error: 'unsuccessful'}));
+    dispatch(addClient({error: 'unsuccessful'}));
     return;
   })
 };

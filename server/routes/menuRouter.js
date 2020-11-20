@@ -25,6 +25,7 @@ router.post('/addChannel', menuController.addChannel, (req, res) => {
 
 //router for adding client to redis db
 router.post('/addClient', menuController.addClient, (req,res) => {
+    console.log('made it to addclient', req.body)
     res.status(200).send(res.locals.message)
   })
 
