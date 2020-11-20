@@ -58,7 +58,7 @@ class ClientActionBar extends Component{
       <div className="actionBar">
         {/* two drop downs, input, and button */}
         {/* dropdown menu to select channel */}
-        <select className="channelSelector"
+        <select className="dropDown"
           value={this.props.channel}
           onChange={(e) => this.props.handleClientInput(
             {property: 'channel', value: e.target.value}
@@ -70,7 +70,7 @@ class ClientActionBar extends Component{
 
         {/* dropdown menu to select action */}
         <select 
-          className="actionSelector" 
+          className="dropDown" 
           value={this.props.selectedAction} 
           onChange={(e) => this.props.handleClientInput(
             {property: 'selectedAction', value: e.target.value}
@@ -85,12 +85,18 @@ class ClientActionBar extends Component{
         <input type="text" 
           id="actionBarInput" 
           name="actionBarInput" 
+          placeholder="Add message here"
           value = {this.props.message}
           onChange={(e) => this.props.handleClientInput(
             {property: 'message', value: e.target.value}
           )}/>
 
-        <button className = "primaryButton" onClick={() => {this.props.handleGoClick({ selectedAction: this.props.selectedAction, currClient: this.props.currClient, message: this.props.message, channel: this.props.channel })}}>
+        <button 
+          className = "primaryButton" 
+          id = "goButton"
+          onClick={() => {this.props.handleGoClick({ selectedAction: this.props.selectedAction, currClient: this.props.currClient, 
+          message: this.props.message, channel: this.props.channel })}}
+        >
           Go
         </button>
         
