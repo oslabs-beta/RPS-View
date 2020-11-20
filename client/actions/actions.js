@@ -102,9 +102,10 @@ export const portError = (port) => ({
 
   
 //redux thunk for handleGoClick determines which reducer case to call
-export const handleGoClick = (selectedAction) => (dispatch) => {
-  console.log('handle go click running, selected action is ', selectedAction)
-  switch (selectedAction){
+export const handleGoClick = (stateObj) => (dispatch) => {
+  console.log('handle go click running, selected action is ', stateObj.selectedAction)
+
+  switch (stateObj.selectedAction){
     case "addMessage":
       dispatch(getDate());
       return;
