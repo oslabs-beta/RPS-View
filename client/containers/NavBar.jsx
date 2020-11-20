@@ -5,6 +5,7 @@ import * as actions from "../actions/actions";
 
 const mapStateToProps = (state) => ({
   portErrorMessage: state.channels.portErrorMessage,
+  channels: state.channels.channelList,
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -16,7 +17,10 @@ const mapDispatchToProps = (dispatch) => ({
     },
     fetchConnect: (port) => {
       dispatch(actions.fetchConnect(port))
-    }
+    },
+    fetchAddChannel: (channelText) => {
+      dispatch(actions.fetchAddChannel(channelText))
+    } 
 });
 
 class NavBar extends Component {
@@ -38,7 +42,7 @@ class NavBar extends Component {
     this.setState({...this.state, port: ''});
   }
 
-  handleChannelChange = (event, key) =>{
+  handleChannelChange = (event, key) => {
     //   console.log(this.state)
       this.setState({
           [key]: event.target.value
@@ -48,6 +52,8 @@ class NavBar extends Component {
   handleChannelSubmit = event => {
     //   console.log(this.state)
       event.preventDefault();
+      //TODO add check for repeated channels
+      this.props.fetchAddChannel(this.state.channelText);
       this.props.addChannel(this.state.channelText)
       this.setState({
         ...this.state,
