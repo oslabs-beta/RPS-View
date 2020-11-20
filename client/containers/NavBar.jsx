@@ -110,7 +110,7 @@ class NavBar extends Component {
           {/* <input className="clientInput" placeholder = "Input Client Name"/> */}
           <select
           
-            className="actionSelector" 
+            className="dropDown" 
             value={this.state.type} 
             onChange={(e) => 
               this.handleChannelChange(e, 'type')
