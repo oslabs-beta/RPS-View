@@ -66,12 +66,12 @@ menuController.addChannel = (req,res,next) => {
 
 //add client to redis
 menuController.addClient = (req, res, next) => {
-    console.log(req.body)
+    console.log(req.body);
     //receive client id
         //add it to current client obj
     if(req.body.type === "publisher")pubObj[req.body.clientId] = new Redis(globalPort);
     if(req.body.type === "subscriber")subObj[req.body.clientId] = new Redis(globalPort);
-    res.locals.message = "added client"
+    res.locals.message = "added client";
     return next()
   };
 
