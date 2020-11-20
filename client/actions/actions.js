@@ -30,8 +30,9 @@ export const unsubscribe = () => ({
   type: types.UNSUBSCRIBE
 });
 
-export const addMessage = () => ({
-  type: types.MESSAGE
+export const addMessage = (dateString) => ({
+  type: types.MESSAGE,
+  payload: dateString,
 });
 
 export const addClient = () => ({
@@ -70,6 +71,18 @@ export const deleteChannel = (channelName) => ({
     payload: channelName,
 });
 
+//portConnected
+export const portConnected = (port) => ({
+  type: types.PORT_CONNECTED,
+  payload: port,
+});
+
+//portError
+export const portError = (port) => ({
+  type: types.PORT_ERROR,
+  payload: port,
+});
+
 // export const addChannelSubscriber = (channelName, userName) => ({
 //     type: types.ADD_CHANNEL_SUBSCRIBER,
 //     payload: {
@@ -87,14 +100,13 @@ export const deleteChannel = (channelName) => ({
 // });
 
   
-//redux thunk
+//redux thunk for handleGoClick determines which reducer case to call
 export const handleGoClick = (selectedAction) => (dispatch) => {
   console.log('handle go click running, selected action is ', selectedAction)
   switch (selectedAction){
     case "addMessage":
-      dispatch(addMessage());
+      dispatch(getDate());
       return;
-      // dispatch({type: 'ADD_MESSAGE'})
     case "subscribe":
       dispatch(subscribe());
       return;
@@ -106,6 +118,62 @@ export const handleGoClick = (selectedAction) => (dispatch) => {
   }
 }
 
-//todo add function for new Date before message
+//message middleware - create new iso string for current time, then call dipsatch for message
+export const getDate = () => (dispatch) => {
+  const date = new Date(Date.now()).toISOString();
+  dispatch(addMessage(date));
+}
 
 //run fetch requests, then dispatch reducer
+
+//fetchConnect
+export const fetchConnect = (port) => (dispatch) => {
+  //fetch
+  fetch('/menu/connect', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    //check that below is for sure a string
+    body: JSON.stringify({port}),
+  })
+  .then(response => {
+    if (response.status === 200) {
+      console.log("port connected");
+      dispatch(portConnected(port));
+    } else dispatch(portError(port));
+  })
+  .catch((error) => {
+    console.log("Error: ", error);
+    dispatch(portError(port));
+  })
+  
+}
+
+
+//fetchAddChannel
+export const fetchAddChannel = (channelName) => (dispatch) => {
+  fetch('/menu/addChannel', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({channelName}),
+  })
+  .then(response => {
+    if (response.status === 200) {
+      console.log("channel added");
+      dispatch(addChannel(channelName));
+    } 
+    if (response.status >= 400 && response.status < 500) {
+      console.log("Bad URL");
+    } 
+    else if (response.status >= 500) {
+      console.log("server error");
+    }
+  })
+  .catch((error) => {
+    console.log("Error: ", error);
+  })
+}
+

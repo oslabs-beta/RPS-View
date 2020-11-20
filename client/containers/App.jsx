@@ -20,11 +20,23 @@ class App extends Component {
   render(){
     return (
       <>
-        <h2>hello the app is loading</h2>
-        <NavBar/>
-        <ClientMenu />
-        <ClientWindow />
+      <div className="left">
+        <div className="logo">
+          {/* logo here later */}
+        </div>
         <ChannelContainer />
+      </div>
+      <div className="middle">
+        <NavBar/>
+        <ClientWindow />
+      </div>
+      <div className="right">
+        <ClientMenu />
+      </div>
+        
+        
+        
+        
       </>
       
     )

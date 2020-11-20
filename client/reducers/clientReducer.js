@@ -26,49 +26,51 @@ const initialState = {
 }
 
 const clientReducer = (state = initialState, action) => {
-//subscribe, unsubscribe, message, addClient
+  //subscribe, unsubscribe, message, addClient
+  //make a deep copy of state.clients, which will be used to alter state within reducers
   const copyClientList = JSON.parse(JSON.stringify({...state.clients}));
-  let copyOfChannelsForClient;
+  
+  //declare channels
+  let channels;
+
+  //switch cases for each reducer
   switch(action.type) {
+    
     /**subscribe adds the channel to the client's channels array */
     case types.SUBSCRIBE:
-      //some functionality adding a given channel to the appropriate client obj
-      //take channel from state & currClient from state to find the right client object
-      //push the channel onto their channels array and arrange alphabetically
       
-      //TODO: optimize the re-render
-      //make shallow copy of channels
-      copyOfChannelsForClient = [...copyClientList[state.currClient].channels]
+      //assign currClient's list of channels to channels
+      channels = copyClientList[state.currClient].channels;
+      
+      //if channels does not include channel
       //push new channel and then sort alphabetically
-      copyOfChannelsForClient.push(state.channel);
-      copyOfChannelsForClient.sort();
-      
-      //reassign the channels property on currClient to copyOfChannelsForClient
-      copyClientList[state.currClient].channels = copyOfChannelsForClient;
+      if (!channels.includes(state.channel)) {
+        channels.push(state.channel);
+        channels.sort();
+      }
 
+      //return state with updated clients list and reassign message to empty string
       return {
         ...state,
-        //reassign channels key 
         clients: copyClientList,
         message: '',
       };
 
-    /**unsubscribe removes the channel from the client's channel array
-     * care taken to ensure that we are using shallow copies, not updating state directly
-     */
+    /**unsubscribe removes the channel from the client's channel array*/
     case types.UNSUBSCRIBE:
-      //set new copyClientList variable equal to clients from state
-      // const copyClientList = {...state.clients};
-      //initialize a variablle equal to the channels of a particular client (this will be an array)
-      copyOfChannelsForClient = [...copyClientList[state.currClient].channels]
+      //assign currClient's list of channels to channels
+      channels = copyClientList[state.currClient].channels;
+      
       //find the index in the array that corresponds with the current channel (to be deleted)
-      const index = copyOfChannelsForClient.indexOf(state.channel);
-      //remove one element at that index to remove the channel
-      copyOfChannelsForClient.splice(index, 1);
-      //add the new array to the copyClientList object
-      copyClientList[state.currClient].channels = copyOfChannelsForClient;
+      const index = channels.indexOf(state.channel);
+      
+      //if index is -1 -- it isn't there, do nothing
+      if (index !== -1) {
+        //remove one element at that index to remove the channel
+        channels.splice(index, 1);
+      }
 
-      //add the altered copyClientListObject to the updated state
+      //add the altered copyClientList to the state & reset message
       return {
         ...state,
         clients: copyClientList,
@@ -81,67 +83,83 @@ const clientReducer = (state = initialState, action) => {
        * by updating state, but we need to do this through an 
        * external call REST request or WS sendMessage (Thunk)
        * */
+
+      //if there is no message, return out
+      if (state.message === '') return state;
+
       //create messages object
-      let now = new Date().toISOString;
+      let now = action.payload;
+      //adjust for async
       const newMessage = {channel: state.channel, timestamp: now, type: 'received', message: state.message}
-      //new object
-      // const copyOfClients = {...state.clients}
+     
       //go through all clients
-      for (let clientId in copyOfClients) {
-        const newLog = [...client.log];
+      for (let clientId in copyClientList) {
+        
+        // declare log, which is the log for the current clientId on iteration
+        const newLog = copyClientList[clientId].log;
         
         //if we're on the currClient, add the message with type: published
         if (clientId === state.currClient) {
           const publisherMessage = Object.assign({}, newMessage, {type: 'published'});
-          const updated = newLog.concat([publisherMessage]);
-          client.log = updated;
+          newLog.push(publisherMessage);
         } 
 
         //are they subscribed to that channel?
         //if so add a message to their log array 
-        if (state.channel in copyOfClients[clientId][channels] && clientId !== state.currClient) {
-          client.log = updated;
-          const updated = newLog.concat(newMessage);
+        
+        else if (copyClientList[clientId].channels.includes(state.channel)) {
+          newLog.push(newMessage);
         };
       };
-      //reset message to '' after external call, reassign clients
+    
+      //reset message to ', reassign clients
       return {
         ...state,
-        clients: copyOfClients,
+        clients: copyClientList,
         message: '',
       }
      
     /** Add client adds a client to the clients object */
     case types.ADD_CLIENT:
+
       //increment nextClientID from state
       const newNext = state.nextClientId + 1;
+      
       //create a new client object with an empty log and empty channels array
       const newClient = {log: [], channels: []};
-      //initialize a copyOfClients object, made from clients in state
-      const copyOfClients = {...state.clients};
+      
       //add new client object to the copyOfClients object
-      copyOfClients[newNext] = newClient;
+      copyClientList[newNext] = newClient;
+
       //return updated state with incremented nextClientId and updated clients
       return {
         ...state,
         nextClientId: newNext,
-        clients: copyOfClients
+        clients: copyClientList
       }
     
     case types.SET_CLIENT:
-      //set newCurrent equal to the payload, which will be the ID of the new current client
-      const newCurrent = action.payload;
       
+      //set newCurrent equal to the payload, which will be the ID of the new current client
+      let newCurrent = action.payload;
+      
+      //if newCurrent is the same as state.currClient, reset newCurrent to null
+      if (newCurrent === state.currClient) newCurrent = null;
+
       //return updated state with new current client
       return {
         ...state,
-        currClient: newCurrent
+        currClient: newCurrent,
+        selectedAction: '',
+        message: '',
+        channel: '',
       }
 
     case types.HANDLE_CLIENT_INPUT:
       //NOTE: payload will be object with {property: XX, value: XX}
       //set property equal to property on the payload obj
       const property = action.payload.property;
+      
       //set value equal to value from the payload obj
       const value = action.payload.value;
 
@@ -150,7 +168,8 @@ const clientReducer = (state = initialState, action) => {
         ...state,
         [property]: value
       }
-
+    
+    //set default case
     default:
       return state;
   };

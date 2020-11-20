@@ -55,15 +55,18 @@ class ClientMenu extends Component{
         channels = {this.props.clients[clientId].channels} 
         selectedChannel = {this.props.selectedChannel}
         id={clientId} 
+        key={`ClientCard${clientId}`}
         setClient={this.props.setClient} />)
     }
     return (
-      <>
-        <h2> these are clients</h2>
-        <div className = "clientMenuContainer">
-          {clients}
+      
+      <div className = "clientMenu">
+        <div className = "clientLabel">
+          <h2>Clients</h2>
         </div>
-      </>
+        {clients}
+      </div>
+      
     )
   }
 }

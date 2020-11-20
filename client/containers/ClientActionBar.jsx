@@ -98,11 +98,12 @@ class ClientActionBar extends Component{
         <input type="text" 
           id="actionBarInput" 
           name="actionBarInput" 
+          value = {this.props.message}
           onChange={(e) => this.props.handleClientInput(
             {property: 'message', value: e.target.value}
           )}/>
 
-        <button onClick={(e) => {this.props.handleGoClick(this.props.selectedAction)}}>
+        <button className = "primaryButton" onClick={(e) => {this.props.handleGoClick(this.props.selectedAction)}}>
           Go
         </button>
         
