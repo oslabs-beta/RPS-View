@@ -15,8 +15,9 @@ let Redis = require('ioredis');
 //create variables to pass into routers and client controller
 //global port is the port number which the redis server is spun up on
 let globalPort;
-//clientObj is an object that will store all redis clients
-let clientObj = {};
+//subscriberObj is an object that will store all redis clients
+let subObj = {};
+let pubObj = {};
 
 //create controller object
 let menuController = {}
@@ -67,7 +68,9 @@ menuController.addChannel = (req,res,next) => {
 menuController.addClient = (req, res, next) => {
     //receive client id
         //add it to current client obj
-    clientObj[req.body.clientId] = new Redis(globalPort);
+    if(req.body.type === "publisher")pubObj[req.body.clientId] = new Redis(globalPort);
+    if(req.body.type === "subscriber")subObj[req.body.clientId] = new Redis(globalPort);
+    
     return next()
   };
 
@@ -88,4 +91,4 @@ menuController.test = (req,res,next) => {
 
 //export the controller for middleware
 //export global port 
-module.exports = {menuController, globalPort, clientObj}
+module.exports = {menuController, globalPort, pubObj, subObj}

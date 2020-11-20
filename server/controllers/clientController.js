@@ -9,7 +9,7 @@
  * ************************************
  */
 
-const {clientObj} = require('./menuController')
+const {subObj, pubObj} = require('./menuController')
 
 let clientController = {};
 
@@ -23,11 +23,11 @@ clientController.unsubscribe = (req, res, next) => {
 
   //if clientID exist, call redis to unsub
     //passing in the channel name, and redis should return count of channel client is subscribe to
-  if(clientObj[clientId] === undefined) {
+  if(subObj[clientId] === undefined) {
     res.locals.message = 'error, client does not exist';
     return next()
   } else {
-    clientObj[clientId].unsubscribe(channelName, (error, count) => {
+    subObj[clientId].unsubscribe(channelName, (error, count) => {
       if(error) {
         res.locals.message = 'failed to unsubscribe';
         return next()
@@ -48,11 +48,11 @@ clientController.subscribe = (req, res, next) => {
     //redis will return count for client subbed channel
 
   //server message is passed to the router for response
-  if(clientObj[clientId] === undefined) {
+  if(subObj[clientId] === undefined) {
     res.locals.message = 'error, client does not exist';
     return next()
   } else {
-    clientObj[clientId].subscribe(channelName, (error, count) => {
+    subObj[clientId].subscribe(channelName, (error, count) => {
       if(error) {
         res.locals.message = 'failed to subscribe';
         return next()
@@ -73,11 +73,11 @@ clientController.publish = (req, res, next) => {
     //publish to redis using redis commands 
 
   //return server message to frontend
-  if(clientObj[clientId] === undefined) {
+  if(pubObj[clientId] === undefined) {
     res.locals.message = 'error, client does not exist';
     return next()
   } else {
-    clientObj[clientId].publish( channelName, message, (error, count) => {
+    pubObj[clientId].publish( channelName, message, (error, count) => {
       if(error) {
         res.locals.message = 'failed to publish';
         return next()
