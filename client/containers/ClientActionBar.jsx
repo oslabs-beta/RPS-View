@@ -16,6 +16,7 @@ import * as actions from '../actions/actions.js';
 
 //mapstate
 const mapStateToProps = (state) => ({
+  currClient: state.client.currClient,
   channels: state.channels.channelList,
   message: state.client.message,
   channel: state.client.channel,
@@ -41,26 +42,12 @@ class ClientActionBar extends Component{
     super(props);
     // this.handleGoClick = this.handleGoClick.bind(this);
   }
-  
-  // handleGoClick(){
-  //   console.log('handle go click running, selected action is ', this.props.selectedAction)
-  //   switch (this.props.selectedAction){
-  //     case "addMessage":
-  //       this.props.addMessage();
-  //     case "subscribe":
-  //       this.props.subscribe();
-  //     case "unsubscribe":
-  //       this.props.unsubscribe();
-  //     default: 
-  //       return;
-  //   }
-  // }
 
   render(){
-    console.log('props in CAB', this.props)
+    
     //create arr of option value elements
     let channels = this.props.channels;
-    console.log('channels is', channels)
+    
     let channelsArray = [];
     
     channels.forEach((channel, i) => {
@@ -103,7 +90,7 @@ class ClientActionBar extends Component{
             {property: 'message', value: e.target.value}
           )}/>
 
-        <button className = "primaryButton" onClick={(e) => {this.props.handleGoClick(this.props.selectedAction)}}>
+        <button className = "primaryButton" onClick={() => {this.props.handleGoClick({ selectedAction: this.props.selectedAction, currClient: this.props.currClient, message: this.props.message, channel: this.props.channel })}}>
           Go
         </button>
         

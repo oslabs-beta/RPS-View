@@ -15,7 +15,8 @@ const initialState = {
     selectedChannel: null,
     totalChannels : 0,
     channelList : [{name:"Joe"}, {name:"politics"}, {name:"food"}],
-    //add state for currently clicked channel
+    port: null,
+    portErrorMessage: '',
 };
 
 const channelsReducer = (state = initialState, action) => {
@@ -30,6 +31,11 @@ const channelsReducer = (state = initialState, action) => {
                 //connect with ws and redis? 
                 name : action.payload,
             }
+
+            // check if the new channel name is already an existing channel, if so, return unaltered state to avoid repetition
+            if (state.channelList.some(el => {
+                return el.name === newChannel.name;
+            })) return state;
 
             channelList = state.channelList.slice();
             channelList.push(newChannel);
@@ -69,9 +75,24 @@ const channelsReducer = (state = initialState, action) => {
             }
         
         //add channel subscribers
-
         //delete channel subscribers
         //update channel messages
+
+        //case portConnected
+        case types.PORT_CONNECTED:
+            return{
+                ...state,
+                port: action.payload
+            }
+
+        //case portError
+        case types.PORT_ERROR:
+            return{
+                ...state,
+                port: null,
+                portErrorMessage: `failed to connect to port ${action.payload}`
+            }
+
         default:
             return state;
     }

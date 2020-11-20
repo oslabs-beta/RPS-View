@@ -35,11 +35,7 @@ class ChannelContainer extends Component{
       return (
         <>
           <ChannelsDisplay 
-          totalChannels = {this.props.totalChannels}
-          channelList = {this.props.channelList}
-          selectedChannel = {this.props.selectedChannel}
-          
-          selectChannel = {this.props.selectChannel}
+            {...this.props}
           />
         </>
       )
