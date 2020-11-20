@@ -107,17 +107,86 @@ export const handleGoClick = (stateObj) => (dispatch) => {
 
   switch (stateObj.selectedAction){
     case "addMessage":
-      dispatch(getDate());
+      dispatch(fetchMessage(stateObj));
       return;
     case "subscribe":
-      dispatch(subscribe());
+      dispatch(fetchSubscribe(stateObj));
       return;
     case "unsubscribe":
-      dispatch(unsubscribe());
+      dispatch(fetchUnsubscribe(stateObj));
       return;
     default: 
       return;
   }
+}
+
+export const fetchMessage = (stateObj) => (dispatch) => {
+  fetch("/client/publish", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      clientId: stateObj.currClient,
+      channelName: stateObj.channel,
+      message: stateObj.message
+    })
+  })
+  .then ( response => {
+    if(response.status === 200){
+      console.log('message published!')
+      dispatch(getDate());
+    } else {
+      console.log('published failed!')
+    }
+  })
+  .catch( error => console.log(error))
+}
+
+export const fetchSubscribe = (stateObj) => (dispatch) => {
+  
+  fetch("/client/subscribe", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      clientId: stateObj.currClient,
+      channelName: stateObj.channel
+    })
+  })
+  .then( response => {
+    if(response.status === 200) {
+      console.log('client subscribed')
+      dispatch(subscribe())
+    } else {
+      console.log('subscribe failed!')
+    }
+  })
+  .catch( error => console.log(error))
+}
+
+export const fetchUnsubscribe = (stateObj) => (dispatch) => {
+  console.log(stateObj)
+  fetch("/client/unsubscribe", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      clientId: stateObj.currClient,
+      channelName: stateObj.channel
+    })
+  })
+  .then( response => {
+    if(response.status === 200) {
+      console.log('client unsubscribed :\(!')
+      dispatch(unsubscribe())
+    } else {
+      console.log('unsubscribe failed!')
+    }
+  })
+  .catch( error => console.log(error))
 }
 
 //message middleware - create new iso string for current time, then call dipsatch for message
