@@ -151,3 +151,29 @@ export const fetchConnect = (port) => (dispatch) => {
 }
 
 
+//fetchAddChannel
+export const fetchAddChannel = (channelName) => (dispatch) => {
+  fetch('/menu/addChannel', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({channelName}),
+  })
+  .then(response => {
+    if (response.status === 200) {
+      console.log("channel added");
+      dispatch(addChannel(channelName));
+    } 
+    if (response.status >= 400 && response.status < 500) {
+      console.log("Bad URL");
+    } 
+    else if (response.status >= 500) {
+      console.log("server error");
+    }
+  })
+  .catch((error) => {
+    console.log("Error: ", error);
+  })
+}
+
