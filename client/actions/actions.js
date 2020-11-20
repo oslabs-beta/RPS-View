@@ -35,8 +35,9 @@ export const addMessage = (dateString) => ({
   payload: dateString,
 });
 
-export const addClient = () => ({
-  type: types.ADD_CLIENT
+export const addClient = (error) => ({
+  type: types.ADD_CLIENT,
+  payload: error,
 });
 
 export const setClient = (clientID) => ({
@@ -150,4 +151,29 @@ export const fetchConnect = (port) => (dispatch) => {
   
 }
 
-
+//fetchAddClient
+//data in form of 
+// {clientId: #, type: 'publisher' OR 'subscriber'}
+export const fetchAddClient = (data) => (dispatch) => {
+  fetch('/menu/addClient', {
+    method: 'POST', 
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    //check that below is for sure a string
+    body: JSON.stringify(data),
+  })
+  .then(response => {
+    if (response.status === 200) {
+      dispatch(ADD_CLIENT);
+      return;
+    } else {
+      dispatch(ADD_CLIENT({error: 'unsuccessful'}));
+      return;
+    }
+  })
+  .catch(err => {
+    dispatch(ADD_CLIENT({error: 'unsuccessful'}));
+    return;
+  })
+};
