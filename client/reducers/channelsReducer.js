@@ -14,7 +14,7 @@ import * as types from "../constants/actionTypes";
 const initialState = {
     selectedChannel: null,
     totalChannels : 0,
-    channelList : [{name:"Joe"}, {name:"politics"}, {name:"food"}],
+    channelList : [],
     port: null,
 };
 
