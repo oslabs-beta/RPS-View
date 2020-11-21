@@ -20,17 +20,32 @@ const server = new WebSocket.Server({port:3030});
 server.on('connection', function connection(ws) {
 
   // broadcast on web socket when receving a Redis PUB/SUB Event
-  console.log(5)
-  for(const key in subObj){
-    console.log(key)  
-    subObj[key].on('message', function(channel, message){
-      console.log(message);
-      ws.send({
-        message: message,
-        key: key
-      });
-    })
-  }
+  // console.log(5)
+  // for(const key in subObj){
+  //   console.log(key)  
+    // subObj[key].on('message', function(channel, message){
+    //   console.log(message);
+    //   ws.send({
+    //     message: message,
+    //     key: key
+    //   });
+    // })
+  // }
+
+  //websocket receives message from front end
+  ws.on('message',(message)=>{
+    console.log(message)
+
+    // subObj[message[key]].on('message', function(channel, message){
+    //   // console.log(message);
+    //   console.log(channel, message)
+    //   ws.send({
+    //     channel: channel,
+    //     message: message,
+    //     key: key
+    //   });
+    // })
+  })
 
 });
 
