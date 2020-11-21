@@ -47,7 +47,8 @@ export const fetchMessage = (stateObj) => (dispatch) => {
   .then ( response => {
     if(response.status === 200){
       console.log('message published!')
-      dispatch(getDate());
+      //dispatch publish middleware
+      dispatch(getDate(stateObj))
     } else {
       dispatch(errorActions.errorHandler('Failed to publish!'))
     }
@@ -108,10 +109,21 @@ export const fetchUnsubscribe = (stateObj) => (dispatch) => {
   .catch(dispatch(errorActions.errorHandler('Failed to unsubscribe!')))
 }
 
-//message middleware - create new iso string for current time, then call dipsatch for message
-export const getDate = () => (dispatch) => {
-  const date = new Date(Date.now()).toISOString();
-  dispatch(clientActions.addMessage(date));
+export const socketReceivedMessage = (stateObj) => (dispatch) => {
+  //
+  dispatch(getDate(stateObj))
+}
+
+
+
+//message middleware - create new iso string for current time, then call dispatch for message
+export const getDate = (stateObj) => (dispatch) => {
+  const now = new Date(Date.now()).toISOString();
+  if(stateObj.selectedAction === 'addMessage'){
+    dispatch(clientActions.publishMessage(now));
+  }else{
+    dispatch(clientActions.receivedMessage({...stateObj, now}));
+  }
 }
 
 //run fetch requests, then dispatch reducer
