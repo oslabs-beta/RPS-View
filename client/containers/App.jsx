@@ -17,7 +17,7 @@ import ClientWindow from './ClientWindow.jsx';
 import NavBar from './NavBar.jsx';
 
 
-let ws = new WebSocket('ws://'+location.host+"/")
+// let ws = new WebSocket('ws://'+location.host+"/")
 // let ws = new WebSocket('ws://localhost:3030')
 
 
@@ -47,11 +47,7 @@ let ws = new WebSocket('ws://'+location.host+"/")
 
 
 class App extends Component {
-  componentWillMount(){
-    ws.onopen = () => { 
-      console.log('Now connected'); 
-      };
-  }
+  
   render(){
     return (
       <>
