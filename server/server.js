@@ -14,10 +14,10 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const WebSocket = require('ws')
 
-const server = new WebSocket.Server({port:3030});
+const socketServer = new WebSocket.Server({port:3030});
 
 // Register event for client connection
-server.on('connection', function connection(ws) {
+socketServer.on('connection', function connection(ws) {
 
   // broadcast on web socket when receving a Redis PUB/SUB Event
   // console.log(5)
@@ -35,16 +35,26 @@ server.on('connection', function connection(ws) {
   //websocket receives message from front end
   ws.on('message',(message)=>{
     console.log(message)
-
-    // subObj[message[key]].on('message', function(channel, message){
-    //   // console.log(message);
-    //   console.log(channel, message)
-    //   ws.send({
-    //     channel: channel,
-    //     message: message,
-    //     key: key
-    //   });
-    // })
+    console.log(JSON.parse(message))
+    message = JSON.parse(message)
+    
+    subObj[message.clientId].on('message', function(channel, message, yo){
+      // console.log(message);
+      console.log(channel, message, yo)
+      let sendId = message.clientId;
+      socketServer.clients.forEach(client=>{
+        this.options.name = "yo"
+        console.log(this.options.name)
+        if(client.readyState === WebSocket.OPEN){
+          client.send(JSON.stringify({message, channel}));
+        }
+      })
+      // ws.send({
+      //   channel: channel,
+      //   message: message,
+      //   key: key
+      // });
+    })
   })
 
 });
