@@ -11,7 +11,7 @@
 import * as types from '../constants/actionTypes.js';
 import * as errorActions from './errorActions.js';
 import * as clientActions from './clientActions.js';
-import * as channelActions from './channelActions';
+import * as channelActions from './channelActions.js';
 
 //redux thunk for handleGoClick determines which reducer case to call
 export const handleGoClick = (stateObj) => (dispatch) => {
