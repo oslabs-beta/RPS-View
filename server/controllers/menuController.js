@@ -83,9 +83,14 @@ menuController.addClient = (req, res, next) => {
         
         //receive client id
             //add it to current client obj
-        if(req.body.type === "publisher")pubObj[req.body.clientId] = new Redis(globalPort);
-        if(req.body.type === "subscriber")subObj[req.body.clientId] = new Redis(globalPort);
-        
+        if(req.body.type === "publisher"){
+            pubObj[req.body.clientId] = new Redis(globalPort);
+            pubObj[req.body.clientId].clientId=req.body.clientId;
+        }
+        if(req.body.type === "subscriber"){
+            subObj[req.body.clientId] = new Redis(globalPort);
+            subObj[req.body.clientId].clientId=req.body.clientId;
+        }
         return res.status(200).send('added client')
         // next();
     })

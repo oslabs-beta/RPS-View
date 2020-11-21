@@ -38,15 +38,15 @@ socketServer.on('connection', function connection(ws) {
     console.log(JSON.parse(message))
     message = JSON.parse(message)
     
-    subObj[message.clientId].on('message', function(channel, message, yo){
+    subObj[message.clientId].on('message', function(channel, message){
       // console.log(message);
-      console.log(channel, message, yo)
+      
       let sendId = message.clientId;
       socketServer.clients.forEach(client=>{
-        this.options.name = "yo"
-        console.log(this.options.name)
+        // this.options.name = "yo"
+        console.log(this.clientId)
         if(client.readyState === WebSocket.OPEN){
-          client.send(JSON.stringify({message, channel}));
+          client.send(JSON.stringify({message, channel,clientId:this.clientId}));
         }
       })
       // ws.send({
