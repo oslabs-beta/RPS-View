@@ -1,9 +1,21 @@
+/**
+ * ************************************
+ *
+ * @module  NavBar.jsx
+ * @author
+ * @date
+ * @description Stateful component that handles addPort, addClient, addChannel
+ *
+ * ************************************
+ */
+
+
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as channelActions from "../actions/channelActions";
 import * as errorActions from "../actions/errorActions";
-import * as clientActions from "../actions/clientActions";
-import * as middleware from "../actions/middleware";
+import * as clientActions from "../actions/clientActions.js";
+import * as middleware from "../actions/middleware.js";
 
 
 const mapStateToProps = (state) => ({
