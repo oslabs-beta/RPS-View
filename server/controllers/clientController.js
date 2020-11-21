@@ -41,6 +41,8 @@ clientController.unsubscribe = (req, res, next) => {
 clientController.subscribe = (req, res, next) => {
   const clientId = req.body.clientId
   const channelName = req.body.channelName
+  // console.log(clientId,channelName)
+  // console.log(subObj)
   //check if client exist
   //if clientId matches client DB
     //call subscribe to redis with passed in channelName
@@ -49,12 +51,16 @@ clientController.subscribe = (req, res, next) => {
   //server message is passed to the router for response
   if(channelName === undefined || clientId === undefined) return res.status(400).send('undefined input');
   if(subObj[clientId] === undefined) {
+    console.log(1)
+
     return res.status(400).send('client does not exist');
   } else {
     subObj[clientId].subscribe(channelName, (error, count) => {
       if(error) {
+        console.log(2)
         return res.status(400).send('failed to subscribe');
       } 
+      console.log(3)
       return res.status(200).send('Client Successfully subscribed to Channel');
     })
   }

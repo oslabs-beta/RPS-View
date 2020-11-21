@@ -68,7 +68,7 @@ menuController.addChannel = (req,res,next) => {
 menuController.addClient = (req, res, next) => {
     // console.log(req.body);
     if(req.body.clientId === undefined || req.body.type === undefined){
-        return res.status(400).send('invalid inputs');
+        return res.status(200).send('invalid inputs');
     }
 
 
@@ -85,6 +85,7 @@ menuController.addClient = (req, res, next) => {
             //add it to current client obj
         if(req.body.type === "publisher")pubObj[req.body.clientId] = new Redis(globalPort);
         if(req.body.type === "subscriber")subObj[req.body.clientId] = new Redis(globalPort);
+        
         return res.status(200).send('added client')
         // next();
     })
