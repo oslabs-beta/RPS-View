@@ -16,7 +16,6 @@ const initialState = {
     totalChannels : 0,
     channelList : [{name:"Joe"}, {name:"politics"}, {name:"food"}],
     port: null,
-    portErrorMessage: '',
 };
 
 const channelsReducer = (state = initialState, action) => {
@@ -83,14 +82,6 @@ const channelsReducer = (state = initialState, action) => {
             return{
                 ...state,
                 port: action.payload
-            }
-
-        //case portError
-        case types.PORT_ERROR:
-            return{
-                ...state,
-                port: null,
-                portErrorMessage: `failed to connect to port ${action.payload}`
             }
 
         default:

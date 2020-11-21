@@ -12,7 +12,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import ChannelsDisplay from "../components/ChannelsDisplay.jsx";
-import * as actions from "../actions/actions";
+import * as actions from "../actions/channelActions.js";
 
 
 const mapStateToProps = (store) => ({

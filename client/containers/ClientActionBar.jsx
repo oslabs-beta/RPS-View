@@ -12,8 +12,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 //import actions
-import * as actions from '../actions/actions.js';
-const URL = 'ws://localhost:3030'
+import * as actions from '../actions/clientActions.js';
+import * as middleware from '../actions/middleware.js';
+
 
 //mapstate
 const mapStateToProps = (state) => ({
@@ -35,7 +36,7 @@ const mapDispatchToProps = (dispatch) => ({
   //publish
   addMessage: () => dispatch(actions.addMessage),
   //get handleGoClick
-  handleGoClick: (selectedAction) => dispatch(actions.handleGoClick(selectedAction))
+  handleGoClick: (selectedAction) => dispatch(middleware.handleGoClick(selectedAction))
 });
 
 class ClientActionBar extends Component{
@@ -44,18 +45,7 @@ class ClientActionBar extends Component{
     // this.handleGoClick = this.handleGoClick.bind(this);
   }
 
-  ws = new WebSocket(URL)
-
-  componentDidMount(){
-    this.ws.onopen = () => { 
-      console.log('Now connected'); 
-      // this.ws.send(JSON.stringify({hi:"hi"}))
-      this.ws.onmessage = (event) => {
-        const messages = JSON.parse(event.data);
-        console.log(messages)
-      };
-      };
-  }
+  
 
   render(){
     
@@ -72,7 +62,7 @@ class ClientActionBar extends Component{
       <div className="actionBar">
         {/* two drop downs, input, and button */}
         {/* dropdown menu to select channel */}
-        <select className="channelSelector"
+        <select className="dropDown"
           value={this.props.channel}
           onChange={(e) => this.props.handleClientInput(
             {property: 'channel', value: e.target.value}
@@ -84,7 +74,7 @@ class ClientActionBar extends Component{
 
         {/* dropdown menu to select action */}
         <select 
-          className="actionSelector" 
+          className="dropDown" 
           value={this.props.selectedAction} 
           onChange={(e) => this.props.handleClientInput(
             {property: 'selectedAction', value: e.target.value}
@@ -99,12 +89,21 @@ class ClientActionBar extends Component{
         <input type="text" 
           id="actionBarInput" 
           name="actionBarInput" 
+          placeholder="Add message here"
           value = {this.props.message}
           onChange={(e) => this.props.handleClientInput(
             {property: 'message', value: e.target.value}
           )}/>
 
-        <button className = "primaryButton" onClick={() => {this.props.handleGoClick({ selectedAction: this.props.selectedAction, currClient: this.props.currClient, message: this.props.message, channel: this.props.channel, ws: this.ws})}}>
+        <button 
+          className = "primaryButton" 
+          id = "goButton" 
+          onClick={() => {this.props.handleGoClick({ 
+            selectedAction: this.props.selectedAction, 
+            currClient: this.props.currClient, 
+            message: this.props.message, 
+            channel: this.props.channel
+            })}}>
           Go
         </button>
         

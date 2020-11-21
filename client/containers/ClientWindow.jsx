@@ -22,7 +22,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 //import actions
-import * as actions from '../actions/actions.js';
+import * as actions from '../actions/clientActions.js';
 //import child components
 import MessageLogDisplay from '../components/MessageLogDisplay.jsx';
 import SubscribedChannels from '../components/SubscribedChannelsDisplay.jsx';
@@ -54,19 +54,19 @@ class ClientWindow extends Component {
       return (
         <div className = "clientWindow">
           <div className="top">
-            <h3>Client {this.props.currClient}</h3>
+            <h3 className="clentLabel">Client {this.props.currClient}</h3>
             <button className="secondaryButton" onClick={(e) => {this.props.setClient(this.props.currClient)}}>X</button>
           </div>
           <div className="center">
             <div className="messageLogDisplay">
-              <h4>Recent Messages</h4>
+              <h4 className="clientWindowMessageLabel">Recent Messages</h4>
               <MessageLogDisplay
                 log = {this.props.clients.log}
               />
               
             </div>
             <div className="subscribedChannels">
-              <h4>Subscribed Channels</h4>
+              <h4 className="clientWindowSubscribedLabel">Subscribed Channels</h4>
               <SubscribedChannels channels = {this.props.clients.channels}/>
             </div>
           </div>
