@@ -13,19 +13,13 @@ const router = express.Router();
 const clientController = require('../controllers/clientController')
 
 //router for client unsub
-router.post('/unsubscribe', clientController.unsubscribe, (req,res) => {
-  res.status(200).send(res.locals.message)
-})
+router.post('/unsubscribe', clientController.unsubscribe)
 
 //router for client sub
-router.post('/subscribe', clientController.subscribe, (req,res) => {
-  res.status(200).send(res.locals.message)
-})
+router.post('/subscribe', clientController.subscribe)
 
 //router for client publish
-router.post('/publish', clientController.publish, (req,res) => {
-  res.status(200).send(res.locals.message)
-})
+router.post('/publish', clientController.publish)
 
 
 module.exports = router; 
