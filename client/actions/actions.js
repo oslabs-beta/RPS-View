@@ -144,7 +144,7 @@ export const fetchMessage = (stateObj) => (dispatch) => {
 }
 
 export const fetchSubscribe = (stateObj) => (dispatch) => {
-  
+  console.log(stateObj.currClient)
   fetch("/client/subscribe", {
     method: 'POST',
     headers: {
@@ -158,12 +158,23 @@ export const fetchSubscribe = (stateObj) => (dispatch) => {
   .then( response => {
     if(response.status === 200) {
       console.log('client subscribed')
-      dispatch(subscribe())
+      dispatch(wsMessage(stateObj))
     } else {
       console.log('subscribe failed!')
+      dispatch(wsMessage(stateObj))
     }
   })
   .catch( error => console.log(error))
+}
+
+//middleware to add on message event listener to backend for subscriber client
+//will be dispatched from fetchsubscribe and will dispatch subscribe
+//needs to be passed ws so can message backend
+
+export const wsMessage = (stateObj) => dispatch => {
+  
+  stateObj.ws.send(JSON.stringify({clientId:stateObj.currClient}))
+  dispatch(subscribe())
 }
 
 export const fetchUnsubscribe = (stateObj) => (dispatch) => {
@@ -275,4 +286,5 @@ export const fetchAddChannel = (channelName) => (dispatch) => {
     console.log("Error: ", error);
   })
 }
+
 
