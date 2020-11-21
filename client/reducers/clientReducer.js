@@ -22,7 +22,13 @@ const initialState = {
   /**TODO change channels to a set instead of an array */
   clients: {1: {log: [{channel: 'politics', type: 'received', timestamp: 'DATEHERE', message: 'election called'}], channels: ['politics', 'food']}, 
   2: {log: [{channel: 'Joe', type: 'received', timestamp: 'DATEHERE', message: 'joe sent a message'}, {channel: 'food', type: 'received', timestamp: 'DATEHERE', message: 'how to make pickles'}], channels: ['Joe', 'food']}}, 
-  //will have the structure id: {log: [{channel: str, type: 'published'/'received', timestamp: ISO string, message: str}], channels: [arrs]},
+  /**will have the structure {id: 
+   * {
+   * log: [{channel: str, timestamp: ISO string (MIDDLEWARE), message: str}], 
+   * channels: [arrs]
+   * type: 'publisher' OR 'subscriber'
+   * }
+   * */
 
 }
 
@@ -86,32 +92,48 @@ const clientReducer = (state = initialState, action) => {
        * */
 
       //if there is no message, return out
-      if (state.message === '') return state;
+      // if (state.message === '') return state;
 
       //create messages object
-      let now = action.payload;
-      //adjust for async
-      const newMessage = {channel: state.channel, timestamp: now, type: 'received', message: state.message}
-     
-      //go through all clients
-      for (let clientId in copyClientList) {
-        
-        // declare log, which is the log for the current clientId on iteration
-        const newLog = copyClientList[clientId].log;
-        
-        //if we're on the currClient, add the message with type: published
-        if (clientId === state.currClient) {
-          const publisherMessage = Object.assign({}, newMessage, {type: 'published'});
-          newLog.push(publisherMessage);
-        } 
+      /**
+       * action.payload format
+       * {
+        * now: TIMESTAMP from middleware,
+        * channel: 'string',
+        * message: 'string'
+        * clientid: int
+       * }
+       */
+      const {now, channel, message, clientId} = action.payload;
 
-        //are they subscribed to that channel?
-        //if so add a message to their log array 
+      //TODO Add publish case -- runs after addMessage middleware, keeps front end log of published messages (Note - front end/ state management only, doesn't reflect messaging from redis client)
+
+      //adjust for async
+      const newMessage = {
+        channel, 
+        timestamp: now, 
+        // type: 'received', 
+        message}
+      copyClientList[clientId].log.push(newMessage);
+      // //go through all clients
+      // for (let clientId in copyClientList) {
         
-        else if (copyClientList[clientId].channels.includes(state.channel)) {
-          newLog.push(newMessage);
-        };
-      };
+      //   // declare log, which is the log for the current clientId on iteration
+      //   const newLog = copyClientList[clientId].log;
+        
+      //   //if we're on the currClient, add the message with type: published
+      //   if (clientId === state.currClient) {
+      //     const publisherMessage = Object.assign({}, newMessage, {type: 'published'});
+      //     newLog.push(publisherMessage);
+      //   } 
+
+      //   //are they subscribed to that channel?
+      //   //if so add a message to their log array 
+        
+      //   else if (copyClientList[clientId].channels.includes(state.channel)) {
+      //     newLog.push(newMessage);
+      //   };
+      // };
     
       //reset message to ', reassign clients
       return {
