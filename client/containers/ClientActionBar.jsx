@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 //import actions
 import * as actions from '../actions/clientActions.js';
 import * as middleware from '../actions/middleware.js';
-const URL = 'ws://localhost:3030'
+
 
 //mapstate
 const mapStateToProps = (state) => ({
@@ -45,18 +45,7 @@ class ClientActionBar extends Component{
     // this.handleGoClick = this.handleGoClick.bind(this);
   }
 
-  ws = new WebSocket(URL)
-
-  componentDidMount(){
-    this.ws.onopen = () => { 
-      console.log('Now connected'); 
-      // this.ws.send(JSON.stringify({hi:"hi"}))
-      this.ws.onmessage = (event) => {
-        const messages = JSON.parse(event.data);
-        console.log(messages)
-      };
-      };
-  }
+  
 
   render(){
     
@@ -113,8 +102,8 @@ class ClientActionBar extends Component{
             selectedAction: this.props.selectedAction, 
             currClient: this.props.currClient, 
             message: this.props.message, 
-            channel: this.props.channel, 
-            ws: this.ws})}}>
+            channel: this.props.channel
+            })}}>
           Go
         </button>
         
