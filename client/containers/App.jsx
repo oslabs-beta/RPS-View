@@ -15,6 +15,7 @@ import ClientMenu from './ClientMenu.jsx';
 import ChannelContainer from './ChannelContainer.jsx';
 import ClientWindow from './ClientWindow.jsx';
 import NavBar from './NavBar.jsx';
+// import ErrorBox from './ErrorBox.jsx';
 
 class App extends Component {
   render(){
@@ -29,6 +30,7 @@ class App extends Component {
       <div className="middle">
         <NavBar/>
         <ClientWindow />
+        {/* <ErrorBox /> */}
       </div>
       <div className="right">
         <ClientMenu />
