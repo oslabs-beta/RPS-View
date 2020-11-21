@@ -29,12 +29,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   //handleClientInput => handles messages and channels
   handleClientInput: (payload) => dispatch(actions.handleClientInput(payload)),
-  //subscribe
-  subscribe: () => dispatch(actions.subscribe),
-  //unsubscribe
-  unsubscribe: () => dispatch(actions.unsubscribe),
-  //publish
-  addMessage: () => dispatch(actions.addMessage),
+
   //get handleGoClick
   handleGoClick: (selectedAction) => dispatch(middleware.handleGoClick(selectedAction))
 });
