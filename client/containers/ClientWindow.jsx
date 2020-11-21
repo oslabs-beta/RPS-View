@@ -22,7 +22,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 //import actions
-import * as actions from '../actions/actions.js';
+import * as actions from '../actions/clientActions.js';
 //import child components
 import MessageLogDisplay from '../components/MessageLogDisplay.jsx';
 import SubscribedChannels from '../components/SubscribedChannelsDisplay.jsx';
