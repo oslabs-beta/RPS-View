@@ -13,6 +13,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 //import actions
 import * as actions from '../actions/actions.js';
+const URL = 'ws://localhost:3030'
 
 //mapstate
 const mapStateToProps = (state) => ({
@@ -41,6 +42,15 @@ class ClientActionBar extends Component{
   constructor(props){
     super(props);
     // this.handleGoClick = this.handleGoClick.bind(this);
+  }
+
+  ws = new WebSocket(URL)
+
+  componentDidMount(){
+    this.ws.onopen = () => { 
+      console.log('Now connected'); 
+      this.ws.send(JSON.stringify({hi:"hi"}))
+      };
   }
 
   render(){
@@ -90,7 +100,7 @@ class ClientActionBar extends Component{
             {property: 'message', value: e.target.value}
           )}/>
 
-        <button className = "primaryButton" onClick={() => {this.props.handleGoClick({ selectedAction: this.props.selectedAction, currClient: this.props.currClient, message: this.props.message, channel: this.props.channel })}}>
+        <button className = "primaryButton" onClick={() => {this.props.handleGoClick({ selectedAction: this.props.selectedAction, currClient: this.props.currClient, message: this.props.message, channel: this.props.channel, ws: this.ws})}}>
           Go
         </button>
         
