@@ -56,7 +56,7 @@ export const fetchMessage = (stateObj) => (dispatch) => {
 }
 
 export const fetchSubscribe = (stateObj) => (dispatch) => {
-  
+  console.log(stateObj.currClient)
   fetch("/client/subscribe", {
     method: 'POST',
     headers: {
@@ -70,12 +70,23 @@ export const fetchSubscribe = (stateObj) => (dispatch) => {
   .then( response => {
     if(response.status === 200) {
       console.log('client subscribed')
-      dispatch(clientActions.subscribe())
+      dispatch(wsMessage(stateObj))
     } else {
       dispatch(errorActions.errorHandler('Failed to publish!'))
     }
+    
   })
   .catch( error => dispatch(errorActions.errorHandler('Failed to publish!')))
+}
+
+//middleware to add on message event listener to backend for subscriber client
+//will be dispatched from fetchsubscribe and will dispatch subscribe
+//needs to be passed ws so can message backend
+
+export const wsMessage = (stateObj) => dispatch => {
+  
+  stateObj.ws.send(JSON.stringify({clientId:stateObj.currClient}))
+  dispatch(clientActions.subscribe())
 }
 
 export const fetchUnsubscribe = (stateObj) => (dispatch) => {
@@ -136,14 +147,14 @@ export const fetchConnect = (port) => (dispatch) => {
 //data in form of 
 // {clientId: #, type: 'publisher' OR 'subscriber'}
 export const fetchAddClient = (data) => (dispatch) => {
-  console.log('fetchAddClient is running, data: ', data)
+  
   fetch('/menu/addClient', {
     method: 'POST', 
     headers: {
       'Content-Type': 'application/json',
     },
     //check that below is for sure a string
-    body: JSON.stringify(data),
+    body: JSON.stringify({type:data.type,clientId:data.clientId}),
   })
   .then(response => {
     
@@ -183,4 +194,5 @@ export const fetchAddChannel = (channelName) => (dispatch) => {
     dispatch(errorActions.errorHandler("Error adding channel"))
   })
 }
+
 

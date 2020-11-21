@@ -15,9 +15,10 @@ import ClientMenu from './ClientMenu.jsx';
 import ChannelContainer from './ChannelContainer.jsx';
 import ClientWindow from './ClientWindow.jsx';
 import NavBar from './NavBar.jsx';
-// import ErrorBox from './ErrorBox.jsx';
+// import ErrorBox from './ErrorBox.jsx'
 
 class App extends Component {
+  
   render(){
     return (
       <>

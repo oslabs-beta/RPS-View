@@ -17,7 +17,7 @@ const initialState = {
   message: '',
   selectedAction: '',
   currClient: null,
-  nextClientId: 2, //used to create a serial id for each id
+  nextClientId: 3, //used to create a serial id for each id
   channel: '',
   /**TODO change channels to a set instead of an array */
   clients: {1: {log: [{channel: 'politics', type: 'received', timestamp: 'DATEHERE', message: 'election called'}], channels: ['politics', 'food']}, 
@@ -122,15 +122,15 @@ const clientReducer = (state = initialState, action) => {
      
     /** Add client adds a client to the clients object */
     case types.ADD_CLIENT:
-       
-      //increment nextClientID from state
-      const newNext = state.nextClientId + 1;
       
       //create a new client object with an empty log and empty channels array
       const newClient = {log: [], channels: []};
       
       //add new client object to the copyOfClients object
-      copyClientList[newNext] = newClient;
+      copyClientList[state.nextClientId] = newClient;
+      
+      //increment nextClientID from state
+      const newNext = state.nextClientId + 1;
 
       //return updated state with incremented nextClientId and updated clients
       return {
