@@ -16,7 +16,7 @@ import * as channelActions from "../actions/channelActions";
 import * as errorActions from "../actions/errorActions";
 import * as clientActions from "../actions/clientActions.js";
 import * as middleware from "../actions/middleware.js";
-
+const URL = 'ws://localhost:3030'
 
 const mapStateToProps = (state) => ({
   portErrorMessage: state.channels.portErrorMessage,
@@ -45,6 +45,19 @@ class NavBar extends Component {
   constructor(props) {
     super(props) 
     
+  }
+
+  ws = new WebSocket(URL)
+
+  componentDidMount(){
+    this.ws.onopen = () => { 
+      console.log('Now connected'); 
+      // this.ws.send(JSON.stringify({hi:"hi"}))
+      this.ws.onmessage = (event) => {
+        const messages = JSON.parse(event.data);
+        console.log(messages)
+      };
+      };
   }
 
   state = {
@@ -142,7 +155,7 @@ class NavBar extends Component {
             onClick={() => {
               console.log('add client button clicked!')
               this.props.fetchAddClient(
-                {type: this.state.type, clientId: this.props.nextClientId})
+                {type: this.state.type, clientId: this.props.nextClientId, ws: this.ws})
                 this.setState({...this.state, type: ''});
               }}
           >
