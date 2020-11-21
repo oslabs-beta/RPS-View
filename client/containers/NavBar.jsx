@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import * as actions from "../actions/actions";
+import * as channelActions from "../actions/channelActions";
+import * as errorActions from "../actions/errorActions";
+import * as clientActions from "../actions/clientActions";
+import * as middleware from "../actions/middleware";
 
 
 const mapStateToProps = (state) => ({
@@ -12,17 +15,17 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     addChannel: (e)=>{
-        dispatch(actions.addChannel(e))
+        dispatch(channelActions.addChannel(e))
     },
     // data {type, clientId}
     fetchAddClient: (data)=>{
-        dispatch(actions.fetchAddClient(data))
+        dispatch(middleware.fetchAddClient(data))
     },
     fetchConnect: (port) => {
-      dispatch(actions.fetchConnect(port))
+      dispatch(middleware.fetchConnect(port))
     },
     fetchAddChannel: (channelText) => {
-      dispatch(actions.fetchAddChannel(channelText))
+      dispatch(middleware.fetchAddChannel(channelText))
     } 
 });
 
