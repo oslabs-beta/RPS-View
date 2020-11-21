@@ -18,7 +18,7 @@ import { connect } from 'react-redux';
 //import child components
 import ClientCard from '../components/ClientCard.jsx';
 //import any actions we use
-import * as actions from '../actions/actions.js';
+import * as actions from '../actions/clientActions.js';
 
 //mapState
 const mapStateToProps = (state) => {
