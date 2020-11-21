@@ -243,7 +243,7 @@ export const fetchAddClient = (data) => (dispatch) => {
       'Content-Type': 'application/json',
     },
     //check that below is for sure a string
-    body: JSON.stringify(data),
+    body: JSON.stringify({type:data.type,clientId:data.clientId+1}),
   })
   .then(response => {
     
