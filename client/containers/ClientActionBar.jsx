@@ -12,7 +12,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 //import actions
-import * as actions from '../actions/actions.js';
+import * as actions from '../actions/clientActions.js';
+import * as middleware from '../actions/middleware.js';
 
 //mapstate
 const mapStateToProps = (state) => ({
@@ -34,7 +35,7 @@ const mapDispatchToProps = (dispatch) => ({
   //publish
   addMessage: () => dispatch(actions.addMessage),
   //get handleGoClick
-  handleGoClick: (selectedAction) => dispatch(actions.handleGoClick(selectedAction))
+  handleGoClick: (selectedAction) => dispatch(middleware.handleGoClick(selectedAction))
 });
 
 class ClientActionBar extends Component{
