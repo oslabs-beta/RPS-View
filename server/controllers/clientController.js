@@ -68,7 +68,7 @@ clientController.subscribe = (req, res, next) => {
 };
 
 //router for client to publish on redis server
-clientController.publish = (req, res, next) => {
+clientController.publish = (req, res, next) => {``
   const clientId = req.body.clientId
   const channelName = req.body.channelName
   const message = req.body.message
@@ -88,7 +88,6 @@ clientController.publish = (req, res, next) => {
       return res.status(200).send('message published!')
     })
   }
-
 };
 
 module.exports = clientController;
