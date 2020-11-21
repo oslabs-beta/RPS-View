@@ -36,4 +36,6 @@
         }
 
     }
- }
+}
+
+export default errorReducer;
