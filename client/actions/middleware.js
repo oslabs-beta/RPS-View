@@ -155,7 +155,12 @@ export const fetchAddClient = (data) => (dispatch) => {
   .then(response => {
     
     if (response.status === 200) {
-      dispatch(wsMessage(data));
+      if (data.type === 'subscriber') {
+        dispatch(wsMessage(data));
+      } else {
+        dispatch(clientActions.addClient())
+      }
+      
       return;
     } else {
       dispatch(dispatch(errorActions.errorHandler('Failed to addClient!')));
