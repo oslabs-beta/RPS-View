@@ -38,7 +38,11 @@ const mapDispatchToProps = (dispatch) => ({
     },
     fetchAddChannel: (channelText) => {
       dispatch(middleware.fetchAddChannel(channelText))
-    } 
+    },
+    socketReceivedMessage: (stateObj) => {
+      dispatch(middleware.socketReceivedMessage(stateObj))
+    }
+
 });
 
 class NavBar extends Component {
@@ -55,7 +59,7 @@ class NavBar extends Component {
       // this.ws.send(JSON.stringify({hi:"hi"}))
       this.ws.onmessage = (event) => {
         const messages = JSON.parse(event.data);
-        console.log(messages)
+        this.props.socketReceivedMessage(messages);
       };
       };
   }
