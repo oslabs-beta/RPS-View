@@ -70,7 +70,7 @@ export const fetchSubscribe = (stateObj) => (dispatch) => {
   .then( response => {
     if(response.status === 200) {
       console.log('client subscribed')
-      dispatch(wsMessage(stateObj))
+      dispatch(clientActions.subscribe())
     } else {
       dispatch(errorActions.errorHandler('Failed to publish!'))
     }
@@ -83,11 +83,7 @@ export const fetchSubscribe = (stateObj) => (dispatch) => {
 //will be dispatched from fetchsubscribe and will dispatch subscribe
 //needs to be passed ws so can message backend
 
-export const wsMessage = (stateObj) => dispatch => {
-  
-  stateObj.ws.send(JSON.stringify({clientId:stateObj.currClient}))
-  dispatch(clientActions.subscribe())
-}
+
 
 export const fetchUnsubscribe = (stateObj) => (dispatch) => {
   
@@ -159,7 +155,7 @@ export const fetchAddClient = (data) => (dispatch) => {
   .then(response => {
     
     if (response.status === 200) {
-      dispatch(clientActions.addClient());
+      dispatch(wsMessage(data));
       return;
     } else {
       dispatch(dispatch(errorActions.errorHandler('Failed to addClient!')));
@@ -171,6 +167,13 @@ export const fetchAddClient = (data) => (dispatch) => {
     return;
   })
 };
+
+export const wsMessage = (data) => dispatch => {
+  
+  data.ws.send(JSON.stringify({clientId:data.clientId}))
+  dispatch(clientActions.addClient())
+}
+
 
 //fetchAddChannel
 export const fetchAddChannel = (channelName) => (dispatch) => {
