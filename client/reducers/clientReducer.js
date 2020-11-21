@@ -17,12 +17,17 @@ const initialState = {
   message: '',
   selectedAction: '',
   currClient: null,
-  nextClientId: 3, //used to create a serial id for each id
+  nextClientId: 1, //used to create a serial id for each id
   channel: '',
   /**TODO change channels to a set instead of an array */
-  clients: {1: {log: [{channel: 'politics', type: 'received', timestamp: 'DATEHERE', message: 'election called'}], channels: ['politics', 'food']}, 
-  2: {log: [{channel: 'Joe', type: 'received', timestamp: 'DATEHERE', message: 'joe sent a message'}, {channel: 'food', type: 'received', timestamp: 'DATEHERE', message: 'how to make pickles'}], channels: ['Joe', 'food']}}, 
-  //will have the structure id: {log: [{channel: str, type: 'published'/'received', timestamp: ISO string, message: str}], channels: [arrs]},
+  clients: {}, 
+  /**will have the structure {id: 
+   * {
+   * log: [{channel: str, timestamp: ISO string (MIDDLEWARE), message: str}], 
+   * channels: [arrs]
+   * type: 'publisher' OR 'subscriber'
+   * }
+   * */
 
 }
 
@@ -78,46 +83,53 @@ const clientReducer = (state = initialState, action) => {
         message: '',
       };
     
-    /** Message takes the message, channel, and client in state and adds a message to every client subscribed to that channel */
-    case types.MESSAGE:
-      /** TODO - we are currently attempting to achieve all functionality
-       * by updating state, but we need to do this through an 
-       * external call REST request or WS sendMessage (Thunk)
-       * */
+    case types.PUBLISH_MESSAGE:
+      //action.payload will be the date string
 
-      //if there is no message, return out
-      if (state.message === '') return state;
-
-      //create messages object
-      let now = action.payload;
-      //adjust for async
-      const newMessage = {channel: state.channel, timestamp: now, type: 'received', message: state.message}
-     
-      //go through all clients
-      for (let clientId in copyClientList) {
-        
-        // declare log, which is the log for the current clientId on iteration
-        const newLog = copyClientList[clientId].log;
-        
-        //if we're on the currClient, add the message with type: published
-        if (clientId === state.currClient) {
-          const publisherMessage = Object.assign({}, newMessage, {type: 'published'});
-          newLog.push(publisherMessage);
-        } 
-
-        //are they subscribed to that channel?
-        //if so add a message to their log array 
-        
-        else if (copyClientList[clientId].channels.includes(state.channel)) {
-          newLog.push(newMessage);
-        };
-      };
-    
-      //reset message to ', reassign clients
+      //create new message using date and state components
+      const newPubMessage = {
+        channel: state.channel,
+        timestamp: action.payload,
+        type: 'published',
+        message: state.message,
+      }
+      //push new message to correct client log
+      copyClientList[state.currClient].log.push(newPubMessage);
+      //return altered state
+        //note: clear message
       return {
         ...state,
         clients: copyClientList,
         message: '',
+      }
+
+
+    /** Message is dispatched after web socket receives data, adds newMessage to the client's log*/
+    case types.RECEIVED_MESSAGE:
+      //create messages object
+      /**
+       * action.payload format
+       * {
+        * now: TIMESTAMP from middleware,
+        * channel: 'string',
+        * message: 'string'
+        * clientid: int
+       * }
+       */
+      const {now, channel, message, clientId} = action.payload;
+
+      const newMessage = {
+        channel, 
+        timestamp: now, 
+        type: 'received', 
+        message
+      }
+
+      copyClientList[clientId].log.push(newMessage);
+      
+      return {
+        ...state,
+        clients: copyClientList,
       }
      
     /** Add client adds a client to the clients object */
