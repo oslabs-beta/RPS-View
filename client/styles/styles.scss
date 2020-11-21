@@ -1,7 +1,206 @@
-h2 {
-  background-color: lightsalmon;
-}
+@import 'variables';
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,500;0,600;1,300&display=swap');
+// Note font-family Poppins
 
 body {
-  background-color: lightblue;
+  background-color: $bg;
+  font-family: 'Poppins', 'sans-serif';
+  font-size: 0.9em;
 }
+
+button {
+  padding: .3em;
+}
+
+input {
+  padding: .3em;
+}
+
+.unhighlighted{
+  padding: .2em;
+  margin: .1em;
+  background-color: $component-bg;
+  color: $accentDark;
+  border: $accentDark;
+}
+
+.highlighted{
+  padding: 0.2em;
+  background-color: $highlight;
+  color: $highlightDark;
+  border: $highlightDark;
+  
+}
+
+.highlighted:focus {
+  outline: $highlightDark solid .1em !important;
+}
+
+.primaryButton {
+  
+  background-color: $accent;
+  color: $accentDark;
+  border: 1px solid $accentDark;
+}
+
+.secondaryButton {
+  background-color: $component-bg;
+  color: $accentDark;
+  border: 1px solid $accentDark;
+}
+
+.dropDown {
+  padding: 0.3em;
+  color: $accentDark;
+}
+
+.primaryButton:focus, .secondaryButton:focus {
+  outline: $accentDark solid 0.1em ;
+}
+
+// .logo {
+//   background-color: purple;
+//   width: 100px;
+//   height: 30px;
+// }
+
+#root {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+    .left {
+      width: 100px;
+      .logo {
+        background-color: $accentDark;
+        width: 100px;
+        height: 80px;
+      }
+      .channelLabel {
+        background-color: $accent;
+        color: $accentDark;
+        font-size: 0.9em;
+        text-align: center;
+      }
+      .channel {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: stretch;
+        
+        .oneChannel {
+          button {
+            width: 100%;
+            
+          }
+          
+        }
+      }
+    }
+    .middle {
+
+      width: auto;
+      .navBar {
+        display: flex;
+        flex-direction: row;
+        .navLeft {
+          margin: 5px; 
+          .serverInput {
+            border: 1px solid $accentDark;
+          }   
+        }
+        .navCenter {
+          margin: 5px;
+          .channelInput {
+            border: 1px solid $accentDark;
+          }
+        }
+        .navRight {
+          margin: 5px;
+        }
+      }
+      .clientWindow {
+        border: 1px solid black;
+        background-color: $component-bg;
+        
+        .top {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          background-color: $accent;
+          color: $accentDark;
+          .clientLabel {
+            margin-left: 10px;
+          }
+        }
+        .center {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          .messageLogDisplay {
+            display: flex;
+            flex-direction: column;
+            padding-left: 10px;
+            .clientWindowMessageLabel {
+              margin-bottom: -5px;
+            }
+            .messageBox {
+              margin-bottom: 20px;
+              font-size: smaller;
+              color: $darkGray;
+              p {
+                  margin-bottom: -12px;
+              }
+              .accentColor {
+                color: $accentDark;
+              }
+              .messageBoxType {
+                color: $highlightDark;
+              }
+            }
+          }
+          .clientWindowSubscribedLabel {
+            margin-bottom: 5px;
+          }
+          .subscribedChannels {
+            display: flex;
+            flex-direction: column;
+            padding-right: 10px;
+            font-size: smaller;
+          }
+        }
+        .bottom {
+          display: flex;
+          justify-content: center;
+          * {
+            margin-right: 0.2em;
+          }
+          #goButton {
+            padding-right: .9em;
+            padding-left: .9em;
+          }
+        } 
+      }
+    }
+    .right {
+      width: 100px;
+      .clientMenu {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        .clientLabel {
+          background-color: $accent;
+          color: $accentDark;
+          font-size: 0.9em;
+          text-align: center;
+        }
+        .oneClient {
+          button {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
