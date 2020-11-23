@@ -46,6 +46,24 @@ const MessageBox = (props) => {
       </div>
     )
   }
+  if (props.type === "subscribed") {
+    return (
+      <div className ="messageBox">
+        <p className="messageBoxType">SUBSCRIBED</p>
+        <p className="messageBoxChannel">to {props.channel} </p>
+        <p className="messageBoxTime">at {props.timestamp}</p>
+      </div>
+    )
+  }
+  if (props.type === "unsubscribed") {
+    return (
+      <div className ="messageBox">
+        <p className="messageBoxType">UNSUBSCRIBED</p>
+        <p className="messageBoxChannel">from {props.channel} </p>
+        <p className="messageBoxTime">at {props.timestamp}</p>
+      </div>
+    )
+  }
 
 }
 

@@ -55,6 +55,19 @@ const clientReducer = (state = initialState, action) => {
         channels.sort();
       }
 
+      //TODO add timestamp payload to function call
+      //initialize a new message
+      let subMessage = {
+        channel: state.channel,
+        timestamp: action.payload,
+        type: 'subscribed',
+        message: `Subscribed to ${state.channel}`
+      }
+      console.log('subMessage: ', subMessage);
+
+      //push new message to correct client log
+      copyClientList[state.currClient].log.push(subMessage);
+
       //return state with updated clients list and reassign message to empty string
       return {
         ...state,
@@ -75,7 +88,17 @@ const clientReducer = (state = initialState, action) => {
         //remove one element at that index to remove the channel
         channels.splice(index, 1);
       }
+      //initialize a new message
+      let unsubMessage = {
+        channel: state.channel,
+        timestamp: action.payload,
+        type: 'unsubscribed',
+        message: `Unsubscribed from ${state.channel}`
+      }
+      console.log("unsubMessage: ", unsubMessage);
 
+      //push new message to correct client log
+      copyClientList[state.currClient].log.push(unsubMessage);
       //add the altered copyClientList to the state & reset message
       return {
         ...state,
