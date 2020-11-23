@@ -26,7 +26,8 @@ import * as actions from '../actions/clientActions.js';
 //import child components
 import MessageLogDisplay from '../components/MessageLogDisplay.jsx';
 import SubscribedChannels from '../components/SubscribedChannelsDisplay.jsx';
-import ClientActionBar from './ClientActionBar.jsx';
+import PublisherActions from './PublisherActions.jsx';
+import SubscriberActions from './SubscriberActions.jsx';
 
 //mapstate
 const mapStateToProps = (state) => ({
@@ -48,9 +49,13 @@ class ClientWindow extends Component {
   constructor(props) {
     super(props);
   }
+
   
   render() {
     if (this.props.currClient !== null) {
+      let actions;
+      if (this.props.clients.type === "publisher") actions = <PublisherActions />
+      else actions = <SubscriberActions />
       return (
         <div className = "clientWindow">
           <div className="top">
@@ -71,7 +76,8 @@ class ClientWindow extends Component {
             </div>
           </div>
           <div className = "bottom">
-            <ClientActionBar />
+           
+            {actions}
           </div>
         </div>
 
