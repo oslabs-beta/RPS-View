@@ -32,6 +32,19 @@ module.exports = {
           }
         }
       },
+      //image loaders
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        // loader: "file-loader?name=/static/RPS_View_logo.png",
+        use: [
+          {
+          loader: 'url-loader',
+          options: {
+            // outputPath: 'static',
+            limit: false,
+          }
+         }]
+      },
       //style loaders
       {
         test: /\.s[ac]ss$/i,
