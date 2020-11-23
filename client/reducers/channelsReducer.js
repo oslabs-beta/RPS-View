@@ -68,9 +68,12 @@ const channelsReducer = (state = initialState, action) => {
             }
         
         case types.SELECT_CHANNEL:
+            let selected;
+            if(action.payload === state.selectedChannel) selected = null;
+            else selected = action.payload;
             return{
                 ...state,
-                selectedChannel : action.payload
+                selectedChannel : selected
             }
         
         //add channel subscribers

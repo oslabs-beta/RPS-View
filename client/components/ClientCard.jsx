@@ -25,8 +25,8 @@ const ClientCard = (props) => {
   let type;
 
   //use this to display type on button
-  if(props.type === 'publisher') type = 'Publisher: ';
-  else type = 'Subscriber: ';
+  if(props.type === 'publisher') type = '.  Publisher';
+  else type = '. Subscriber';
 
   channels.forEach(element => {
     if(element === selectedChannel){
@@ -44,7 +44,7 @@ const ClientCard = (props) => {
           props.setClient(e.target.id);
         }}
       >
-        {type + props.id}
+        {props.id}
 
       </button>
     </div>
