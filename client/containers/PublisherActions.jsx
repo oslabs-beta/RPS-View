@@ -23,6 +23,7 @@ const mapStateToProps = (state) => ({
   message: state.client.message,
   channel: state.client.channel,
   selectedAction: state.client.selectedAction,
+  client: state.client.clients[state.client.currClient],
 });
 
 //map dispatch
@@ -34,13 +35,17 @@ const mapDispatchToProps = (dispatch) => ({
   handleGoClick: (selectedAction) => dispatch(middleware.handleGoClick(selectedAction))
 });
 
-class ClientActionBar extends Component{
+class PublisherActions extends Component{
   constructor(props){
     super(props);
     // this.handleGoClick = this.handleGoClick.bind(this);
   }
 
-  
+  componentDidMount(){
+    this.props.handleClientInput(
+      {property: 'selectedAction', value: 'addMessage'}
+    );
+  }
 
   render(){
     
@@ -48,6 +53,7 @@ class ClientActionBar extends Component{
     let channels = this.props.channels;
     
     let channelsArray = [];
+
     
     channels.forEach((channel, i) => {
       channelsArray.push(<option key={`channelId${i}`} value={channel.name}>{channel.name}</option>)
@@ -67,19 +73,7 @@ class ClientActionBar extends Component{
           {channelsArray}
         </select>
 
-        {/* dropdown menu to select action */}
-        <select 
-          className="dropDown" 
-          value={this.props.selectedAction} 
-          onChange={(e) => this.props.handleClientInput(
-            {property: 'selectedAction', value: e.target.value}
-          )}
-        >
-          <option value="">Choose Action</option>
-          <option value="addMessage">Add Message</option>
-          <option value="subscribe">Subscribe</option>
-          <option value="unsubscribe">Unsubscribe</option>
-        </select>
+      
 
         <input type="text" 
           id="actionBarInput" 
@@ -94,12 +88,12 @@ class ClientActionBar extends Component{
           className = "primaryButton" 
           id = "goButton" 
           onClick={() => {this.props.handleGoClick({ 
-            selectedAction: this.props.selectedAction, 
+            selectedAction: "addMessage", 
             currClient: this.props.currClient, 
             message: this.props.message, 
             channel: this.props.channel
             })}}>
-          Go
+          Publish Message
         </button>
         
       </div>
@@ -107,11 +101,4 @@ class ClientActionBar extends Component{
   }
 }
 
-
-
-
-
-
-  
-
-export default connect(mapStateToProps, mapDispatchToProps)(ClientActionBar);
+export default connect(mapStateToProps, mapDispatchToProps)(PublisherActions);

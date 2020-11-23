@@ -91,6 +91,12 @@ menuController.addClient = (req, res, next) => {
         if(req.body.type === "subscriber"){
             subObj[req.body.clientId] = new Redis(globalPort);
             subObj[req.body.clientId].clientId=req.body.clientId;
+            subObj[req.body.clientId].subscribe('sup', (error, count)=>{
+                //if error attach error as res locals and continue
+                if(error){
+                    return res.status(400).send('failed to connect');
+                }
+            })
         }
         //UPDATE. if client type is not selected(which default to empty string), default to sub. 
         if(req.body.type === '') {
@@ -98,7 +104,7 @@ menuController.addClient = (req, res, next) => {
             subObj[req.body.clientId].clientId=req.body.clientId;
         }
         return res.status(200).send('added client')
-        // next();
+        
     })
   };
 

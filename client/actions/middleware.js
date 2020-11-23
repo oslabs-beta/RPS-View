@@ -170,7 +170,7 @@ export const fetchAddClient = (data) => (dispatch) => {
       if (data.type === 'subscriber') {
         dispatch(wsMessage(data));
       } else {
-        dispatch(clientActions.addClient())
+        dispatch(clientActions.addClient('publisher'))
       }
       
       return;
@@ -188,7 +188,7 @@ export const fetchAddClient = (data) => (dispatch) => {
 export const wsMessage = (data) => dispatch => {
   
   data.ws.send(JSON.stringify({clientId:data.clientId}))
-  dispatch(clientActions.addClient())
+  dispatch(clientActions.addClient('subscriber'))
 }
 
 
