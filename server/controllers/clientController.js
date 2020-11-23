@@ -32,7 +32,7 @@ clientController.unsubscribe = (req, res, next) => {
       if(error) {
         return res.status(400).send('unable to unsubscribe');
       } 
-      return res.status(200).send('Client Successfully Unsubscribed to Channel');
+      return res.status(200).send(clientId+ 'Successfully unsubscribed to ' + channelName + '. Cleint is now subscribed to '+ count +'channels');
     })
   }
 };
@@ -51,17 +51,14 @@ clientController.subscribe = (req, res, next) => {
   //server message is passed to the router for response
   if(channelName === undefined || clientId === undefined) return res.status(400).send('undefined input');
   if(subObj[clientId] === undefined) {
-    console.log(1)
 
     return res.status(400).send('client does not exist');
   } else {
     subObj[clientId].subscribe(channelName, (error, count) => {
       if(error) {
-        console.log(2)
         return res.status(400).send('failed to subscribe');
       } 
-      console.log(3)
-      return res.status(200).send('Client Successfully subscribed to Channel');
+      return res.status(200).send(clientId+ 'Successfully subscribed to ' + channelName + '. Cleint is now subscribed to '+ count +'channels');
     })
   }
 
@@ -85,7 +82,8 @@ clientController.publish = (req, res, next) => {``
       if(error) {
         return res.status(400).send('failed to publish!')
       } 
-      return res.status(200).send('message published!')
+      console.log(count)
+      return res.status(200).send('message published to ' + channelName + '. message published to ' + count + 'channel');
     })
   }
 };

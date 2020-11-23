@@ -53,6 +53,7 @@ class ClientMenu extends Component{
       
       clients.push(<ClientCard 
         channels = {this.props.clients[clientId].channels} 
+        type = {this.props.clients[clientId].type}
         selectedChannel = {this.props.selectedChannel}
         id={clientId} 
         key={`ClientCard${clientId}`}

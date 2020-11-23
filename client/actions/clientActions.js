@@ -41,8 +41,9 @@ export const receivedMessage = (messageData) => ({
   payload: messageData,
 });
 
-export const addClient = () => ({
+export const addClient = (pubOrSub) => ({
   type: types.ADD_CLIENT,
+  payload: pubOrSub,
 });
 
 export const setClient = (clientID) => ({
