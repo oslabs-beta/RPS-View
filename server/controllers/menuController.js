@@ -93,9 +93,7 @@ menuController.addClient = (req, res, next) => {
             subObj[req.body.clientId].subscribe('sup', (error, count)=>{
                 //if error attach error as res locals and continue
                 if(error){
-                    
                     return res.status(400).send('failed to connect');
-                    // next();
                 }
             })
         }
