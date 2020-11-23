@@ -71,7 +71,7 @@ export const fetchSubscribe = (stateObj) => (dispatch) => {
   .then( response => {
     if(response.status === 200) {
       console.log('client subscribed')
-      dispatch(clientActions.subscribe())
+      dispatch(getDate(stateObj))
     } else {
       dispatch(errorActions.errorHandler('Failed to publish!'))
     }
@@ -101,7 +101,7 @@ export const fetchUnsubscribe = (stateObj) => (dispatch) => {
   .then( response => {
     if(response.status === 200) {
       console.log('client unsubscribed :\(!')
-      dispatch(clientActions.unsubscribe())
+      dispatch(getDate(stateObj))
     } else {
       dispatch(errorActions.errorHandler('Failed to unsubscribe!'))
     }
@@ -121,7 +121,14 @@ export const getDate = (stateObj) => (dispatch) => {
   const now = new Date(Date.now()).toISOString();
   if(stateObj.selectedAction === 'addMessage'){
     dispatch(clientActions.publishMessage(now));
-  }else{
+  }
+  if(stateObj.selectedAction === 'subscribe') {
+    dispatch(clientActions.subscribe(now));
+  }
+  if(stateObj.selectedAction === 'unsubscribe') {
+    dispatch(clientActions.unsubscribe(now));
+  }
+  else {
     dispatch(clientActions.receivedMessage({...stateObj, now}));
   }
 }
