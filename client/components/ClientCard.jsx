@@ -23,7 +23,8 @@ const ClientCard = (props) => {
   let channels = props.channels;
   let highlight = 'unhighlighted';
   let type;
-  
+
+  //use this to display type on button
   if(props.type === 'publisher') type = 'Publisher: ';
   else type = 'Subscriber: ';
 
