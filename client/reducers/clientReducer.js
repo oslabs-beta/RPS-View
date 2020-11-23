@@ -134,9 +134,10 @@ const clientReducer = (state = initialState, action) => {
      
     /** Add client adds a client to the clients object */
     case types.ADD_CLIENT:
+      const type = action.payload;
       
       //create a new client object with an empty log and empty channels array
-      const newClient = {log: [], channels: []};
+      const newClient = {type, log: [], channels: []};
       
       //add new client object to the copyOfClients object
       copyClientList[state.nextClientId] = newClient;
