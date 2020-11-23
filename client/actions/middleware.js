@@ -155,7 +155,6 @@ export const fetchConnect = (port) => (dispatch) => {
 //data in form of 
 // {clientId: #, type: 'publisher' OR 'subscriber'}
 export const fetchAddClient = (data) => (dispatch) => {
-  
   fetch('/menu/addClient', {
     method: 'POST', 
     headers: {
@@ -165,7 +164,7 @@ export const fetchAddClient = (data) => (dispatch) => {
     body: JSON.stringify({type:data.type,clientId:data.clientId}),
   })
   .then(response => {
-    
+
     if (response.status === 200) {
       if (data.type === 'subscriber') {
         dispatch(wsMessage(data));
@@ -194,6 +193,7 @@ export const wsMessage = (data) => dispatch => {
 
 //fetchAddChannel
 export const fetchAddChannel = (channelName) => (dispatch) => {
+  console.log('this is middleware',channelName)
   fetch('/menu/addChannel', {
     method: 'POST',
     headers: {
