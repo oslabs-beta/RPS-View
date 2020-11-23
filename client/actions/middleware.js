@@ -57,7 +57,7 @@ export const fetchMessage = (stateObj) => (dispatch) => {
 }
 
 export const fetchSubscribe = (stateObj) => (dispatch) => {
-  console.log(stateObj.currClient)
+  
   fetch("/client/subscribe", {
     method: 'POST',
     headers: {
@@ -73,11 +73,14 @@ export const fetchSubscribe = (stateObj) => (dispatch) => {
       console.log('client subscribed')
       dispatch(getDate(stateObj))
     } else {
-      dispatch(errorActions.errorHandler('Failed to publish!'))
+      dispatch(errorActions.errorHandler('Failed to subscribe!'))
     }
     
   })
-  .catch( error => dispatch(errorActions.errorHandler('Failed to publish!')))
+  .catch( error => {
+    
+    dispatch(errorActions.errorHandler('Failed to subscribe!'))
+  })
 }
 
 //middleware to add on message event listener to backend for subscriber client
@@ -118,14 +121,15 @@ export const socketReceivedMessage = (stateObj) => (dispatch) => {
 
 //message middleware - create new iso string for current time, then call dispatch for message
 export const getDate = (stateObj) => (dispatch) => {
+  
   const now = new Date(Date.now()).toISOString();
   if(stateObj.selectedAction === 'addMessage'){
     dispatch(clientActions.publishMessage(now));
   }
-  if(stateObj.selectedAction === 'subscribe') {
+  else if(stateObj.selectedAction === 'subscribe') {
     dispatch(clientActions.subscribe(now));
   }
-  if(stateObj.selectedAction === 'unsubscribe') {
+  else if(stateObj.selectedAction === 'unsubscribe') {
     dispatch(clientActions.unsubscribe(now));
   }
   else {

@@ -46,7 +46,7 @@ socketServer.on('connection', function connection(ws) {
         // this.options.name = "yo"
         console.log(this.clientId)
         if(client.readyState === WebSocket.OPEN){
-          client.send(JSON.stringify({message, channel,clientId:this.clientId}));
+          client.send(JSON.stringify({message, channel, clientId:this.clientId}));
         }
       })
       // ws.send({

@@ -32,6 +32,7 @@ class ErrorBox extends Component{
   }
 
   render() {
+    if (!this.props.errorMessage) return <></>;
     return (
       <div className="errorBox">
         <div className="errorComponents">

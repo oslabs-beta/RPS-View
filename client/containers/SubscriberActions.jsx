@@ -65,7 +65,7 @@ class SubscriberActions extends Component{
             {property: 'channel', value: e.target.value}
           )}
         >
-          <option value="selectChannel">Choose Channel</option>
+          <option value="">Choose Channel</option>
           {channelsArray}
         </select>
 
