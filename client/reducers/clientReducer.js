@@ -84,6 +84,7 @@ const clientReducer = (state = initialState, action) => {
       };
     
     case types.PUBLISH_MESSAGE:
+      console.log('running publish message reducer')
       //action.payload will be the date string
 
       //create new message using date and state components
@@ -93,10 +94,20 @@ const clientReducer = (state = initialState, action) => {
         type: 'published',
         message: state.message,
       }
+
+      console.log(newPubMessage)
+
       //push new message to correct client log
       copyClientList[state.currClient].log.push(newPubMessage);
       //return altered state
         //note: clear message
+
+      //has this client pubbed to this channel before? IF NOT --> update channels
+      if (!copyClientList[state.currClient].channels.includes(state.channel)) {
+        console.log('channels list does not have this channel yet')
+        copyClientList[state.currClient].channels.push(state.channel);
+      }
+      
       return {
         ...state,
         clients: copyClientList,

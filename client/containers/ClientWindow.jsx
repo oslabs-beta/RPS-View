@@ -53,9 +53,21 @@ class ClientWindow extends Component {
   
   render() {
     if (this.props.currClient !== null) {
+
+      //actions will be the component that renders based on whether pub or sub
+      //channelDisplayMessage will be the heading that shows before the Channels Display component rendered
       let actions;
-      if (this.props.clients.type === "publisher") actions = <PublisherActions />
-      else actions = <SubscriberActions />
+      let channelDisplayMessage;
+      if (this.props.clients.type === "publisher") {
+        actions = <PublisherActions />
+        channelDisplayMessage = 'Publishes to channels'
+      }
+      else {
+        actions = <SubscriberActions />
+        channelDisplayMessage = 'Subscribed channels'
+      }
+
+
       return (
         <div className = "clientWindow">
           <div className="top">
@@ -71,7 +83,7 @@ class ClientWindow extends Component {
               
             </div>
             <div className="subscribedChannels">
-              <h4 className="clientWindowSubscribedLabel">Subscribed Channels</h4>
+              <h4 className="clientWindowSubscribedLabel">{channelDisplayMessage}</h4>
               <SubscribedChannels channels = {this.props.clients.channels}/>
             </div>
           </div>

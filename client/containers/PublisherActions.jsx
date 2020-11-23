@@ -88,7 +88,7 @@ class PublisherActions extends Component{
           className = "primaryButton" 
           id = "goButton" 
           onClick={() => {this.props.handleGoClick({ 
-            selectedAction: addMessage, 
+            selectedAction: "addMessage", 
             currClient: this.props.currClient, 
             message: this.props.message, 
             channel: this.props.channel
