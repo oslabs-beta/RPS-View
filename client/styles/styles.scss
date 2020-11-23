@@ -67,19 +67,23 @@ input {
 #root {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
     .left {
       width: 100px;
       .logo {
-        background-color: $accentDark;
+        // background-color: $accentDark;
         width: 100px;
-        height: 80px;
+        .logoImg {
+          border: 2px solid $accentDark;
+          width: 100%;
+        }
       }
       .channelLabel {
         background-color: $accent;
         color: $accentDark;
         font-size: 0.9em;
         text-align: center;
+        border: 2px solid $accentDark;
       }
       .channel {
         display: flex;
