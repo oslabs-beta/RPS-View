@@ -167,7 +167,7 @@ export const fetchAddClient = (data) => (dispatch) => {
 
     if (response.status === 200) {
 
-      if (data.type === 'subscriber') {
+      if (data.type === 'subscriber' || data.type === '') {
         dispatch(wsMessage(data));
       } else {
         dispatch(clientActions.addClient('publisher'))
