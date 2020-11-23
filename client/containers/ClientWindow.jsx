@@ -58,20 +58,23 @@ class ClientWindow extends Component {
       //channelDisplayMessage will be the heading that shows before the Channels Display component rendered
       let actions;
       let channelDisplayMessage;
+      let heading;
       if (this.props.clients.type === "publisher") {
-        actions = <PublisherActions />
-        channelDisplayMessage = 'Publishes to channels'
+        actions = <PublisherActions />;
+        channelDisplayMessage = 'Publishes to channels';
+        heading = "Publisher";
       }
       else {
-        actions = <SubscriberActions />
-        channelDisplayMessage = 'Subscribed channels'
+        actions = <SubscriberActions />;
+        channelDisplayMessage = 'Subscribed channels';
+        heading = "Subscriber";
       }
 
 
       return (
         <div className = "clientWindow">
           <div className="top">
-            <h3 className="clentLabel">Client {this.props.currClient}</h3>
+            <h3 className="clentLabel">Client {this.props.currClient}: {heading}</h3>
             <button className="secondaryButton" onClick={(e) => {this.props.setClient(this.props.currClient)}}>X</button>
           </div>
           <div className="center">
