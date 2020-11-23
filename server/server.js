@@ -71,7 +71,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //serve index
-// app.use('/static', express.static(path.resolve(__dirname,'../static')));
+app.use('/static', express.static(path.resolve(__dirname,'../static')));
 
 app.get('/', (req, res) => {
   res.set({ 'Content-Type': 'text/html; charset=utf-8' })
