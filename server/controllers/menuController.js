@@ -45,8 +45,8 @@ menuController.connect = (req,res,next) => {
 
 //middle ware to add a given channel to the redis server given from global port
 menuController.addChannel = (req,res,next) => {
-    
-    if(req.body.channelName === undefined){
+
+    if(req.body.channelName === ''){
         return res.status(400).send('invalid channel name');
     }
 
@@ -67,7 +67,8 @@ menuController.addChannel = (req,res,next) => {
 //add client to redis
 menuController.addClient = (req, res, next) => {
     // console.log(req.body);
-    if(req.body.clientId === undefined || req.body.type === undefined){
+    //if clientId from fetch body is incorrect, send back invalid input
+    if(req.body.clientId === undefined){
         return res.status(200).send('invalid inputs');
     }
 
@@ -90,9 +91,20 @@ menuController.addClient = (req, res, next) => {
         if(req.body.type === "subscriber"){
             subObj[req.body.clientId] = new Redis(globalPort);
             subObj[req.body.clientId].clientId=req.body.clientId;
+            subObj[req.body.clientId].subscribe('sup', (error, count)=>{
+                //if error attach error as res locals and continue
+                if(error){
+                    return res.status(400).send('failed to connect');
+                }
+            })
+        }
+        //UPDATE. if client type is not selected(which default to empty string), default to sub. 
+        if(req.body.type === '') {
+            subObj[req.body.clientId] = new Redis(globalPort);
+            subObj[req.body.clientId].clientId=req.body.clientId;
         }
         return res.status(200).send('added client')
-        // next();
+        
     })
   };
 

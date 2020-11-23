@@ -26,7 +26,8 @@ import * as actions from '../actions/clientActions.js';
 //import child components
 import MessageLogDisplay from '../components/MessageLogDisplay.jsx';
 import SubscribedChannels from '../components/SubscribedChannelsDisplay.jsx';
-import ClientActionBar from './ClientActionBar.jsx';
+import PublisherActions from './PublisherActions.jsx';
+import SubscriberActions from './SubscriberActions.jsx';
 
 //mapstate
 const mapStateToProps = (state) => ({
@@ -48,13 +49,32 @@ class ClientWindow extends Component {
   constructor(props) {
     super(props);
   }
+
   
   render() {
     if (this.props.currClient !== null) {
+
+      //actions will be the component that renders based on whether pub or sub
+      //channelDisplayMessage will be the heading that shows before the Channels Display component rendered
+      let actions;
+      let channelDisplayMessage;
+      let heading;
+      if (this.props.clients.type === "publisher") {
+        actions = <PublisherActions />;
+        channelDisplayMessage = 'Publishes to channels';
+        heading = "Publisher";
+      }
+      else {
+        actions = <SubscriberActions />;
+        channelDisplayMessage = 'Subscribed channels';
+        heading = "Subscriber";
+      }
+
+
       return (
         <div className = "clientWindow">
           <div className="top">
-            <h3 className="clentLabel">Client {this.props.currClient}</h3>
+            <h3 className="clentLabel">Client {this.props.currClient}: {heading}</h3>
             <button className="secondaryButton" onClick={(e) => {this.props.setClient(this.props.currClient)}}>X</button>
           </div>
           <div className="center">
@@ -66,12 +86,13 @@ class ClientWindow extends Component {
               
             </div>
             <div className="subscribedChannels">
-              <h4 className="clientWindowSubscribedLabel">Subscribed Channels</h4>
+              <h4 className="clientWindowSubscribedLabel">{channelDisplayMessage}</h4>
               <SubscribedChannels channels = {this.props.clients.channels}/>
             </div>
           </div>
           <div className = "bottom">
-            <ClientActionBar />
+           
+            {actions}
           </div>
         </div>
 
