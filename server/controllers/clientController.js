@@ -83,7 +83,7 @@ clientController.publish = (req, res, next) => {``
         return res.status(400).send('failed to publish!')
       } 
       console.log(count)
-      return res.status(200).send('message published to ' + channelName);
+      return res.status(200).send('message published to ' + channelName + '. message published to ' + count + 'channel');
     })
   }
 };
