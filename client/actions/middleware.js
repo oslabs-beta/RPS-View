@@ -153,7 +153,7 @@ export const fetchConnect = (port) => (dispatch) => {
 
 //fetchAddClient
 //data in form of 
-// {clientId: #, type: 'publisher' OR 'subscriber'}
+// {clientId: #, type: 'publisher' OR 'subscriber' OR '' defaults to subscriber}
 export const fetchAddClient = (data) => (dispatch) => {
   fetch('/menu/addClient', {
     method: 'POST', 
