@@ -153,9 +153,8 @@ export const fetchConnect = (port) => (dispatch) => {
 
 //fetchAddClient
 //data in form of 
-// {clientId: #, type: 'publisher' OR 'subscriber'}
+// {clientId: #, type: 'publisher' OR 'subscriber' OR '' defaults to subscriber}
 export const fetchAddClient = (data) => (dispatch) => {
-  
   fetch('/menu/addClient', {
     method: 'POST', 
     headers: {
@@ -165,9 +164,10 @@ export const fetchAddClient = (data) => (dispatch) => {
     body: JSON.stringify({type:data.type,clientId:data.clientId}),
   })
   .then(response => {
-    
+
     if (response.status === 200) {
-      if (data.type === 'subscriber') {
+
+      if (data.type === 'subscriber' || data.type === '') {
         dispatch(wsMessage(data));
       } else {
         dispatch(clientActions.addClient('publisher'))
