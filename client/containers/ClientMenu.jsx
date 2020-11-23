@@ -82,10 +82,15 @@ class ClientMenu extends Component{
         <div className = "clientLabel">
           <h2>Clients</h2>
         </div>
-        <h3>{pub}</h3>
-        {clients.pubs}
-        <h3>{sub}</h3>
-        {clients.subs}
+        
+          {pub === 'Publishers' && 
+          <h3>{pub}</h3>}
+          {clients.pubs}
+        
+          {sub === 'Subscribers' && 
+          <h3>{sub}</h3>}
+          {clients.subs}
+        
       </div>
       
     )
