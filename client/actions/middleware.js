@@ -166,6 +166,7 @@ export const fetchAddClient = (data) => (dispatch) => {
   .then(response => {
 
     if (response.status === 200) {
+
       if (data.type === 'subscriber') {
         dispatch(wsMessage(data));
       } else {
@@ -193,7 +194,6 @@ export const wsMessage = (data) => dispatch => {
 
 //fetchAddChannel
 export const fetchAddChannel = (channelName) => (dispatch) => {
-  console.log('this is middleware',channelName)
   fetch('/menu/addChannel', {
     method: 'POST',
     headers: {
