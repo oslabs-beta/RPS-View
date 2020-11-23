@@ -9,13 +9,14 @@
  * ************************************
  */
 
-const {clientObj} = require('./menuController')
+const {subObj, pubObj} = require('./menuController')
 
 let clientController = {};
 
 
 //router for client unsub to redis channel
 clientController.unsubscribe = (req, res, next) => {
+  
   const clientId = req.body.clientId
   const channelName = req.body.channelName
   //client ID and channel name is received from the front end 
@@ -23,17 +24,15 @@ clientController.unsubscribe = (req, res, next) => {
 
   //if clientID exist, call redis to unsub
     //passing in the channel name, and redis should return count of channel client is subscribe to
-  if(clientObj[clientId] === undefined) {
-    res.locals.message = 'error, client does not exist';
-    return next()
+  if(channelName === undefined || clientId === undefined) return res.status(400).send('undefined input');
+  if(subObj[clientId] === undefined) {
+    return res.status(400).send('client does not exist');
   } else {
-    clientObj[clientId].unsubscribe(channelName, (error, count) => {
+    subObj[clientId].unsubscribe(channelName, (error, count) => {
       if(error) {
-        res.locals.message = 'failed to unsubscribe';
-        return next()
+        return res.status(400).send('unable to unsubscribe');
       } 
-      res.locals.message = 'channel unsubscribed :\(!';
-      return next()
+      return res.status(200).send('Client Successfully Unsubscribed to Channel');
     })
   }
 };
@@ -42,30 +41,34 @@ clientController.unsubscribe = (req, res, next) => {
 clientController.subscribe = (req, res, next) => {
   const clientId = req.body.clientId
   const channelName = req.body.channelName
+  // console.log(clientId,channelName)
+  // console.log(subObj)
   //check if client exist
   //if clientId matches client DB
     //call subscribe to redis with passed in channelName
     //redis will return count for client subbed channel
 
   //server message is passed to the router for response
-  if(clientObj[clientId] === undefined) {
-    res.locals.message = 'error, client does not exist';
-    return next()
+  if(channelName === undefined || clientId === undefined) return res.status(400).send('undefined input');
+  if(subObj[clientId] === undefined) {
+    console.log(1)
+
+    return res.status(400).send('client does not exist');
   } else {
-    clientObj[clientId].subscribe(channelName, (error, count) => {
+    subObj[clientId].subscribe(channelName, (error, count) => {
       if(error) {
-        res.locals.message = 'failed to subscribe';
-        return next()
+        console.log(2)
+        return res.status(400).send('failed to subscribe');
       } 
-      res.locals.message = 'channel Subscribed!';
-      return next()
+      console.log(3)
+      return res.status(200).send('Client Successfully subscribed to Channel');
     })
   }
 
 };
 
 //router for client to publish on redis server
-clientController.publish = (req, res, next) => {
+clientController.publish = (req, res, next) => {``
   const clientId = req.body.clientId
   const channelName = req.body.channelName
   const message = req.body.message
@@ -73,20 +76,18 @@ clientController.publish = (req, res, next) => {
     //publish to redis using redis commands 
 
   //return server message to frontend
-  if(clientObj[clientId] === undefined) {
-    res.locals.message = 'error, client does not exist';
-    return next()
+  if(channelName === undefined || clientId === undefined || message === undefined) return res.status(400).send('undefined input');
+  if(pubObj[clientId] === undefined) {
+    //send fail status and message to the frontend
+    return res.status(400).send('error, client does not exist')
   } else {
-    clientObj[clientId].publish( channelName, message, (error, count) => {
+    pubObj[clientId].publish( channelName, message, (error, count) => {
       if(error) {
-        res.locals.message = 'failed to publish';
-        return next()
+        return res.status(400).send('failed to publish!')
       } 
-      res.locals.message = 'message published!';
-      return next()
+      return res.status(200).send('message published!')
     })
   }
-
 };
 
 module.exports = clientController;

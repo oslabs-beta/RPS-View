@@ -1,16 +1,48 @@
+/**
+ * ************************************
+ *
+ * @module  NavBar.jsx
+ * @author
+ * @date
+ * @description Stateful component that handles addPort, addClient, addChannel
+ *
+ * ************************************
+ */
+
+
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import * as actions from "../actions/actions";
+import * as channelActions from "../actions/channelActions";
+import * as errorActions from "../actions/errorActions";
+import * as clientActions from "../actions/clientActions.js";
+import * as middleware from "../actions/middleware.js";
+const URL = 'ws://localhost:3030'
 
+const mapStateToProps = (state) => ({
+  portErrorMessage: state.channels.portErrorMessage,
+  nextClientId: state.client.nextClientId,
+  errorMessage: state.client.errorMessage,
+  channels: state.channels.channelList,
+})
 
-const mapStateToProps = (store) => ({})
 const mapDispatchToProps = (dispatch) => ({
     addChannel: (e)=>{
-        dispatch(actions.addChannel(e))
+        dispatch(channelActions.addChannel(e))
     },
-    addClient: ()=>{
-        dispatch(actions.addClient())
+    // data {type, clientId}
+    fetchAddClient: (data)=>{
+        dispatch(middleware.fetchAddClient(data))
+    },
+    fetchConnect: (port) => {
+      dispatch(middleware.fetchConnect(port))
+    },
+    fetchAddChannel: (channelText) => {
+      dispatch(middleware.fetchAddChannel(channelText))
+    },
+    socketReceivedMessage: (stateObj) => {
+      dispatch(middleware.socketReceivedMessage(stateObj))
     }
+
 });
 
 class NavBar extends Component {
@@ -19,40 +51,124 @@ class NavBar extends Component {
     
   }
 
-  state = {
-    channelText: '',
-    
+  ws = new WebSocket(URL)
+
+  componentDidMount(){
+    this.ws.onopen = () => { 
+      console.log('Now connected'); 
+      // this.ws.send(JSON.stringify({hi:"hi"}))
+      this.ws.onmessage = (event) => {
+        const messages = JSON.parse(event.data);
+        this.props.socketReceivedMessage(messages);
+      };
+      };
   }
 
-  handleChannelChange = event =>{
+  state = {
+    channelText: '',
+    port: '',
+    type: '',
+  }
+
+ 
+  //trigger fetch request and add port to state when connect button is clicked
+  handlePortSubmit = (event) => {
+    event.preventDefault();
+    this.props.fetchConnect(this.state.port);
+    this.setState({...this.state, port: ''});
+  }
+
+  handleChannelChange = (event, key) => {
     //   console.log(this.state)
       this.setState({
-          channelText: event.target.value
+          [key]: event.target.value
       })
   }
 
   handleChannelSubmit = event => {
     //   console.log(this.state)
       event.preventDefault();
+      //TODO add check for repeated channels
+      this.props.fetchAddChannel(this.state.channelText);
       this.props.addChannel(this.state.channelText)
+      this.setState({
+        ...this.state,
+        channelText: '',
+      })
   }
 
   render(){
-      
+      console.log('navbar rendering, props are', this.props)
       return(
         <div className="navBar">
+          <div className="navLeft">
           {/* connect to server, require input and a submit button */}
-          <input className="serverInput" placeholder = "Input Server IP"/>
-          <button type="button">CONNECT</button>
+            <div className="navLeftTop">
+              <input 
+                className="serverInput" 
+                placeholder = "Input Server IP" 
+                value = {this.state.port} 
+                onChange={event => this.handleChannelChange(event, 'port')}/>
+              {/* add fetchconnect to onclick */}
+              <button 
+                className="primaryButton" 
+                type="button" 
+                onClick={event => this.handlePortSubmit(event)}>CONNECT
+              </button>
+            </div>
+            <div className="navLeftBotton"> 
+              <p>{this.props.portErrorMessage}</p>
+            </div>
+          </div>
+
+          <div className="navCenter">
+          {/* add channel, require input and a submit button
+              connect to channel reducer */}
+          <input 
+            className="channelInput" 
+            placeholder="Input Channel Name" 
+            value ={this.state.channelText} 
+            onChange={event => this.handleChannelChange(event, 'channelText')} />
+          <button 
+            className = "secondaryButton" 
+            type="button" 
+            onClick= {event=>this.handleChannelSubmit(event)}>Add Channel
+          </button>
+          </div>
+
+          <div className="navRight">
           {/* add client, require input and a submit button
               connect to client reducer */}
           {/* <input className="clientInput" placeholder = "Input Client Name"/> */}
-          <button type="button" onClick={this.props.addClient}>Add Client</button>
-          {/* add channel, require input and a submit button
-              connect to channel reducer */}
-          <input className="channelInput" placeholder="Input Channel Name" onChange={event => this.handleChannelChange(event)} />
-          <button type="button" onClick= {event=>this.handleChannelSubmit(event)}>Add Channel</button>
-
+          <select
+          
+            className="dropDown" 
+            value={this.state.type} 
+            onChange={(e) => 
+              this.handleChannelChange(e, 'type')
+            }
+          >
+            <option value="">Choose Client Type</option>
+            <option value="publisher">Publisher</option>
+            <option value="subscriber">Subscriber</option>
+       
+          </select>
+          <button 
+            className="secondaryButton" 
+            type="button" 
+            onClick={() => {
+              console.log('add client button clicked!')
+              this.props.fetchAddClient(
+                {type: this.state.type, clientId: this.props.nextClientId, ws: this.ws})
+                this.setState({...this.state, type: ''});
+              }}
+          >
+            Add Client</button>
+            <div > 
+              <p>{this.props.errorMessage}</p>
+            </div>
+          </div>
+          
         </div>
       )
   }

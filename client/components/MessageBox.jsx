@@ -29,20 +29,20 @@ const MessageBox = (props) => {
   if (props.type === "received") {
     return (
       <div className ="messageBox">
-        <p>RECEIVED</p>
-        <p>on {props.channel} </p>
-        <p>at {props.timestamp}</p>
-        <p>{props.message}</p>
+        <p className="messageBoxType">RECEIVED</p>
+        <p className="messageBoxChannel">on <span className="accentColor">{props.channel} </span></p>
+        <p className="messageBoxTime">at <span className="accentColor">{props.timestamp}</span></p>
+        <p className="messageBoxMessage">{props.message}</p>
       </div>
     )
   }
   if (props.type === "published") {
     return (
       <div className ="messageBox">
-        <p>PUBLISHED</p>
-        <p>on {props.channel} </p>
-        <p>at {props.timestamp}</p>
-        <p>{props.message}</p>
+        <p className="messageBoxType">PUBLISHED</p>
+        <p className="messageBoxChannel">on {props.channel} </p>
+        <p className="messageBoxTime">at {props.timestamp}</p>
+        <p className="messageBoxMessage">{props.message}</p>
       </div>
     )
   }

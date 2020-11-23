@@ -22,7 +22,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 //import actions
-import * as actions from '../actions/actions.js';
+import * as actions from '../actions/clientActions.js';
 //import child components
 import MessageLogDisplay from '../components/MessageLogDisplay.jsx';
 import SubscribedChannels from '../components/SubscribedChannelsDisplay.jsx';
@@ -36,6 +36,13 @@ const mapStateToProps = (state) => ({
   clients: state.client.clients[state.client.currClient],
 });
 
+//mapDispatch
+const mapDispatchToProps = dispatch => ({
+  setClient: (clientId) => {
+    dispatch(actions.setClient(clientId))
+  }
+})
+
 //create class
 class ClientWindow extends Component {
   constructor(props) {
@@ -46,19 +53,24 @@ class ClientWindow extends Component {
     if (this.props.currClient !== null) {
       return (
         <div className = "clientWindow">
-          <div className="messageLogDisplay">
-            <h4>Recent Messages</h4>
-            <MessageLogDisplay
-              log = {this.props.clients.log}
-            />
-            
+          <div className="top">
+            <h3 className="clentLabel">Client {this.props.currClient}</h3>
+            <button className="secondaryButton" onClick={(e) => {this.props.setClient(this.props.currClient)}}>X</button>
           </div>
-          <div className="subscribedChannels">
-            <h4>Subscribed Channels</h4>
-            <SubscribedChannels channels = {this.props.clients.channels}/>
+          <div className="center">
+            <div className="messageLogDisplay">
+              <h4 className="clientWindowMessageLabel">Recent Messages</h4>
+              <MessageLogDisplay
+                log = {this.props.clients.log}
+              />
+              
+            </div>
+            <div className="subscribedChannels">
+              <h4 className="clientWindowSubscribedLabel">Subscribed Channels</h4>
+              <SubscribedChannels channels = {this.props.clients.channels}/>
+            </div>
           </div>
-          <div className = "clientActionBar">
-            
+          <div className = "bottom">
             <ClientActionBar />
           </div>
         </div>
@@ -72,4 +84,4 @@ class ClientWindow extends Component {
  
  
  
- export default connect(mapStateToProps)(ClientWindow);
+ export default connect(mapStateToProps, mapDispatchToProps)(ClientWindow);

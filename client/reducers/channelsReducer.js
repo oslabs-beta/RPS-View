@@ -14,8 +14,8 @@ import * as types from "../constants/actionTypes";
 const initialState = {
     selectedChannel: null,
     totalChannels : 0,
-    channelList : [{name:"Joe"}, {name:"politics"}, {name:"food"}],
-    //add state for currently clicked channel
+    channelList : [],
+    port: null,
 };
 
 const channelsReducer = (state = initialState, action) => {
@@ -24,12 +24,17 @@ const channelsReducer = (state = initialState, action) => {
     switch(action.type){
         //add channel 
         case types.ADD_CHANNEL:
-            
+            if (!action.payload) return state;
             //create a new channel object
             let newChannel = {
                 //connect with ws and redis? 
                 name : action.payload,
             }
+
+            // check if the new channel name is already an existing channel, if so, return unaltered state to avoid repetition
+            if (state.channelList.some(el => {
+                return el.name === newChannel.name;
+            })) return state;
 
             channelList = state.channelList.slice();
             channelList.push(newChannel);
@@ -69,9 +74,16 @@ const channelsReducer = (state = initialState, action) => {
             }
         
         //add channel subscribers
-
         //delete channel subscribers
         //update channel messages
+
+        //case portConnected
+        case types.PORT_CONNECTED:
+            return{
+                ...state,
+                port: action.payload
+            }
+
         default:
             return state;
     }

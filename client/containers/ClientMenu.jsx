@@ -18,7 +18,7 @@ import { connect } from 'react-redux';
 //import child components
 import ClientCard from '../components/ClientCard.jsx';
 //import any actions we use
-import * as actions from '../actions/actions.js';
+import * as actions from '../actions/clientActions.js';
 
 //mapState
 const mapStateToProps = (state) => {
@@ -55,15 +55,18 @@ class ClientMenu extends Component{
         channels = {this.props.clients[clientId].channels} 
         selectedChannel = {this.props.selectedChannel}
         id={clientId} 
+        key={`ClientCard${clientId}`}
         setClient={this.props.setClient} />)
     }
     return (
-      <>
-        <h2> these are clients</h2>
-        <div className = "clientMenuContainer">
-          {clients}
+      
+      <div className = "clientMenu">
+        <div className = "clientLabel">
+          <h2>Clients</h2>
         </div>
-      </>
+        {clients}
+      </div>
+      
     )
   }
 }

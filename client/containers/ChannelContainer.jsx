@@ -12,7 +12,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import ChannelsDisplay from "../components/ChannelsDisplay.jsx";
-import * as actions from "../actions/actions";
+import * as actions from "../actions/channelActions.js";
 
 
 const mapStateToProps = (store) => ({
@@ -33,16 +33,11 @@ class ChannelContainer extends Component{
     }
     render () {
       return (
-        <div>
-          <h1>Channel Bar</h1>
+        <>
           <ChannelsDisplay 
-          totalChannels = {this.props.totalChannels}
-          channelList = {this.props.channelList}
-          selectedChannel = {this.props.selectedChannel}
-          
-          selectChannel = {this.props.selectChannel}
+            {...this.props}
           />
-        </div>
+        </>
       )
     }
 }
