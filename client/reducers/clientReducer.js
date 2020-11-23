@@ -63,10 +63,9 @@ const clientReducer = (state = initialState, action) => {
         type: 'subscribed',
         message: `Subscribed to ${state.channel}`
       }
-      console.log('subMessage: ', subMessage);
 
       //push new message to correct client log
-      copyClientList[state.currClient].log.push(subMessage);
+      copyClientList[state.currClient]["log"].push(subMessage);
 
       //return state with updated clients list and reassign message to empty string
       return {
@@ -95,7 +94,6 @@ const clientReducer = (state = initialState, action) => {
         type: 'unsubscribed',
         message: `Unsubscribed from ${state.channel}`
       }
-      console.log("unsubMessage: ", unsubMessage);
 
       //push new message to correct client log
       copyClientList[state.currClient].log.push(unsubMessage);
@@ -107,7 +105,7 @@ const clientReducer = (state = initialState, action) => {
       };
     
     case types.PUBLISH_MESSAGE:
-      console.log('running publish message reducer')
+      
       //action.payload will be the date string
 
       //create new message using date and state components
@@ -118,8 +116,6 @@ const clientReducer = (state = initialState, action) => {
         message: state.message,
       }
 
-      console.log(newPubMessage)
-
       //push new message to correct client log
       copyClientList[state.currClient].log.push(newPubMessage);
       //return altered state
@@ -127,7 +123,7 @@ const clientReducer = (state = initialState, action) => {
 
       //has this client pubbed to this channel before? IF NOT --> update channels
       if (!copyClientList[state.currClient].channels.includes(state.channel)) {
-        console.log('channels list does not have this channel yet')
+        
         copyClientList[state.currClient].channels.push(state.channel);
       }
       
@@ -140,6 +136,7 @@ const clientReducer = (state = initialState, action) => {
 
     /** Message is dispatched after web socket receives data, adds newMessage to the client's log*/
     case types.RECEIVED_MESSAGE:
+      
       //create messages object
       /**
        * action.payload format
