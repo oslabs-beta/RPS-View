@@ -33,6 +33,7 @@ socketServer.on('connection', function connection(ws) {
   // }
 
   //websocket receives message from front end
+  //accept an array of id's (run foreach)
   ws.on('message',(message)=>{
     console.log(message)
     console.log(JSON.parse(message))
