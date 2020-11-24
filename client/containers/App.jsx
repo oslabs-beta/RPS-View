@@ -15,12 +15,9 @@ import ClientMenu from './ClientMenu.jsx';
 import ChannelContainer from './ChannelContainer.jsx';
 import ClientWindow from './ClientWindow.jsx';
 import NavBar from './NavBar.jsx';
-<<<<<<< HEAD
 import img from '../../static/RPS_View_logo.png';
 // import ErrorBox from './ErrorBox.jsx'
-=======
 import ErrorBox from './ErrorBox.jsx'
->>>>>>> a0c7ecc27ad4f415e4578bae00efd0b148f6e1d3
 
 class App extends Component {
   
