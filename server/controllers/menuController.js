@@ -23,10 +23,13 @@ let pubObj = {};
 let menuController = {}
 //middleware to test to see if port given from front end is correct
 menuController.connect = (req,res,next) => {
-
-    //grab port number
-    globalPort = req.body.port;
-
+ //adding default port if no port entered
+    if(req.body.port === '') {
+        globalPort = '6379';
+    } else {
+        //grab port number
+        globalPort = req.body.port;
+    }
     //use subscribe in order to test connection
     let redis = new Redis(globalPort)
     redis.subscribe('sup', (error, count)=>{
