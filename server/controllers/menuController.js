@@ -71,6 +71,7 @@ menuController.addChannel = (req,res,next) => {
 
 //add client to redis
 menuController.addClient = (req, res, next) => {
+    
     // console.log(req.body);
     //if clientId from fetch body is incorrect, send back invalid input
     if(req.body.clientId === undefined){
@@ -108,10 +109,58 @@ menuController.addClient = (req, res, next) => {
             subObj[req.body.clientId] = new Redis(globalPort);
             subObj[req.body.clientId].clientId=req.body.clientId;
         }
+     
         return res.status(200).send('added client')
         
     })
   };
+
+//addCloned clients
+menuController.addClonedClients = (req, res, next) => {
+    //get clients from array on req.body format [{clientId: num, type: 'publisher' OR 'subscriber'}]
+    const clients = req.body;
+    for (let client of clients) {
+        
+        let redis = new Redis(globalPort);
+        let id = client.clientId;
+        console.log(id)
+        redis.subscribe('sup', (error, count)=>{
+            //if error trying to add client, server is not connected
+            if(error){
+                return res.status(400).send('server not connected');
+
+            }
+        })
+            //if no error add client
+            
+            //receive client id
+                //add it to current client obj
+            if(client.type === "publisher"){
+                pubObj[client.clientId] = new Redis(globalPort);
+                pubObj[client.clientId].clientId = client.clientId;
+            }
+            else if(client.type === "subscriber"){
+                subObj[id] = new Redis(globalPort);
+                subObj[id].clientId=id;
+                console.log('logging subObj', subObj[id].clientId)
+                subObj[id].subscribe('sup', (error, count)=>{
+                    //if error attach error as res locals and continue
+                    if(error){
+                        return res.status(400).send('failed to connect');
+                    }
+                })
+            }
+            // //UPDATE. if client type is not selected(which default to empty string), default to sub. 
+            else if(!client.type) {
+                subObj[client.clientId] = new Redis(globalPort);
+                subObj[client.clientId].clientId = client.clientId;
+            }
+    
+            
+        
+    }
+    return res.status(200).send('added cloned clients');
+}
 
 
 //test middleware that will not be needed in production
