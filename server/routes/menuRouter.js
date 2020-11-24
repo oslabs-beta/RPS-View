@@ -27,4 +27,6 @@ router.post('/test', menuController.test, (req, res) => {
     res.status(200).send(res.locals.message);
 })
 
+router.post('/addClonedClients', menuController.addClonedClients)
+
 module.exports = router;

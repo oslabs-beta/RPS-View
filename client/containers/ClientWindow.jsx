@@ -65,7 +65,7 @@ class ClientWindow extends Component {
         heading = "Publisher";
       }
       else {
-        actions = <SubscriberActions />;
+        actions = <SubscriberActions ws={this.props.ws} />;
         channelDisplayMessage = 'Subscribed channels';
         heading = "Subscriber";
       }
@@ -82,6 +82,7 @@ class ClientWindow extends Component {
               <h4 className="clientWindowMessageLabel">Recent Messages</h4>
               <MessageLogDisplay
                 log = {this.props.clients.log}
+                ws={this.props.ws}
               />
               
             </div>

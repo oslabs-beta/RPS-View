@@ -26,7 +26,7 @@ const MessageLogDisplay = (props) => {
   }
 
   return (
-    <div className = "MessageLogDisplay">
+    <div className = "allMessages">
       {messages}
     </div>
   )

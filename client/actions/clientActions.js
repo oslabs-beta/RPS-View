@@ -59,4 +59,9 @@ export const handleClientInput = (payload) => ({
   type: types.HANDLE_CLIENT_INPUT,
   payload: payload
 
-})
+});
+
+export const cloneClient = (number) => ({
+  type: types.CLONE_CLIENT,
+  payload: number,
+});

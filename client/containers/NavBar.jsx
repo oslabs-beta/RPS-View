@@ -16,7 +16,7 @@ import * as channelActions from "../actions/channelActions";
 import * as errorActions from "../actions/errorActions";
 import * as clientActions from "../actions/clientActions.js";
 import * as middleware from "../actions/middleware.js";
-const URL = 'ws://localhost:3030'
+// const URL = 'ws://localhost:3030'
 
 const mapStateToProps = (state) => ({
   portErrorMessage: state.channels.portErrorMessage,
@@ -40,37 +40,37 @@ const mapDispatchToProps = (dispatch) => ({
     fetchAddChannel: (channelText) => {
       dispatch(middleware.fetchAddChannel(channelText))
     },
-    socketReceivedMessage: (stateObj) => {
-      dispatch(middleware.socketReceivedMessage(stateObj))
-    }
+    // socketReceivedMessage: (stateObj) => {
+    //   dispatch(middleware.socketReceivedMessage(stateObj))
+    // }
 
 });
 
 class NavBar extends Component {
   constructor(props) {
     super(props) 
-    
+    this.state = {
+      //temp input tracking
+      channelText: '',
+      port: '',
+      type: '',
+    }
   }
 
-  ws = new WebSocket(URL)
+  // ws = new WebSocket(URL)
 
-  componentDidMount(){
-    this.ws.onopen = () => { 
-      console.log('Now connected'); 
-      // this.ws.send(JSON.stringify({hi:"hi"}))
-      this.ws.onmessage = (event) => {
-        const messages = JSON.parse(event.data);
-        this.props.socketReceivedMessage(messages);
-      };
-      };
-  }
+  // componentDidMount(){
+  //   this.ws.onopen = () => { 
+  //     console.log('Now connected'); 
+  //     // this.ws.send(JSON.stringify({hi:"hi"}))
+  //     this.ws.onmessage = (event) => {
+  //       const messages = JSON.parse(event.data);
+  //       this.props.socketReceivedMessage(messages);
+  //     };
+  //     };
+  // }
 
-  state = {
-    //temp input tracking
-    channelText: '',
-    port: '',
-    type: '',
-  }
+  
 
  
   //trigger fetch request and add port to state when connect button is clicked
@@ -184,7 +184,7 @@ class NavBar extends Component {
             onClick={() => {
               console.log('add client button clicked!')
               this.props.fetchAddClient(
-                {type: this.state.type, clientId: this.props.nextClientId, ws: this.ws})
+                {type: this.state.type, clientId: this.props.nextClientId, ws: this.props.ws})
                 this.setState({...this.state, type: ''});
               }}
           >

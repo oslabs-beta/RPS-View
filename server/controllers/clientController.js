@@ -64,6 +64,29 @@ clientController.subscribe = (req, res, next) => {
 
 };
 
+clientController.subscribeMany = (req, res, next) => {
+  let clients = req.body.clients;
+  const channels = req.body.channels; //this is an array
+  for (let client of clients) {
+    clientId = client.clientId;
+    for (let channel of channels) {
+      if (!channel) {
+        return res.status(400).send('undefined input')
+      }
+      if (!subObj[clientId]) {
+        return res.status(400).send('client does not exist')
+      }
+      subObj[clientId].subscribe(channel, (error, count) => {
+        if(error) {
+          return res.status(400).send('failed to subscribe');
+        } 
+      })
+    }
+  }
+  
+  return res.send(200).send('client subscribed to channels')
+}
+
 //router for client to publish on redis server
 clientController.publish = (req, res, next) => {``
   const clientId = req.body.clientId
