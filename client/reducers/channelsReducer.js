@@ -84,7 +84,7 @@ const channelsReducer = (state = initialState, action) => {
         case types.PORT_CONNECTED:
             return{
                 ...state,
-                port: action.payload
+                port: action.payload || '6379'
             }
 
         default:
