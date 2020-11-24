@@ -74,8 +74,8 @@ class ClientWindow extends Component {
       return (
         <div className = "clientWindow">
           <div className="top">
-            <h3 className="clentLabel">Client {this.props.currClient}: {heading}</h3>
-            <button className="secondaryButton" onClick={(e) => {this.props.setClient(this.props.currClient)}}>X</button>
+            <h3 className="clientHeader">Client {this.props.currClient}: {heading}</h3>
+            <button id="x" className="secondaryButton" onClick={(e) => {this.props.setClient(this.props.currClient)}}>X</button>
           </div>
           <div className="center">
             <div className="messageLogDisplay">

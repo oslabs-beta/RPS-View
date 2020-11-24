@@ -116,9 +116,6 @@ class NavBar extends Component {
                 onClick={event => this.handlePortSubmit(event)}>CONNECT
               </button>
             </div>
-            <div className="navLeftBotton"> 
-              <p>{this.props.portErrorMessage}</p>
-            </div>
           </div>
 
           <div className="navCenter">
@@ -164,9 +161,6 @@ class NavBar extends Component {
               }}
           >
             Add Client</button>
-            <div > 
-              <p>{this.props.errorMessage}</p>
-            </div>
           </div>
           
         </div>

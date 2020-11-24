@@ -3,7 +3,7 @@
 // Note font-family Poppins
 
 body {
-  background-color: $bg;
+  background-color: $darkGray;
   font-family: 'Poppins', 'sans-serif';
   font-size: 0.9em;
 }
@@ -17,18 +17,17 @@ input {
 }
 
 .unhighlighted{
-  padding: .2em;
-  margin: .1em;
+  padding: 0.2em;
   background-color: $component-bg;
   color: $accentDark;
-  border: $accentDark;
+  border: none;
 }
 
 .highlighted{
   padding: 0.2em;
   background-color: $highlight;
   color: $highlightDark;
-  border: $highlightDark;
+  border: none;;
   
 }
 
@@ -37,21 +36,21 @@ input {
 }
 
 .primaryButton {
-  
   background-color: $accent;
   color: $accentDark;
-  border: 1px solid $accentDark;
+  border: none;
 }
 
 .secondaryButton {
   background-color: $component-bg;
   color: $accentDark;
-  border: 1px solid $accentDark;
+  border: none;
 }
 
 .dropDown {
-  padding: 0.3em;
+  padding: 0.22em;
   color: $accentDark;
+  border: none;
 }
 
 .primaryButton:focus, .secondaryButton:focus {
@@ -69,21 +68,23 @@ input {
   flex-direction: row;
   justify-content: center;
     .left {
-      width: 100px;
+      width: 130px;
+      margin-top: 0.8em;
       .logo {
         // background-color: $accentDark;
-        width: 100px;
+        width: 100%;
         .logoImg {
-          border: 2px solid $accentDark;
+          // border: 2px solid $accentDark;
           width: 100%;
         }
       }
       .channelLabel {
         background-color: $accent;
         color: $accentDark;
+        width: 100%;
         font-size: 0.9em;
         text-align: center;
-        border: 2px solid $accentDark;
+        // border: 2px solid $accentDark;
       }
       .channel {
         display: flex;
@@ -101,21 +102,29 @@ input {
       }
     }
     .middle {
-
+      display: flex;
+      flex-direction: column;
       width: auto;
+      align-items: center;
       .navBar {
         display: flex;
         flex-direction: row;
+        padding-right: 1em;
+        padding-left: 1em;
+        margin-top: 0.5em;
         .navLeft {
-          margin: 5px; 
+          margin: 5px;
+          // border: 2px solid $accentDark; 
           .serverInput {
-            border: 1px solid $accentDark;
+            border: none;
           }   
         }
         .navCenter {
           margin: 5px;
+          // border: 2px solid $accentDark;
           .channelInput {
-            border: 1px solid $accentDark;
+          padding: 0.3em;
+          border: none;
           }
         }
         .navRight {
@@ -123,9 +132,9 @@ input {
         }
       }
       .clientWindow {
-        border: 1px solid black;
         background-color: $component-bg;
-        
+        width: 50em;
+        margin-top: 1em;
         .top {
           display: flex;
           flex-direction: row;
@@ -133,20 +142,28 @@ input {
           align-items: center;
           background-color: $accent;
           color: $accentDark;
+          padding-left: 0.8em;
+          padding-right: 0.8em;
           .clientLabel {
             margin-left: 10px;
+          }
+          #x {
+            padding-left: 0.5em;
+            padding-right: 0.5em;
           }
         }
         .center {
           display: flex;
           flex-direction: row;
-          justify-content: space-between;
+          justify-content: space-around;
+          
           .messageLogDisplay {
             display: flex;
             flex-direction: column;
             padding-left: 10px;
             .clientWindowMessageLabel {
               margin-bottom: -5px;
+              font-size: 12px;
             }
             .messageBox {
               margin-bottom: 20px;
@@ -161,10 +178,14 @@ input {
               .messageBoxType {
                 color: $highlightDark;
               }
+              .bold {
+                font-weight: bolder;
+              }
             }
           }
           .clientWindowSubscribedLabel {
             margin-bottom: 5px;
+            font-size: 12px;
           }
           .subscribedChannels {
             display: flex;
@@ -176,8 +197,13 @@ input {
         .bottom {
           display: flex;
           justify-content: center;
+          padding-top: 0.5em;
+          padding-bottom: 0.5em;
           * {
             margin-right: 0.2em;
+          }
+          #actionBarInput {
+            border: none;
           }
           #goButton {
             padding-right: .9em;
@@ -187,17 +213,33 @@ input {
       }
     }
     .right {
-      width: 100px;
+      width: 130px;
+      margin-top: 0.8em;
       .clientMenu {
         display: flex;
         flex-direction: column;
         align-items: stretch;
         width: 100%;
+        // border: 2px solid $accentDark;
         .clientLabel {
           background-color: $accent;
           color: $accentDark;
           font-size: 0.9em;
           text-align: center;
+        }
+        .clientMiniLabel {
+          font-size: 0.8em;
+          text-align: center;
+          background-color: lightGray;
+          // padding-top: -2em;
+          // padding-bottom: -2em;
+          // border-bottom: 2px solid $accentDark;
+          border-top: 2.5px solid $darkGray;
+          border-bottom: 1.5px solid $darkGray;
+          .miniLabelText {
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+          }
         }
         .oneClient {
           button {
