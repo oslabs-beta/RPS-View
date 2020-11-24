@@ -15,6 +15,8 @@ import ClientMenu from './ClientMenu.jsx';
 import ChannelContainer from './ChannelContainer.jsx';
 import ClientWindow from './ClientWindow.jsx';
 import NavBar from './NavBar.jsx';
+import img from '../../static/RPS_View_logo.png';
+// import ErrorBox from './ErrorBox.jsx'
 import ErrorBox from './ErrorBox.jsx'
 
 class App extends Component {
@@ -25,6 +27,7 @@ class App extends Component {
       <div className="left">
         <div className="logo">
           {/* logo here later */}
+          <img className="logoImg" src={img} alt="Logo"></img>
         </div>
         <ChannelContainer />
       </div>

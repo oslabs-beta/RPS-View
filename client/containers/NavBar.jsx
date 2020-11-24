@@ -144,9 +144,6 @@ class NavBar extends Component {
           <div className="navLeft">
           {/* connect to server, require input and a submit button */}
             {servePort}
-            <div className="navLeftBotton"> 
-              <p>{this.props.portErrorMessage}</p>
-            </div>
           </div>
 
           <div className="navCenter">
@@ -192,9 +189,6 @@ class NavBar extends Component {
               }}
           >
             Add Client</button>
-            <div > 
-              <p>{this.props.errorMessage}</p>
-            </div>
           </div>
           
         </div>
