@@ -32,6 +32,8 @@ menuController.connect = (req,res,next) => {
     }
     //use subscribe in order to test connection
     let redis = new Redis(globalPort)
+    //catch connection error with try catch
+        //send error or connect to frontend, stop server runtime
     redis.subscribe('sup', (error, count)=>{
         //if error attach error as res locals and continue
         if(error){
