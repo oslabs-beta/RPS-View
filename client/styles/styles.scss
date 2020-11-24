@@ -118,7 +118,11 @@ input {
           // border: 2px solid $accentDark; 
           .serverInput {
             border: none;
-          }   
+          }  
+          .serverPort {
+            border: none;
+            background-color: $lightYellow;
+          } 
         }
         .navCenter {
           margin: 5px;
