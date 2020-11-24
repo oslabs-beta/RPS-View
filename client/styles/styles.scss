@@ -3,58 +3,58 @@
 // Note font-family Poppins
 
 body {
-  background-color: $darkGray;
-  font-family: 'Poppins', 'sans-serif';
-  font-size: 0.9em;
+	background-color: $darkGray;
+	font-family: 'Poppins', 'sans-serif';
+	font-size: 0.9em;
 }
 
 button {
-  padding: .3em;
+	padding: 0.3em;
 }
 
 input {
-  padding: .3em;
+	padding: 0.3em;
 }
 
-.unhighlighted{
-  padding: 0.2em;
-  background-color: $component-bg;
-  color: $accentDark;
-  border: none;
+.unhighlighted {
+	padding: 0.2em;
+	background-color: $component-bg;
+	color: $accentDark;
+	border: none;
 }
 
-.highlighted{
-  padding: 0.2em;
-  background-color: $highlight;
-  color: $highlightDark;
-  border: none;;
-  
+.highlighted {
+	padding: 0.2em;
+	background-color: $highlight;
+	color: $highlightDark;
+	border: none;
 }
 
 .highlighted:focus {
-  outline: $highlightDark solid .1em !important;
+	outline: $highlightDark solid 0.1em !important;
 }
 
 .primaryButton {
-  background-color: $accent;
-  color: $accentDark;
-  border: none;
+	background-color: $accent;
+	color: $accentDark;
+	border: none;
 }
 
 .secondaryButton {
-  background-color: $component-bg;
-  color: $accentDark;
-  border: none;
+	background-color: $component-bg;
+	color: $accentDark;
+	border: none;
 }
 
 .dropDown {
-  padding: 0.22em;
-  color: $accentDark;
-  border: none;
+	padding: 0.22em;
+	color: $accentDark;
+	border: none;
 }
 
-.primaryButton:focus, .secondaryButton:focus {
-  outline: $accentDark solid 0.1em ;
+.primaryButton:focus,
+.secondaryButton:focus {
+	outline: $accentDark solid 0.1em;
 }
 
 // .logo {
@@ -64,189 +64,190 @@ input {
 // }
 
 #root {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-    .left {
-      width: 130px;
-      margin-top: 0.8em;
-      .logo {
-        // background-color: $accentDark;
-        width: 100%;
-        .logoImg {
-          // border: 2px solid $accentDark;
-          width: 100%;
-        }
-      }
-      .channelLabel {
-        background-color: $accent;
-        color: $accentDark;
-        width: 100%;
-        font-size: 0.9em;
-        text-align: center;
-        // border: 2px solid $accentDark;
-      }
-      .channel {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        align-items: stretch;
-        
-        .oneChannel {
-          button {
-            width: 100%;
-            
-          }
-          
-        }
-      }
-    }
-    .middle {
-      display: flex;
-      flex-direction: column;
-      width: auto;
-      align-items: center;
-      .navBar {
-        display: flex;
-        flex-direction: row;
-        padding-right: 1em;
-        padding-left: 1em;
-        margin-top: 0.5em;
-        .navLeft {
-          margin: 5px;
-          // border: 2px solid $accentDark; 
-          .serverInput {
-            border: none;
-          }   
-        }
-        .navCenter {
-          margin: 5px;
-          // border: 2px solid $accentDark;
-          .channelInput {
-          padding: 0.3em;
-          border: none;
-          }
-        }
-        .navRight {
-          margin: 5px;
-        }
-      }
-      .clientWindow {
-        background-color: $component-bg;
-        width: 50em;
-        margin-top: 1em;
-        .top {
-          display: flex;
-          flex-direction: row;
-          justify-content: space-between;
-          align-items: center;
-          background-color: $accent;
-          color: $accentDark;
-          padding-left: 0.8em;
-          padding-right: 0.8em;
-          .clientLabel {
-            margin-left: 10px;
-          }
-          #x {
-            padding-left: 0.5em;
-            padding-right: 0.5em;
-          }
-        }
-        .center {
-          display: flex;
-          flex-direction: row;
-          justify-content: space-around;
-          
-          .messageLogDisplay {
-            display: flex;
-            flex-direction: column;
-            padding-left: 10px;
-            .clientWindowMessageLabel {
-              margin-bottom: -5px;
-              font-size: 12px;
-            }
-            .messageBox {
-              margin-bottom: 20px;
-              font-size: smaller;
-              color: $darkGray;
-              p {
-                  margin-bottom: -12px;
-              }
-              .accentColor {
-                color: $accentDark;
-              }
-              .messageBoxType {
-                color: $highlightDark;
-              }
-              .bold {
-                font-weight: bolder;
-              }
-            }
-          }
-          .clientWindowSubscribedLabel {
-            margin-bottom: 5px;
-            font-size: 12px;
-          }
-          .subscribedChannels {
-            display: flex;
-            flex-direction: column;
-            padding-right: 10px;
-            font-size: smaller;
-          }
-        }
-        .bottom {
-          display: flex;
-          justify-content: center;
-          padding-top: 0.5em;
-          padding-bottom: 0.5em;
-          * {
-            margin-right: 0.2em;
-          }
-          #actionBarInput {
-            border: none;
-          }
-          #goButton {
-            padding-right: .9em;
-            padding-left: .9em;
-          }
-        } 
-      }
-    }
-    .right {
-      width: 130px;
-      margin-top: 0.8em;
-      .clientMenu {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        width: 100%;
-        // border: 2px solid $accentDark;
-        .clientLabel {
-          background-color: $accent;
-          color: $accentDark;
-          font-size: 0.9em;
-          text-align: center;
-        }
-        .clientMiniLabel {
-          font-size: 0.8em;
-          text-align: center;
-          background-color: lightGray;
-          // padding-top: -2em;
-          // padding-bottom: -2em;
-          // border-bottom: 2px solid $accentDark;
-          border-top: 2.5px solid $darkGray;
-          border-bottom: 1.5px solid $darkGray;
-          .miniLabelText {
-            margin-top: 0.5em;
-            margin-bottom: 0.5em;
-          }
-        }
-        .oneClient {
-          button {
-            width: 100%;
-          }
-        }
-      }
-    }
-  }
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	.left {
+		width: 130px;
+		margin-top: 0.8em;
+		.logo {
+			// background-color: $accentDark;
+			width: 100%;
+			.logoImg {
+				// border: 2px solid $accentDark;
+				width: 100%;
+			}
+		}
+		.channelLabel {
+			background-color: $accent;
+			color: $accentDark;
+			width: 100%;
+			font-size: 0.9em;
+			text-align: center;
+			// border: 2px solid $accentDark;
+		}
+		.channel {
+			display: flex;
+			flex-direction: column;
+			width: 100%;
+			align-items: stretch;
 
+			.oneChannel {
+				button {
+					width: 100%;
+				}
+			}
+		}
+	}
+	.middle {
+		display: flex;
+		flex-direction: column;
+		width: auto;
+		align-items: center;
+		.navBar {
+			display: flex;
+			flex-direction: row;
+			padding-right: 1em;
+			padding-left: 1em;
+			margin-top: 0.5em;
+			.navLeft {
+				margin: 5px;
+				// border: 2px solid $accentDark;
+				.serverInput {
+					border: none;
+				}
+				.serverPort {
+					border: none;
+					background-color: $lightYellow;
+				}
+			}
+			.navCenter {
+				margin: 5px;
+				// border: 2px solid $accentDark;
+				.channelInput {
+					padding: 0.3em;
+					border: none;
+				}
+			}
+			.navRight {
+				margin: 5px;
+			}
+		}
+		.clientWindow {
+			background-color: $component-bg;
+			width: 50em;
+			margin-top: 1em;
+			.top {
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				align-items: center;
+				background-color: $accent;
+				color: $accentDark;
+				padding-left: 0.8em;
+				padding-right: 0.8em;
+				.clientLabel {
+					margin-left: 10px;
+				}
+				#x {
+					padding-left: 0.5em;
+					padding-right: 0.5em;
+				}
+			}
+			.center {
+				display: flex;
+				flex-direction: row;
+				justify-content: space-around;
+
+				.messageLogDisplay {
+					display: flex;
+					flex-direction: column;
+					padding-left: 10px;
+					.clientWindowMessageLabel {
+						margin-bottom: -5px;
+						font-size: 12px;
+					}
+					.messageBox {
+						margin-bottom: 20px;
+						font-size: smaller;
+						color: $darkGray;
+						p {
+							margin-bottom: -12px;
+						}
+						.accentColor {
+							color: $accentDark;
+						}
+						.messageBoxType {
+							color: $highlightDark;
+						}
+						.bold {
+							font-weight: bolder;
+						}
+					}
+				}
+				.clientWindowSubscribedLabel {
+					margin-bottom: 5px;
+					font-size: 12px;
+				}
+				.subscribedChannels {
+					display: flex;
+					flex-direction: column;
+					padding-right: 10px;
+					font-size: smaller;
+				}
+			}
+			.bottom {
+				display: flex;
+				justify-content: center;
+				padding-top: 0.5em;
+				padding-bottom: 0.5em;
+				* {
+					margin-right: 0.2em;
+				}
+				#actionBarInput {
+					border: none;
+				}
+				#goButton {
+					padding-right: 0.9em;
+					padding-left: 0.9em;
+				}
+			}
+		}
+	}
+	.right {
+		width: 130px;
+		margin-top: 0.8em;
+		.clientMenu {
+			display: flex;
+			flex-direction: column;
+			align-items: stretch;
+			width: 100%;
+			// border: 2px solid $accentDark;
+			.clientLabel {
+				background-color: $accent;
+				color: $accentDark;
+				font-size: 0.9em;
+				text-align: center;
+			}
+			.clientMiniLabel {
+				font-size: 0.8em;
+				text-align: center;
+				background-color: lightGray;
+				// padding-top: -2em;
+				// padding-bottom: -2em;
+				// border-bottom: 2px solid $accentDark;
+				border-top: 2.5px solid $darkGray;
+				border-bottom: 1.5px solid $darkGray;
+				.miniLabelText {
+					margin-top: 0.5em;
+					margin-bottom: 0.5em;
+				}
+			}
+			.oneClient {
+				button {
+					width: 100%;
+				}
+			}
+		}
+	}
+}
