@@ -222,7 +222,7 @@ const clientReducer = (state = initialState, action) => {
       const num = action.payload;
       console.log('running clone client, creating ', num, 'clients')
       let next = state.nextClientId;
-      let channels = copyClientList[state.currClient].channels;
+      let channels = copyClientList[state.currClient].channels.slice();
       console.log(channels)
       let type = copyClientList[state.currClient].type;
       //iterate up to num, creating new client with same channels and type as currClient, add to copyClientList
