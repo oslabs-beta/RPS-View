@@ -34,36 +34,69 @@ export const handleGoClick = (stateObj) => (dispatch) => {
   }
 }
 
-// export const asyncAddClient = createAsyncThunk(
-//   '/client/'
-// )
-
-export const handleClone = (data) => (dispatch) => {
-  const {num, channels, type, nextClientId} = data;
-  console.log('in handleClone, vars are: ', num, channels, type, nextClientId)
-  //iterate up to num
-    //add client of type type
-    //subscribe them to each channel in channels
-
-  for (let i = 0; i < num; i ++) {
-    dispatch(fetchAddClient({type: type, clientId: nextClientId}));
-    // for (let channel of channels) {
-    //   dispatch(fetchSubscribe({channelName: channel, selectedAction: 'subscribe', clientId: nextClientId}));
-    // }
-
-    
+//add clones, runs fetch to /addClonedClients,
+//sends arr of client obj in req.body
+//each should have type && number
+//stateObj  
+/**
+ * 
+ * @param 
+ * {num: this.state.num,
+    channels: this.props.client.channels,
+    nextClientId: this.props.nextClientId,
+    type: 'subscriber',
+    ws: this.props.ws,} stateObj 
+ */
+export const fetchAddClones = (stateObj) => (dispatch) => {
+  stateObj.arr = [];
+  let next = stateObj.nextClientId;
+  let type = stateObj.type || 'subscriber';
+  for (let i = 0; i < stateObj.num; i++ ) {
+    stateObj.arr.push({clientId: next, type});
+    next++;
   }
-}
+  fetch('/menu/addClonedClients', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(stateObj.arr)
+  })
+  .then(res => {
+    if (res.status === 200){
+      console.log('clients cloned!');
+      if (stateObj.type === 'subscriber') {
+        dispatch(wsMessage(stateObj))
+      }
+      
+    }else {
+      dispatch(errorActions.errorHandler('Failed to clone!'))
+    }
+  })
+  .catch( error => dispatch(errorActions.errorHandler('Failed to clone!')))
+};
 
-// export const asyncClone = async function clone(data){
-//   const {num, channels, type, nextClientId} = data;
-  
-//   await fetchAddClient({type: type, clientId: nextClientId});
-//   for (let channel of channels) {
-//     await fetchSubscribe({channelName: channel, selectedAction: 'subscribe', clientId: nextClientId});
-//   }
-  
-// }
+export const fetchSubscribeMany = (stateObj) => (dispatch) => {
+  fetch('/client/subscribeMany', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({clients: stateObj.arr, channels: stateObj.channels})
+  })
+  /**dispatch addclone clientaction */
+  .then(res => {
+    if (res.status === 200) {
+      dispatch(clientActions.cloneClient(stateObj.num));
+    } else {
+      dispatch(errorActions.errorHandler('Failed to subscribe clones!'));
+    }
+  })
+  /**dispatch global error message, passing "failed to subscribe clones!" */
+  .catch(err => {
+    dispatch(errorActions.errorHandler('Failed to subscribe clones!'));
+  })
+}
 
 export const fetchMessage = (stateObj) => (dispatch) => {
   fetch("/client/publish", {
@@ -232,9 +265,17 @@ export const fetchAddClient = (data) => (dispatch) => {
 };
 
 export const wsMessage = (data) => dispatch => {
-  //this sends the client id through the websocket to add the connection to ws
-  data.ws.send(JSON.stringify({clientId: data.clientId}))
-  dispatch(clientActions.addClient('subscriber'))
+  //check to see if arr of clients sent -- if so, send the arr (ws can add multiple clients if it receives array)
+  //this sends the client id through the websocket to add the connection to ws 
+  if (!data.arr) {
+    data.ws.send(JSON.stringify({clientId: data.clientId}));
+    dispatch(clientActions.addClient('subscriber'));
+  } else {
+    data.ws.send(JSON.stringify(data.arr));
+    dispatch(fetchSubscribeMany(data));
+    /**dispatch fetchSubscribeMany, then cloneClient */
+  }
+  
 }
 
 
