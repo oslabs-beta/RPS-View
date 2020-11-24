@@ -152,7 +152,7 @@ export const fetchConnect = (port) => (dispatch) => {
   })
   .then(response => {
     if (response.status === 200) {
-      // console.log('this is port', port)
+      console.log('this is port', port)
       dispatch(channelActions.portConnected(port));
     } else dispatch(errorActions.errorHandler(`Failed to connect to ${port}`));
   })
