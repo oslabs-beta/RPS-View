@@ -48,7 +48,7 @@ input {
 }
 
 .dropDown {
-  padding: 0.22em;
+  padding: 0.25em;
   color: $accentDark;
   border: none;
 }
@@ -104,7 +104,7 @@ input {
     .middle {
       display: flex;
       flex-direction: column;
-      width: auto;
+      max-width: 60em;
       align-items: center;
       .navBar {
         display: flex;
@@ -133,7 +133,8 @@ input {
       }
       .clientWindow {
         background-color: $component-bg;
-        width: 50em;
+        max-width: 50em;
+        min-width: 35em;
         margin-top: 1em;
         .top {
           display: flex;
@@ -163,35 +164,52 @@ input {
             padding-left: 10px;
             .clientWindowMessageLabel {
               margin-bottom: -5px;
-              font-size: 12px;
+              font-size: 13px;
+              
             }
-            .messageBox {
-              margin-bottom: 20px;
-              font-size: smaller;
-              color: $darkGray;
-              p {
-                  margin-bottom: -12px;
-              }
-              .accentColor {
-                color: $accentDark;
-              }
-              .messageBoxType {
-                color: $highlightDark;
-              }
-              .bold {
-                font-weight: bolder;
+            .allMessages {
+              background-color: $component-bg;
+              max-width: 15em;
+              max-height: 25em;
+              overflow: scroll;
+              overflow-x: hidden;
+              margin-top: 10px;
+              .messageBox {
+                margin-bottom: 20px;
+                font-size: smaller;
+                color: $darkGray;
+                padding-right: 15px;
+                p {
+                    margin-bottom: -12px;
+                }
+                .accentColor {
+                  color: $accentDark;
+                }
+                .messageBoxType {
+                  color: $highlightDark;
+                  margin-top: 0px;
+                }
+                .bold {
+                  font-weight: bolder;
+                }
               }
             }
           }
           .clientWindowSubscribedLabel {
-            margin-bottom: 5px;
-            font-size: 12px;
+            margin-bottom: 4px;
+            font-size: 13px;
+          }
+          .subList {
+            background-color: $component-bg;
+            margin: 0px;
+            padding-inline-start: 25px;
           }
           .subscribedChannels {
             display: flex;
             flex-direction: column;
             padding-right: 10px;
             font-size: smaller;
+            
           }
         }
         .bottom {
@@ -210,6 +228,24 @@ input {
             padding-left: .9em;
           }
         } 
+      }
+      .errorBox {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        .errorComponents {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          .errorBoxMessage {
+            color: $component-bg;
+          }
+          #errorButton {
+            width: 50%;
+            font-size: smaller;
+            background-color: $highlight;
+          }
+        }
       }
     }
     .right {
@@ -230,12 +266,13 @@ input {
         .clientMiniLabel {
           font-size: 0.8em;
           text-align: center;
-          background-color: lightGray;
+          background-color: $medGray;
+          color: $darkGray;
           // padding-top: -2em;
           // padding-bottom: -2em;
           // border-bottom: 2px solid $accentDark;
-          border-top: 2.5px solid $darkGray;
-          border-bottom: 1.5px solid $darkGray;
+          border-top: 1.65px solid $darkGray;
+          border-bottom: 0.55px solid $darkGray;
           .miniLabelText {
             margin-top: 0.5em;
             margin-bottom: 0.5em;
