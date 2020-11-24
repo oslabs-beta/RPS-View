@@ -125,7 +125,7 @@ class NavBar extends Component {
         servePort =
         <div className="navLeftTop">
               <input 
-                className="serverInput" 
+                className="serverPort" 
                 //placeholder should show the PORT connected 
                 placeholder = {this.props.connectPort}
                 value = {this.state.port} 
