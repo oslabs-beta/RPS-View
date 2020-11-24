@@ -23,6 +23,7 @@ const mapStateToProps = (state) => ({
   nextClientId: state.client.nextClientId,
   errorMessage: state.client.errorMessage,
   channels: state.channels.channelList,
+  connectPort: state.channels.port,
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -65,6 +66,7 @@ class NavBar extends Component {
   }
 
   state = {
+    //temp input tracking
     channelText: '',
     port: '',
     type: '',
@@ -99,11 +101,14 @@ class NavBar extends Component {
 
   render(){
       console.log('navbar rendering, props are', this.props)
-      return(
-        <div className="navBar">
-          <div className="navLeft">
-          {/* connect to server, require input and a submit button */}
-            <div className="navLeftTop">
+      //if client state is empty string, display 'input server ip' and connect
+        //button should fetch connect
+      //if port state is not empty, display port number and DISCONNECT
+        //button should refresh the page, which disconnect from server
+      let servePort;
+      if(this.props.connectPort === null) {
+        servePort = 
+        <div className="navLeftTop">
               <input 
                 className="serverInput" 
                 placeholder = "Input Server IP" 
@@ -116,6 +121,29 @@ class NavBar extends Component {
                 onClick={event => this.handlePortSubmit(event)}>CONNECT
               </button>
             </div>
+      } else {
+        servePort =
+        <div className="navLeftTop">
+              <input 
+                className="serverInput" 
+                //placeholder should show the PORT connected 
+                placeholder = {this.props.connectPort}
+                value = {this.state.port} 
+                onChange={event => this.handleChannelChange(event, 'port')}/>
+              {/* add fetchconnect to onclick */}
+              <button 
+                //update className to style disconnect different 
+                className="primaryButton" 
+                type="button" 
+                onClick={(event) => window.location.reload()}>DISCONNECT
+              </button>
+            </div>
+      }
+      return(
+        <div className="navBar">
+          <div className="navLeft">
+          {/* connect to server, require input and a submit button */}
+            {servePort}
           </div>
 
           <div className="navCenter">
