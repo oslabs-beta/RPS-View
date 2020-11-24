@@ -43,9 +43,7 @@ socketServer.on('connection', function connection(ws) {
     //add each of them
     if (Array.isArray(message)){
       for (let el of message) {
-        console.log(el)
-        console.log(el.clientId)
-        console.log(subObj[el.clientId])
+        
         subObj[el.clientId].on('message', function(channel, message){
           // console.log(message);
           
