@@ -33,29 +33,50 @@ socketServer.on('connection', function connection(ws) {
   // }
 
   //websocket receives message from front end
+  //accept an array of id's (run foreach)
   ws.on('message',(message)=>{
     console.log(message)
     console.log(JSON.parse(message))
     message = JSON.parse(message)
+
+    //if message is array, this is a set of clients to add, 
+    //add each of them
+    if (Array.isArray(message)){
+      for (let el of message) {
+        
+        subObj[el.clientId].on('message', function(channel, message){
+          // console.log(message);
+          
+          let sendId = el.clientId;
+          socketServer.clients.forEach(client=>{
+            // this.options.name = "yo"
+            console.log(this.clientId)
+            if(client.readyState === WebSocket.OPEN){
+              client.send(JSON.stringify({message, channel, clientId: this.clientId}));
+            }
+          });
+        });
+      };
+    }
+    //single client
+    else {
+      subObj[message.clientId].on('message', function(channel, message){
+        // console.log(message);
+        
+        let sendId = message.clientId;
+        socketServer.clients.forEach(client=>{
+          // this.options.name = "yo"
+          console.log(this.clientId)
+          if(client.readyState === WebSocket.OPEN){
+            client.send(JSON.stringify({message, channel, clientId:this.clientId}));
+          }
+        })
+        
+        })
+
+    }
     
-    subObj[message.clientId].on('message', function(channel, message){
-      // console.log(message);
-      
-      let sendId = message.clientId;
-      socketServer.clients.forEach(client=>{
-        // this.options.name = "yo"
-        console.log(this.clientId)
-        if(client.readyState === WebSocket.OPEN){
-          client.send(JSON.stringify({message, channel, clientId:this.clientId}));
-        }
-      })
-      // ws.send({
-      //   channel: channel,
-      //   message: message,
-      //   key: key
-      // });
-    })
-  })
+  });
 
 });
 

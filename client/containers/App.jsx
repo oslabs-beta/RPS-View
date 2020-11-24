@@ -10,16 +10,42 @@
  */
 
 import React, {Component} from 'react';
+import { connect } from "react-redux";
 import '../styles/styles.scss';
 import ClientMenu from './ClientMenu.jsx';
 import ChannelContainer from './ChannelContainer.jsx';
 import ClientWindow from './ClientWindow.jsx';
 import NavBar from './NavBar.jsx';
 import img from '../../static/RPS_View_logo.png';
-// import ErrorBox from './ErrorBox.jsx'
-import ErrorBox from './ErrorBox.jsx'
+import ErrorBox from './ErrorBox.jsx';
+import * as middleware from '../actions/middleware.js';
+
+const URL = 'ws://localhost:3030';
+
+
+const mapDispatchToProps = (dispatch) => ({
+  socketReceivedMessage: (stateObj) => {
+    dispatch(middleware.socketReceivedMessage(stateObj))
+  },
+})
 
 class App extends Component {
+  constructor (props) {
+    super(props);
+    this.ws = new WebSocket(URL)
+  }
+
+
+  componentDidMount(){
+    this.ws.onopen = () => { 
+      console.log('Now connected'); 
+      // this.ws.send(JSON.stringify({hi:"hi"}))
+      this.ws.onmessage = (event) => {
+        const messages = JSON.parse(event.data);
+        this.props.socketReceivedMessage(messages);
+      };
+      };
+  }
   
   render(){
     return (
@@ -32,8 +58,8 @@ class App extends Component {
         <ChannelContainer />
       </div>
       <div className="middle">
-        <NavBar/>
-        <ClientWindow />
+        <NavBar ws={this.ws}/>
+        <ClientWindow ws={this.ws}/>
         <ErrorBox />
       </div>
       <div className="right">
@@ -50,4 +76,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(null, mapDispatchToProps)(App);
