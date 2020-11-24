@@ -35,9 +35,8 @@ const mapDispatchToProps = (dispatch) => ({
   //get handleGoClick
   handleGoClick: (selectedAction) => dispatch(middleware.handleGoClick(selectedAction)),
 
-  //get clone client from client reducer
-  // cloneClient: (data) => dispatch(middleware.handleClone(data))
-  cloneClient: (num) => dispatch(actions.cloneClient(num))
+  //data in form of {num: number, nextClientId: number}
+  fetchAddClones: (data) => dispatch(middleware.fetchAddClones(data))
 });
 
 class SubscriberActions extends Component{
@@ -110,14 +109,14 @@ class SubscriberActions extends Component{
         </button>
         <label htmlFor="numberOfClones">Number of Clones</label>
         <input type="number" name="numberOfClones" key ="numberOfClones" value={this.state.num} onChange={(e) => {this.handleChangeNumber(e)}}/>
-        <button onClick = {(e) => this.props.cloneClient(
-          this.state.num
-          // {
-          // num: this.state.num,
-          // channels: this.props.client.channels,
-          // nextClientId: this.props.nextClientId,
-          // type: 'subscriber',
-          // }
+        <button onClick = {(e) => this.props.fetchAddClones(
+          {
+            num: this.state.num,
+            channels: this.props.client.channels,
+            nextClientId: this.props.nextClientId,
+            type: 'subscriber',
+            ws: this.props.ws,
+          }
         )}>
           Clone this client
         </button>
