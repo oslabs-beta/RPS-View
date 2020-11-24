@@ -39,6 +39,9 @@ const clientReducer = (state = initialState, action) => {
   //declare channels
   let channels;
 
+  //declare type (used in multiple)
+  let type;
+
   //switch cases for each reducer
   switch(action.type) {
     
@@ -165,7 +168,7 @@ const clientReducer = (state = initialState, action) => {
      
     /** Add client adds a client to the clients object */
     case types.ADD_CLIENT:
-      const type = action.payload;
+      type = action.payload;
       
       //create a new client object with an empty log and empty channels array
       const newClient = {type, log: [], channels: []};
@@ -215,6 +218,25 @@ const clientReducer = (state = initialState, action) => {
         [property]: value
       }
     
+    case types.CLONE_CLIENT:
+      const num = action.payload;
+      console.log('running clone client, creating ', num, 'clients')
+      let next = state.nextClientId;
+      let channels = copyClientList[state.currClient].channels;
+      console.log(channels)
+      let type = copyClientList[state.currClient].type;
+      //iterate up to num, creating new client with same channels and type as currClient, add to copyClientList
+      for (let i = 0; i < num; i ++) {
+        copyClientList[next] = {log: [], channels, type}
+        next++;
+      }
+      //return updated copyClientList and nextClientId
+      return {
+        ...state,
+        clients: copyClientList,
+        nextClientID: next,
+      }
+
     //set default case
     default:
       return state;

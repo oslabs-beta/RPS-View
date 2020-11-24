@@ -24,6 +24,7 @@ const mapStateToProps = (state) => ({
   channel: state.client.channel,
   selectedAction: state.client.selectedAction,
   client: state.client.clients[state.client.currClient],
+  nextClientId: state.client.nextClientId,
 });
 
 //map dispatch
@@ -32,16 +33,30 @@ const mapDispatchToProps = (dispatch) => ({
   handleClientInput: (payload) => dispatch(actions.handleClientInput(payload)),
 
   //get handleGoClick
-  handleGoClick: (selectedAction) => dispatch(middleware.handleGoClick(selectedAction))
+  handleGoClick: (selectedAction) => dispatch(middleware.handleGoClick(selectedAction)),
+
+  //get clone client from client reducer
+  // cloneClient: (data) => dispatch(middleware.handleClone(data))
+  cloneClient: (num) => dispatch(actions.cloneClient(num))
 });
 
 class SubscriberActions extends Component{
   constructor(props){
     super(props);
-    // this.handleGoClick = this.handleGoClick.bind(this);
+    this.state = {
+      num: 0,
+    }
+    this.handleChangeNumber = this.handleChangeNumber.bind(this);
   }
 
-  
+  handleChangeNumber(e) {
+    e.preventDefault();
+    let num = e.target.value;
+    this.setState({
+      ...this.state,
+      num,
+    })
+  }
 
   render(){
     
@@ -92,6 +107,19 @@ class SubscriberActions extends Component{
             channel: this.props.channel
             })}}>
           Go
+        </button>
+        <label htmlFor="numberOfClones">Number of Clones</label>
+        <input type="number" name="numberOfClones" key ="numberOfClones" value={this.state.num} onChange={(e) => {this.handleChangeNumber(e)}}/>
+        <button onClick = {(e) => this.props.cloneClient(
+          this.state.num
+          // {
+          // num: this.state.num,
+          // channels: this.props.client.channels,
+          // nextClientId: this.props.nextClientId,
+          // type: 'subscriber',
+          // }
+        )}>
+          Clone this client
         </button>
         
       </div>
