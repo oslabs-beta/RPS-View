@@ -36,9 +36,10 @@ class ErrorBox extends Component{
     return (
       <div className="errorBox">
         <div className="errorComponents">
-          <p>{this.props.errorMessage}</p>
+          <p className="errorBoxMessage">{this.props.errorMessage}</p>
           <button 
-            className="errorButton" 
+            className="secondaryButton"
+            id="errorButton" 
             onClick={() => {this.props.clearError()}}>
               Got It
           </button>
