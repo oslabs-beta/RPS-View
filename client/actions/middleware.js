@@ -192,7 +192,7 @@ export const socketReceivedMessage = (stateObj) => (dispatch) => {
 //message middleware - create new iso string for current time, then call dispatch for message
 export const getDate = (stateObj) => (dispatch) => {
   
-  const now = new Date(Date.now()).toISOString();
+  const now = new Date(Date.now()).toString();
   if(stateObj.selectedAction === 'addMessage'){
     dispatch(clientActions.publishMessage(now));
   }
