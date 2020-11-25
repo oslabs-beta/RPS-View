@@ -25,10 +25,10 @@ const MessageBox = (props) => {
     //<p>to {channel} </p>
     //<p>at DATE/TIME</p>
     //<p>message</p>
-    // console.log("Message Box test: ", props.timestamp);
-  let theDate = props.timestamp.substr(0, 10);
-  let theTime = props.timestamp.substr(11, 12);
-  console.log("date/time ", theDate, " and ", theTime);
+    console.log("Message Box test: ", props.timestamp);
+  let theDate = props.timestamp.substr(0, 14);
+  let theTime = props.timestamp.substr(16, 8);
+  // console.log("date/time ", theDate, " and ", theTime);
 
   if (props.type === "received") {
     return (
