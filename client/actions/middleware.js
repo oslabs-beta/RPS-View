@@ -30,6 +30,7 @@ export const handleGoClick = (stateObj) => (dispatch) => {
       dispatch(fetchUnsubscribe(stateObj));
       return;
     default: 
+      dispatch(errorActions.errorHandler('Select an action to proceed'))
       return;
   }
 }
@@ -169,13 +170,15 @@ export const fetchUnsubscribe = (stateObj) => (dispatch) => {
   })
   .then( response => {
     if(response.status === 200) {
-      console.log('client unsubscribed :\(!')
       dispatch(getDate(stateObj))
     } else {
       dispatch(errorActions.errorHandler('Failed to unsubscribe!'))
     }
   })
-  .catch(dispatch(errorActions.errorHandler('Failed to unsubscribe!')))
+  .catch(err => {
+    console.log('in catch of fetchUnsubscribe, error is ', err)
+    dispatch(errorActions.errorHandler('Failed to unsubscribe!'))
+  })
 }
 
 export const socketReceivedMessage = (stateObj) => (dispatch) => {
