@@ -107,9 +107,17 @@ class SubscriberActions extends Component{
             })}}>
           Go
         </button>
-        <label htmlFor="numberOfClones">Number of Clones</label>
-        <input type="number" name="numberOfClones" key ="numberOfClones" value={this.state.num} onChange={(e) => {this.handleChangeNumber(e)}}/>
-        <button onClick = {(e) => this.props.fetchAddClones(
+        <label htmlFor="numberOfClones" 
+          className="numClonesLabel">Number of Clones</label>
+        <input 
+          type="number" 
+          name="numberOfClones"
+          className="numClonesInput" 
+          key ="numberOfClones" 
+          value={this.state.num} 
+          onChange={(e) => {this.handleChangeNumber(e)}}/>
+        <button className="addCloneButton" 
+          onClick = {(e) => this.props.fetchAddClones(
           {
             num: this.state.num,
             channels: this.props.client.channels,

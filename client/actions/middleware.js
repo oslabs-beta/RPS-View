@@ -30,6 +30,7 @@ export const handleGoClick = (stateObj) => (dispatch) => {
       dispatch(fetchUnsubscribe(stateObj));
       return;
     default: 
+      dispatch(errorActions.errorHandler('Select an action to proceed'))
       return;
   }
 }
