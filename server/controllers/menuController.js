@@ -127,6 +127,7 @@ menuController.addClonedClients = (req, res, next) => {
         redis.subscribe('sup', (error, count)=>{
             //if error trying to add client, server is not connected
             if(error){
+                console.log('hi')
                 return res.status(400).send('server not connected');
 
             }
@@ -146,6 +147,7 @@ menuController.addClonedClients = (req, res, next) => {
                 subObj[id].subscribe('sup', (error, count)=>{
                     //if error attach error as res locals and continue
                     if(error){
+                        console.log('hi2')
                         return res.status(400).send('failed to connect');
                     }
                 })
