@@ -228,13 +228,13 @@ const clientReducer = (state = initialState, action) => {
       //iterate up to num, creating new client with same channels and type as currClient, add to copyClientList
       for (let i = 0; i < num; i ++) {
         copyClientList[next] = {log: [], channels, type}
-        next++;
+        next = next + 1;
       }
       //return updated copyClientList and nextClientId
       return {
         ...state,
         clients: copyClientList,
-        nextClientID: next,
+        nextClientId: next,
       }
 
     //set default case
