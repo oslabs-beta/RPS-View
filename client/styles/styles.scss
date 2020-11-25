@@ -32,7 +32,7 @@ input {
 }
 
 .highlighted:focus {
-  outline: $highlightDark solid .1em !important;
+  // outline: $highlightDark solid .1em !important;
 }
 
 .primaryButton {
@@ -55,7 +55,7 @@ input {
 }
 
 .primaryButton:focus, .secondaryButton:focus {
-  outline: $accentDark solid 0.1em ;
+  // outline: $accentDark solid 0.1em ;
 }
 
 // .logo {
