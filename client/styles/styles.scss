@@ -118,10 +118,12 @@ input {
           // border: 2px solid $accentDark; 
           .serverInput {
             border: none;
+            width: 9em;
           }  
           .serverPort {
             border: none;
             background-color: $lightYellow;
+            width: 9em;
           } 
         }
         .navCenter {
@@ -224,11 +226,28 @@ input {
           padding-bottom: 0.5em;
           * {
             margin-right: 0.2em;
+            margin-left: 0.2em;
           }
           #actionBarInput {
             border: none;
           }
           #goButton {
+            padding-right: .9em;
+            padding-left: .9em;
+            background-color: $highlight;
+            color: whitesmoke; 
+          }
+          .numClonesLabel {
+            margin-left: 17px;
+            font-size: smaller;
+          }
+          .numClonesInput {
+            width: 35px;
+            border: none;
+          }
+          .addCloneButton {
+            border: none;
+            background-color: $accent;
             padding-right: .9em;
             padding-left: .9em;
           }
@@ -276,8 +295,8 @@ input {
           // padding-top: -2em;
           // padding-bottom: -2em;
           // border-bottom: 2px solid $accentDark;
-          border-top: 1.65px solid $darkGray;
-          border-bottom: 0.55px solid $darkGray;
+          border-top: .1em solid $darkGray;
+          // border-bottom: .1em solid $darkGray;
           .miniLabelText {
             margin-top: 0.5em;
             margin-bottom: 0.5em;
