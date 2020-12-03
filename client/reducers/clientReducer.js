@@ -39,6 +39,9 @@ const clientReducer = (state = initialState, action) => {
   //declare channels
   let channels;
 
+  //declare type (used in multiple)
+  let type;
+
   //switch cases for each reducer
   switch(action.type) {
     
@@ -54,6 +57,18 @@ const clientReducer = (state = initialState, action) => {
         channels.push(state.channel);
         channels.sort();
       }
+
+      //TODO add timestamp payload to function call
+      //initialize a new message
+      let subMessage = {
+        channel: state.channel,
+        timestamp: action.payload,
+        type: 'subscribed',
+        message: `Subscribed to ${state.channel}`
+      }
+
+      //push new message to correct client log
+      copyClientList[state.currClient]["log"].push(subMessage);
 
       //return state with updated clients list and reassign message to empty string
       return {
@@ -75,7 +90,16 @@ const clientReducer = (state = initialState, action) => {
         //remove one element at that index to remove the channel
         channels.splice(index, 1);
       }
+      //initialize a new message
+      let unsubMessage = {
+        channel: state.channel,
+        timestamp: action.payload,
+        type: 'unsubscribed',
+        message: `Unsubscribed from ${state.channel}`
+      }
 
+      //push new message to correct client log
+      copyClientList[state.currClient].log.push(unsubMessage);
       //add the altered copyClientList to the state & reset message
       return {
         ...state,
@@ -84,6 +108,7 @@ const clientReducer = (state = initialState, action) => {
       };
     
     case types.PUBLISH_MESSAGE:
+      
       //action.payload will be the date string
 
       //create new message using date and state components
@@ -93,10 +118,18 @@ const clientReducer = (state = initialState, action) => {
         type: 'published',
         message: state.message,
       }
+
       //push new message to correct client log
       copyClientList[state.currClient].log.push(newPubMessage);
       //return altered state
         //note: clear message
+
+      //has this client pubbed to this channel before? IF NOT --> update channels
+      if (!copyClientList[state.currClient].channels.includes(state.channel)) {
+        
+        copyClientList[state.currClient].channels.push(state.channel);
+      }
+      
       return {
         ...state,
         clients: copyClientList,
@@ -106,6 +139,7 @@ const clientReducer = (state = initialState, action) => {
 
     /** Message is dispatched after web socket receives data, adds newMessage to the client's log*/
     case types.RECEIVED_MESSAGE:
+      
       //create messages object
       /**
        * action.payload format
@@ -134,9 +168,10 @@ const clientReducer = (state = initialState, action) => {
      
     /** Add client adds a client to the clients object */
     case types.ADD_CLIENT:
+      type = action.payload;
       
       //create a new client object with an empty log and empty channels array
-      const newClient = {log: [], channels: []};
+      const newClient = {type, log: [], channels: []};
       
       //add new client object to the copyOfClients object
       copyClientList[state.nextClientId] = newClient;
@@ -183,6 +218,25 @@ const clientReducer = (state = initialState, action) => {
         [property]: value
       }
     
+    case types.CLONE_CLIENT:
+      const num = action.payload;
+      console.log('running clone client, creating ', num, 'clients')
+      let next = state.nextClientId;
+      let channels = copyClientList[state.currClient].channels.slice();
+      console.log(channels)
+      let type = copyClientList[state.currClient].type;
+      //iterate up to num, creating new client with same channels and type as currClient, add to copyClientList
+      for (let i = 0; i < num; i ++) {
+        copyClientList[next] = {log: [], channels, type}
+        next = next + 1;
+      }
+      //return updated copyClientList and nextClientId
+      return {
+        ...state,
+        clients: copyClientList,
+        nextClientId: next,
+      }
+
     //set default case
     default:
       return state;

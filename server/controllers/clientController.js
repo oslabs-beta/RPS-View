@@ -24,7 +24,7 @@ clientController.unsubscribe = (req, res, next) => {
 
   //if clientID exist, call redis to unsub
     //passing in the channel name, and redis should return count of channel client is subscribe to
-  if(channelName === undefined || clientId === undefined) return res.status(400).send('undefined input');
+  if(channelName === undefined || clientId === undefined || channelName === '' || clientId === '') return res.status(400).send('undefined input');
   if(subObj[clientId] === undefined) {
     return res.status(400).send('client does not exist');
   } else {
@@ -32,7 +32,7 @@ clientController.unsubscribe = (req, res, next) => {
       if(error) {
         return res.status(400).send('unable to unsubscribe');
       } 
-      return res.status(200).send('Client Successfully Unsubscribed to Channel');
+      return res.status(200).send(clientId+ 'Successfully unsubscribed to ' + channelName + '. Cleint is now subscribed to '+ count +'channels');
     })
   }
 };
@@ -49,23 +49,43 @@ clientController.subscribe = (req, res, next) => {
     //redis will return count for client subbed channel
 
   //server message is passed to the router for response
-  if(channelName === undefined || clientId === undefined) return res.status(400).send('undefined input');
+  if(channelName === undefined || clientId === undefined || channelName === '' || clientId === '') return res.status(400).send('undefined input');
   if(subObj[clientId] === undefined) {
-    console.log(1)
 
     return res.status(400).send('client does not exist');
   } else {
     subObj[clientId].subscribe(channelName, (error, count) => {
       if(error) {
-        console.log(2)
         return res.status(400).send('failed to subscribe');
       } 
-      console.log(3)
-      return res.status(200).send('Client Successfully subscribed to Channel');
+      return res.status(200).send(clientId+ 'Successfully subscribed to ' + channelName + '. Cleint is now subscribed to '+ count +'channels');
     })
   }
 
 };
+
+clientController.subscribeMany = (req, res, next) => {
+  let clients = req.body.clients;
+  const channels = req.body.channels; //this is an array
+  for (let client of clients) {
+    clientId = client.clientId;
+    for (let channel of channels) {
+      if (!channel) {
+        return res.status(400).send('undefined input')
+      }
+      if (!subObj[clientId]) {
+        return res.status(400).send('client does not exist')
+      }
+      subObj[clientId].subscribe(channel, (error, count) => {
+        if(error) {
+          return res.status(400).send('failed to subscribe');
+        } 
+      })
+    }
+  }
+  
+  return res.status(200).send('client subscribed to channels')
+}
 
 //router for client to publish on redis server
 clientController.publish = (req, res, next) => {``
@@ -76,7 +96,7 @@ clientController.publish = (req, res, next) => {``
     //publish to redis using redis commands 
 
   //return server message to frontend
-  if(channelName === undefined || clientId === undefined || message === undefined) return res.status(400).send('undefined input');
+  if(channelName === undefined || clientId === undefined || message === undefined || message === '' || clientId === '' || channelName === '') return res.status(400).send('undefined input');
   if(pubObj[clientId] === undefined) {
     //send fail status and message to the frontend
     return res.status(400).send('error, client does not exist')
@@ -85,7 +105,8 @@ clientController.publish = (req, res, next) => {``
       if(error) {
         return res.status(400).send('failed to publish!')
       } 
-      return res.status(200).send('message published!')
+      console.log(count)
+      return res.status(200).send('message published to ' + channelName + '. message published to ' + count + 'channel');
     })
   }
 };

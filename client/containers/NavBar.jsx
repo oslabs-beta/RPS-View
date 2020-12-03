@@ -16,13 +16,14 @@ import * as channelActions from "../actions/channelActions";
 import * as errorActions from "../actions/errorActions";
 import * as clientActions from "../actions/clientActions.js";
 import * as middleware from "../actions/middleware.js";
-const URL = 'ws://localhost:3030'
+// const URL = 'ws://localhost:3030'
 
 const mapStateToProps = (state) => ({
   portErrorMessage: state.channels.portErrorMessage,
   nextClientId: state.client.nextClientId,
   errorMessage: state.client.errorMessage,
   channels: state.channels.channelList,
+  connectPort: state.channels.port,
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -39,36 +40,37 @@ const mapDispatchToProps = (dispatch) => ({
     fetchAddChannel: (channelText) => {
       dispatch(middleware.fetchAddChannel(channelText))
     },
-    socketReceivedMessage: (stateObj) => {
-      dispatch(middleware.socketReceivedMessage(stateObj))
-    }
+    // socketReceivedMessage: (stateObj) => {
+    //   dispatch(middleware.socketReceivedMessage(stateObj))
+    // }
 
 });
 
 class NavBar extends Component {
   constructor(props) {
     super(props) 
-    
+    this.state = {
+      //temp input tracking
+      channelText: '',
+      port: '',
+      type: '',
+    }
   }
 
-  ws = new WebSocket(URL)
+  // ws = new WebSocket(URL)
 
-  componentDidMount(){
-    this.ws.onopen = () => { 
-      console.log('Now connected'); 
-      // this.ws.send(JSON.stringify({hi:"hi"}))
-      this.ws.onmessage = (event) => {
-        const messages = JSON.parse(event.data);
-        this.props.socketReceivedMessage(messages);
-      };
-      };
-  }
+  // componentDidMount(){
+  //   this.ws.onopen = () => { 
+  //     console.log('Now connected'); 
+  //     // this.ws.send(JSON.stringify({hi:"hi"}))
+  //     this.ws.onmessage = (event) => {
+  //       const messages = JSON.parse(event.data);
+  //       this.props.socketReceivedMessage(messages);
+  //     };
+  //     };
+  // }
 
-  state = {
-    channelText: '',
-    port: '',
-    type: '',
-  }
+  
 
  
   //trigger fetch request and add port to state when connect button is clicked
@@ -99,11 +101,14 @@ class NavBar extends Component {
 
   render(){
       console.log('navbar rendering, props are', this.props)
-      return(
-        <div className="navBar">
-          <div className="navLeft">
-          {/* connect to server, require input and a submit button */}
-            <div className="navLeftTop">
+      //if client state is empty string, display 'input server ip' and connect
+        //button should fetch connect
+      //if port state is not empty, display port number and DISCONNECT
+        //button should refresh the page, which disconnect from server
+      let servePort;
+      if(this.props.connectPort === null) {
+        servePort = 
+        <div className="navLeftTop">
               <input 
                 className="serverInput" 
                 placeholder = "Input Server IP" 
@@ -116,9 +121,29 @@ class NavBar extends Component {
                 onClick={event => this.handlePortSubmit(event)}>CONNECT
               </button>
             </div>
-            <div className="navLeftBotton"> 
-              <p>{this.props.portErrorMessage}</p>
+      } else {
+        servePort =
+        <div className="navLeftTop">
+              <input 
+                className="serverPort" 
+                //placeholder should show the PORT connected 
+                placeholder = {this.props.connectPort}
+                value = {this.state.port} 
+                onChange={event => this.handleChannelChange(event, 'port')}/>
+              {/* add fetchconnect to onclick */}
+              <button 
+                //update className to style disconnect different 
+                className="primaryButton" 
+                type="button" 
+                onClick={(event) => window.location.reload()}>DISCONNECT
+              </button>
             </div>
+      }
+      return(
+        <div className="navBar">
+          <div className="navLeft">
+          {/* connect to server, require input and a submit button */}
+            {servePort}
           </div>
 
           <div className="navCenter">
@@ -159,14 +184,11 @@ class NavBar extends Component {
             onClick={() => {
               console.log('add client button clicked!')
               this.props.fetchAddClient(
-                {type: this.state.type, clientId: this.props.nextClientId, ws: this.ws})
+                {type: this.state.type, clientId: this.props.nextClientId, ws: this.props.ws})
                 this.setState({...this.state, type: ''});
               }}
           >
             Add Client</button>
-            <div > 
-              <p>{this.props.errorMessage}</p>
-            </div>
           </div>
           
         </div>

@@ -22,6 +22,12 @@ const ClientCard = (props) => {
   let selectedChannel = props.selectedChannel;
   let channels = props.channels;
   let highlight = 'unhighlighted';
+  let type;
+
+  //use this to display type on button
+  if(props.type === 'publisher') type = '.  Publisher';
+  else type = '. Subscriber';
+
   channels.forEach(element => {
     if(element === selectedChannel){
       highlight = 'highlighted';
@@ -30,7 +36,7 @@ const ClientCard = (props) => {
   return (
     <div className = "oneClient">
       <button
-        className = {`clientCard ${highlight}`}
+        className = {`clientCard ${highlight} TYPE${props.type}`}
         // selectedChannel = {this.props.selectedChannel}
         id = {props.id} 
         key = {props.id} 

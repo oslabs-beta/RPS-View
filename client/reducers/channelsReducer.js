@@ -68,9 +68,12 @@ const channelsReducer = (state = initialState, action) => {
             }
         
         case types.SELECT_CHANNEL:
+            let selected;
+            if(action.payload === state.selectedChannel) selected = null;
+            else selected = action.payload;
             return{
                 ...state,
-                selectedChannel : action.payload
+                selectedChannel : selected
             }
         
         //add channel subscribers
@@ -81,7 +84,7 @@ const channelsReducer = (state = initialState, action) => {
         case types.PORT_CONNECTED:
             return{
                 ...state,
-                port: action.payload
+                port: action.payload || '6379'
             }
 
         default:
