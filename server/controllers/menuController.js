@@ -123,10 +123,11 @@ menuController.addClonedClients = (req, res, next) => {
         
         let redis = new Redis(globalPort);
         let id = client.clientId;
-        console.log(id)
+        
         redis.subscribe('sup', (error, count)=>{
             //if error trying to add client, server is not connected
             if(error){
+                console.log('hi')
                 return res.status(400).send('server not connected');
 
             }
@@ -142,10 +143,11 @@ menuController.addClonedClients = (req, res, next) => {
             else if(client.type === "subscriber"){
                 subObj[id] = new Redis(globalPort);
                 subObj[id].clientId=id;
-                console.log('logging subObj', subObj[id].clientId)
+                
                 subObj[id].subscribe('sup', (error, count)=>{
                     //if error attach error as res locals and continue
                     if(error){
+                        console.log('hi2')
                         return res.status(400).send('failed to connect');
                     }
                 })

@@ -84,7 +84,7 @@ clientController.subscribeMany = (req, res, next) => {
     }
   }
   
-  return res.send(200).send('client subscribed to channels')
+  return res.status(200).send('client subscribed to channels')
 }
 
 //router for client to publish on redis server
