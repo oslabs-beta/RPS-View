@@ -54,9 +54,9 @@ input {
   background-color: whitesmoke;
 }
 
-.primaryButton:focus, .secondaryButton:focus {
-  // outline: $accentDark solid 0.1em ;
-}
+// .primaryButton:focus, .secondaryButton:focus {
+//   // outline: $accentDark solid 0.1em ;
+// }
 
 // .logo {
 //   background-color: purple;
@@ -85,6 +85,7 @@ input {
         width: 100%;
         font-size: 0.9em;
         text-align: center;
+        margin-bottom: 0.5px;
         // border: 2px solid $accentDark;
       }
       .channel {
@@ -96,7 +97,8 @@ input {
         .oneChannel {
           button {
             width: 100%;
-            
+            margin-top: 0.5px;
+            margin-bottom: 0.5px;
           }
           
         }
@@ -140,8 +142,8 @@ input {
       }
       .clientWindow {
         background-color: $component-bg;
-        max-width: 50em;
-        min-width: 35em;
+        // max-width: 50em;
+        width: 45em;
         margin-top: 1em;
         .top {
           display: flex;
@@ -286,6 +288,7 @@ input {
           color: $accentDark;
           font-size: 0.9em;
           text-align: center;
+          margin-bottom: 0.5px;
         }
         .clientMiniLabel {
           font-size: 0.8em;
@@ -295,7 +298,8 @@ input {
           // padding-top: -2em;
           // padding-bottom: -2em;
           // border-bottom: 2px solid $accentDark;
-          border-top: .1em solid $darkGray;
+          margin-top: 0.5px;
+          margin-bottom: 0.5px;
           // border-bottom: .1em solid $darkGray;
           .miniLabelText {
             margin-top: 0.5em;
@@ -305,6 +309,8 @@ input {
         .oneClient {
           button {
             width: 100%;
+            margin-top: 0.5px;
+            margin-bottom: 0.5px;
           }
         }
       }
