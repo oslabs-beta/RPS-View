@@ -8,11 +8,17 @@
  *
  * ************************************
  */
-
+// const db = require('./models/model')
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const WebSocket = require('ws')
+const { MongoClient } = require('mongodb')
+const middleware = require('./models/middleware.js')
+const uri = "mongodb+srv://admin:admin123@cluster0.9cgyw.mongodb.net/student?retryWrites=true&w=majority"
+
+const client = new MongoClient(uri);
+// console.log('client is', client)
 
 const socketServer = new WebSocket.Server({port:3030});
 
@@ -87,33 +93,70 @@ const menuRouter = require('./routes/menuRouter');
 const clientRouter = require('./routes/clientRouter');
 const { subObj } = require('./controllers/menuController');
 
-//handle parsing request body
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+//mongo connection
+async function run() {
+  try {
+    await client.connect();
+    const database = client.db('student');
+    const collection = database.collection('students');
+    // Query for a movie that has the title 'Back to the Future'
+    
+    //handle parsing request body
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: true }));
+    
+    //serve index
+    app.use('/static', express.static(path.resolve(__dirname,'../static')));
+    
+    app.get('/', (req, res) => {
+      res.set({ 'Content-Type': 'text/html; charset=utf-8' })
+      .sendFile(path.resolve(__dirname, '../index.html'));
+    })
+    
+    //serve static from webpack build folder or on webpack dev the publicPath /build
+    app.use('/build', express.static(path.resolve(__dirname, '../build')));
+    
+    app.use('/menu', menuRouter);
+    app.use('/client', clientRouter);
+    
+    app.get('/findStudent/:firstName', 
+    (req, res, next) => {
+      res.locals.collection = collection;
+      return next();
+    },
+    middleware.findStudent)
+    
+    app.use('/', (req, res) => {
+      console.log('Bad URL');
+      res.sendStatus(404);
+    })
+    
+  } 
+  finally {
+    // Ensures that the client will close when you finish/error
+    console.log('running finally')
+    // await client.close();
+  }
+}
 
-//serve index
-app.use('/static', express.static(path.resolve(__dirname,'../static')));
-
-app.get('/', (req, res) => {
-  res.set({ 'Content-Type': 'text/html; charset=utf-8' })
-  .sendFile(path.resolve(__dirname, '../index.html'));
-})
-
-//serve static from webpack build folder or on webpack dev the publicPath /build
-app.use('/build', express.static(path.resolve(__dirname, '../build')));
-
-app.use('/menu', menuRouter);
-app.use('/client', clientRouter);
-
-
-// //serve styles
+// //test mongo
+// app.use('/mongo', async (req, res) => {
+//   console.log('db is', db)
+//   const collection = db.sessionData;
+//   console.log('collection is', collection)
+//   //insert a document to see if client is connected
+//   //declare document
+//   const pizzaDocument = {
+//     name: "Neapolitan pizza",
+//     shape: "round",
+//     toppings: [ "San Marzano tomatoes", "mozzarella di bufala cheese" ],
+//   };
+//   //attempt to insert
+//   const result = await collection.insertOne(pizzaDocument);
+// })
 
 //404
-app.use('/', (req, res) => {
-  console.log('Bad URL');
-  res.sendStatus(404);
-})
-
+run().catch(console.dir);
 //listen on port 3000
 app.listen(3000, () => {
   console.log('listening on port 3000')
