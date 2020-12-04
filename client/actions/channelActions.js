@@ -27,7 +27,7 @@ export const deleteChannel = (channelName) => ({
 });
 
 //portConnected
-export const portConnected = (port) => ({
+export const portConnected = (data) => ({
   type: types.PORT_CONNECTED,
-  payload: port,
+  payload: data,
 });
