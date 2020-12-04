@@ -225,7 +225,7 @@ export const fetchConnect = (port) => (dispatch) => {
       return response.json()
     } else dispatch(errorActions.errorHandler(`Failed to connect to ${port}`));
   }).then(data => {
-    console.log(data.channels)
+    // console.log(data.channels)
     dispatch(channelActions.portConnected({port, channels:data.channels}));
 
   })
