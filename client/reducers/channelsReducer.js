@@ -82,9 +82,24 @@ const channelsReducer = (state = initialState, action) => {
 
         //case portConnected
         case types.PORT_CONNECTED:
+            let channelList = state.channelList.slice();
+            let totalChannels = state.totalChannels;
+            action.payload.channels.forEach(el=>{
+                if(el === "sup"){
+
+                }else{
+                    let newChannel = {
+                        name: el
+                    }
+                    channelList.push(newChannel)
+                    totalChannels += 1;
+                }
+            })
             return{
                 ...state,
-                port: action.payload || '6379'
+                port: action.payload.port || '6379',
+                totalChannels,
+                channelList
             }
 
         default:
