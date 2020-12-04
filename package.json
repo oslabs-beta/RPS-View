@@ -5,9 +5,10 @@
   "main": "main.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
-    "start": "electron .",
+    "start": "concurrently \"npm run dev\" \"wait-on http://localhost:8080 && npm run electron\"",
     "dev": "concurrently \"cross-env NODE_ENV=development webpack serve\" \"nodemon server/server.js\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "electron": "electron ."
   },
   "repository": {
     "type": "git",
@@ -52,6 +53,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
     "sass": "^1.29.0",
+    "wait-on": "^5.2.0",
     "ws": "^7.4.0"
   },
   "babel": {
