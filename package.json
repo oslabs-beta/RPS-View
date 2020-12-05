@@ -20,7 +20,6 @@
     "url": "https://github.com/elisebare/RLBF/issues"
   },
   "homepage": "https://github.com/elisebare/RLBF#readme",
-  
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
@@ -58,6 +57,7 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
+    "regenerator-runtime": "^0.13.7",
     "sass": "^1.29.0",
     "wait-on": "^5.2.0",
     "ws": "^7.4.0"
