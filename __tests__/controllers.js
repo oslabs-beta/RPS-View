@@ -9,7 +9,8 @@
  * ************************************
  */
 
- const {menuController} = require('../server/controllers/menuController.js');
+const {menuController} = require('../server/controllers/menuController.js');
+const regeneratorRuntime = require('regenerator-runtime/runtime');
 
 
  //describe
@@ -39,9 +40,9 @@
      test('accurately grabs port number inputted by user', async () => {
        const mockReq = {body: {port: "2222"}};
        const mockRes = mockResponse();
-       await menuController.connect(mockReq, mockRes)
+       await menuController.connect(mockReq, mockRes);
        expect(mockRes.status).toHaveBeenCalledWith(200);
-
+       
        
      })
    })
