@@ -85,12 +85,12 @@ input {
         background-color: $accent;
         color: $accentDark;
         width: 100%;
-        font-size: 0.9em;
+        font-size: 1.1em;
         text-align: center;
         margin-bottom: 0.5px;
         border-radius: $bigBorderpx;
         margin-bottom:$marginHeader;
-        box-shadow: 2px 2px 3px #081c15;
+        box-shadow: $boxShadowLabel;
         // border: 2px solid $accentDark;
       }
       .channel {
@@ -105,6 +105,7 @@ input {
             margin-top: 0.5px;
             margin-bottom: 0.5px;
             border-radius: $smallBorderpx;
+            overflow-wrap: break-word;
           }
           
         }
@@ -118,68 +119,92 @@ input {
       .navBar {
         display: flex;
         flex-direction: row;
+        
         padding-right: 1em;
         padding-left: 1em;
         margin-top: 0.5em;
         .navLeft {
           margin: 5px;
-          // border: 2px solid $accentDark; 
-          .serverInput {
-            height: 100%;
-            border-top-left-radius: $borderpx;
-            border-bottom-left-radius: $borderpx;
-            box-shadow: 4px 2px 4px #081c15;
-            border: none;
-            width: 9em;
-          }  
-          .serverPort{
-            border-top-left-radius: $borderpx;
-            border-bottom-left-radius: $borderpx;
-            border: none;
-            width: 9em;
+          .navLeftTop{
+            display: flex;
+            flex-direction: row;
+            align-content: center;
+
+            .serverInput {
+              height: $navBarHeight;
+              padding:0;
+              border-top-left-radius: $borderpx;
+              border-bottom-left-radius: $borderpx;
+              box-shadow: $boxShadowInput;
+              border: none;
+              width: 9em;
+            }  
+            .serverPort {
+              height: $navBarHeight;
+              padding:0;
+              border-top-left-radius: $borderpx;
+              border-bottom-left-radius: $borderpx;
+              box-shadow: $boxShadowInput;
+              border: none;
+              width: 9em;
+              background-color: $lightYellow;
+            } 
+            // border: 2px solid $accentDark; 
+            .primaryButton{
+              vertical-align: middle;
+              height: $navBarHeight;
+              border-top-right-radius: $borderpx;
+              border-bottom-right-radius: $borderpx;
+              box-shadow: $boxShadowBtn;
+              border:none;
+            }
+
           }
-          .primaryButton{
-            height: 100%;
-            border-top-right-radius: $borderpx;
-            border-bottom-right-radius: $borderpx;
-            box-shadow: 2px 2px 4px #081c15;
-            border:none;
-          }
-          .serverPort {
-            height: 100%;
-            border-top-left-radius: $borderpx;
-            border-bottom-left-radius: $borderpx;
-            box-shadow: 4px 2px 4px #081c15;
-            border: none;
-            width: 9em;
-            background-color: $lightYellow;
-          } 
         }
         .navCenter {
           margin: 5px;
           // border: 2px solid $accentDark;
+          display: flex;
+          flex-direction: row;
+          align-content: center;
           .channelInput {
-          padding: 0.3em;
-          border: none;
-          box-shadow: 4px 2px 4px #081c15;
-          }
-          .channelInput{
+            height: $navBarHeight;
+            padding-left: 0.3em;
+            padding-right: 0.3em;
+            padding-top: 0;
+            padding-bottom: 0;
+            border: none;
+            box-shadow: $boxShadowInput;
             border-top-left-radius: $borderpx;
             border-bottom-left-radius: $borderpx;
-            
           }
-        }
-        .secondaryButton{
-          border-top-right-radius: $borderpx;
-          border-bottom-right-radius: $borderpx;
-          box-shadow: 2px 2px 4px #081c15;
+          .secondaryButton{
+            height: $navBarHeight;
+            padding-top: 0;
+            padding-bottom: 0;
+            border-top-right-radius: $borderpx;
+            border-bottom-right-radius: $borderpx;
+            box-shadow: $boxShadowBtn;
+          }
         }
         .navRight {
           margin: 5px;
+          display: flex;
+          flex-direction: row;
+          align-content: center;
           .dropDown{
+            height: $navBarHeight;
             border-top-left-radius: $smallBorderpx;
             border-bottom-left-radius: $smallBorderpx;
-            box-shadow: 4px 2px 4px #081c15;
+            box-shadow: $boxShadowInput;
+          }
+          .secondaryButton{
+            height: $navBarHeight;
+            padding-top: 0;
+            padding-bottom: 0;
+            border-top-right-radius: $borderpx;
+            border-bottom-right-radius: $borderpx;
+            box-shadow: $boxShadowBtn;
           }
         }
       }
@@ -189,6 +214,7 @@ input {
         width: 45em;
         margin-top: 2em;
         border-radius: $bigBorderpx;
+        box-shadow: $clientWindowBoxShadow;
         .top {
           display: flex;
           flex-direction: row;
@@ -345,11 +371,11 @@ input {
 
           background-color: $accent;
           color: $accentDark;
-          font-size: 0.9em;
+          font-size: 1.1em;
           text-align: center;
           margin-bottom: $marginHeader;
           border-radius: $bigBorderpx;
-          box-shadow: 2px 2px 3px #081c15;
+          box-shadow: $boxShadowLabel;
         }
         .clientMiniLabel {
           font-size: 0.8em;
