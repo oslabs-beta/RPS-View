@@ -33,7 +33,7 @@ menuController.connect = (req,res,next) => {
     //use subscribe in order to test connection
     let redis = new Redis(globalPort)
     //catch connection error with try catch
-    console.log(subObj)
+    // console.log(subObj)
     redis.pubsub('channels', (err, channels)=>{
         if(err){
             
