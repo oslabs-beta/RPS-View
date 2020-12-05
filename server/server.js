@@ -84,6 +84,15 @@ socketServer.on('connection', function connection(ws) {
     
   });
 
+  ws.on("close", function(){
+    for(let key in subObj){
+      // console.log(key)
+      // subObj[key].removeListener('message',event)
+      subObj[key].quit()
+      delete subObj[key]
+    }
+  })
+
 });
 
 

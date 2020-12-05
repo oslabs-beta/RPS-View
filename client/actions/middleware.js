@@ -183,6 +183,7 @@ export const fetchUnsubscribe = (stateObj) => (dispatch) => {
 
 export const socketReceivedMessage = (stateObj) => (dispatch) => {
   //
+  console.log('socket is running')
   dispatch(getDate(stateObj))
 }
 
@@ -202,6 +203,7 @@ export const getDate = (stateObj) => (dispatch) => {
     dispatch(clientActions.unsubscribe(now));
   }
   else {
+    console.log('REACHED ELSE OF GETDATE')
     dispatch(clientActions.receivedMessage({...stateObj, now}));
   }
 }
