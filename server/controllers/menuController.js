@@ -33,7 +33,7 @@ menuController.connect = (req,res,next) => {
     //use subscribe in order to test connection
     let redis = new Redis(globalPort)
     //catch connection error with try catch
-    console.log(subObj)
+
     redis.pubsub('channels', (err, channels)=>{
         if(err){
             
@@ -43,6 +43,10 @@ menuController.connect = (req,res,next) => {
         //if no error add message connected to server
         console.log(channels)
         return res.status(200).json({channels:channels})
+    })
+    redis.on('error', (err) => {
+        redis.disconnect();
+        console.error('Redis error:', err)
     })
     // //send error or connect to frontend, stop server runtime
     // redis.subscribe('sup', (error, count)=>{
