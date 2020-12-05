@@ -1,12 +1,18 @@
-$bg: #808c8d;
-$component-bg: lightgray;
-$highlight: #CF8EFA;
-$accent: #67cec2;
-$darkGray: #333838;
-$medGray: #b6c0c0;
-$accentMid: #235048;
 
-$lightYellow: #fdfe97;
+$component-bg: #40916c; //client windows, error msg, client window, all messages
+$highlight: #B97F2C;//Erro message 'got it', channel & client highlights
+$accent: #2d6a4f; // channels, client, disconnect, connect BOX color
+$darkGray: #d8f3dc; //body background
+$medGray: #bb9457; //client title labels, pub & sub
 
-$accentDark: #273f3b;
-$highlightDark: #5A2A7A;
+$accentDark: #d8f3dc; //FONT Channels, Clients, Connect/Disconnect & recent messages FONT
+$highlightDark: #5A2A7A; //PUBLISHED, SUBSCRIBED in recent message
+$dropdownColor:#2d6a4f;
+
+$lightYellow: #fdfe97; //Connect input highlight
+
+$borderpx: 5px;
+$bigBorderpx: 15px;
+$medBorderpx:10px;
+$smallBorderpx:5px;
+$marginHeader:5px;
