@@ -1,23 +1,32 @@
+$component-bg: #262939; //client windows, error msg, client window, all messages
+$highlight: #ced8dd; //Erro message 'got it', channel & client highlights
+$accent: #1b1e2a; // channels, client, disconnect, connect BOX color
+$darkGray: #ffffff; //body background
+$medGray: #f1b630; //client title labels, pub & sub
 
-$component-bg: lightgray; //client windows, error msg, client window, all messages
-$highlight: #CF8EFA;//Erro message 'got it', channel & client highlights
-$accent: #67cec2;; // channels, client, disconnect, connect BOX color
-$darkGray:#333838; //body background
-$medGray: #b6c0c0; //client title labels, pub & sub
+$accentDark: #f1b630; //FONT Channels, Clients, Connect/Disconnect & recent messages FONT
+$highlightDark: #f1b630; //PUBLISHED, SUBSCRIBED in recent message
+$dropdownColor: #30475e;
 
-$accentDark: #273f3b; //FONT Channels, Clients, Connect/Disconnect & recent messages FONT
-$highlightDark: #5A2A7A; //PUBLISHED, SUBSCRIBED in recent message
-$dropdownColor:#30475e;
+$clientWindowMsg: #ffffff;
+$clientWindow: #ced8dd;
+$pushMsg: #4384f7;
+$notSite: #acb5bd;
 
-$lightYellow: #fdfe97; //Connect input highlight
+$lightYellow: #f1b630; //Connect input highlight
 
+$navBarHeight: 5em;
 $borderpx: 5px;
+$bigBorderpx: 15px;
+$medBorderpx: 10px;
+$smallBorderpx: 5px;
+$marginHeader: 5px;
 $bigBorderpx: 10px;
-$medBorderpx:7px;
-$smallBorderpx:5px;
-$marginHeader:5px;
+$medBorderpx: 7px;
+$smallBorderpx: 5px;
+$marginHeader: 5px;
 
-$navBarHeight:30px;
+$navBarHeight: 30px;
 
 $boxShadowLabel: 2px 2px 3px #081c15;
 $boxShadowInput: 4px 2px 4px #081c15;

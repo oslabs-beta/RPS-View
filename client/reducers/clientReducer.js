@@ -150,7 +150,7 @@ const clientReducer = (state = initialState, action) => {
        * }
        */
       const {now, channel, message, clientId} = action.payload;
-
+      if(!clientId) return state; 
       const newMessage = {
         channel, 
         timestamp: now, 

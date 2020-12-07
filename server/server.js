@@ -8,11 +8,16 @@
  *
  * ************************************
  */
-
+// const db = require('./models/model')
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const WebSocket = require('ws')
+
+
+
+
+
 
 const socketServer = new WebSocket.Server({port:3030});
 
@@ -96,6 +101,7 @@ const menuRouter = require('./routes/menuRouter');
 const clientRouter = require('./routes/clientRouter');
 const { subObj } = require('./controllers/menuController');
 
+
 //handle parsing request body
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -114,8 +120,6 @@ app.use('/build', express.static(path.resolve(__dirname, '../build')));
 app.use('/menu', menuRouter);
 app.use('/client', clientRouter);
 
-
-// //serve styles
 
 //404
 app.use('/', (req, res) => {
