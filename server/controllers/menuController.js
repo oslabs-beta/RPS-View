@@ -23,25 +23,28 @@ let pubObj = {};
 let menuController = {}
 //middleware to test to see if port given from front end is correct
 menuController.connect = (req,res,next) => {
+    
  //adding default port if no port entered
     if(req.body.port === '') {
         globalPort = '6379';
     } else {
+        
         //grab port number
         globalPort = req.body.port;
     }
     //use subscribe in order to test connection
     let redis = new Redis(globalPort)
     //catch connection error with try catch
-    console.log(subObj)
+    // console.log(subObj)
     redis.pubsub('channels', (err, channels)=>{
+        console.log("i am inside redis pubsub")
         if(err){
             
             return res.status(400).send('failed to connect');
             // next();
         }
         //if no error add message connected to server
-        console.log(channels)
+        console.log("we're returning 200")
         return res.status(200).json({channels:channels})
     })
     // //send error or connect to frontend, stop server runtime
