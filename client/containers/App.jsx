@@ -55,10 +55,10 @@ class App extends Component {
     return (
       <>
       <div className="left">
-        <div className="logo">
+        {/* <div className="logo">
           {/* logo here later */}
-          <img className="logoImg" src={img} alt="Logo"></img>
-        </div>
+          {/* <img className="logoImg" src={img} alt="Logo"></img> */} 
+        {/* </div> */}
         <ChannelContainer />
       </div>
       <div className="middle">
