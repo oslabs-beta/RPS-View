@@ -1,12 +1,12 @@
 
-$component-bg: #e8e8e8; //client windows, error msg, client window, all messages
-$highlight: #f05454;//Erro message 'got it', channel & client highlights
-$accent: #f05454; // channels, client, disconnect, connect BOX color
-$darkGray: #30475e; //body background
-$medGray: #f05454; //client title labels, pub & sub
+$component-bg: lightgray; //client windows, error msg, client window, all messages
+$highlight: #CF8EFA;//Erro message 'got it', channel & client highlights
+$accent: #67cec2;; // channels, client, disconnect, connect BOX color
+$darkGray:#333838; //body background
+$medGray: #b6c0c0; //client title labels, pub & sub
 
-$accentDark: #222831; //FONT Channels, Clients, Connect/Disconnect & recent messages FONT
-$highlightDark: #30475e; //PUBLISHED, SUBSCRIBED in recent message
+$accentDark: #273f3b; //FONT Channels, Clients, Connect/Disconnect & recent messages FONT
+$highlightDark: #5A2A7A; //PUBLISHED, SUBSCRIBED in recent message
 $dropdownColor:#30475e;
 
 $lightYellow: #fdfe97; //Connect input highlight
@@ -23,3 +23,16 @@ $boxShadowLabel: 2px 2px 3px #081c15;
 $boxShadowInput: 4px 2px 4px #081c15;
 $boxShadowBtn: 2px 2px 4px #081c15;
 $clientWindowBoxShadow: 3px 3px 2px #081c15;
+
+// $bg: #808c8d;
+// $component-bg: lightgray;
+// $highlight: #CF8EFA;
+// $accent: #67cec2;
+// $darkGray: #333838;
+// $medGray: #b6c0c0;
+// $accentMid: #235048;
+
+// $lightYellow: #fdfe97;
+
+// $accentDark: #273f3b;
+// $highlightDark: #5A2A7A;
