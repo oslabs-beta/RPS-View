@@ -1,13 +1,12 @@
-$component-bg: #40916c; //client windows, error msg, client window, all messages
-$highlight: #e79e4f; //Erro message 'got it', channel & client highlights
-$accent: #f1b632; // channels, client, disconnect, connect BOX color
-$darkGray: #252839; //body background
-$medGray: #321f28; //client title labels, pub & sub
+$component-bg: lightgray; //client windows, error msg, client window, all messages
+$highlight: #cf8efa; //Erro message 'got it', channel & client highlights
+$accent: #67cec2; // channels, client, disconnect, connect BOX color
+$darkGray: #333838; //body background
+$medGray: #b6c0c0; //client title labels, pub & sub
 
-$accentDark: #d8f3dc; //FONT Channels, Clients, Connect/Disconnect & recent messages FONT
+$accentDark: #273f3b; //FONT Channels, Clients, Connect/Disconnect & recent messages FONT
 $highlightDark: #5a2a7a; //PUBLISHED, SUBSCRIBED in recent message
-$dropdownColor: #2d6a4f;
-$cloneClient: #fc8621;
+$dropdownColor: #30475e;
 
 $lightYellow: #d1c145; //Connect input highlight
 
@@ -17,3 +16,27 @@ $bigBorderpx: 15px;
 $medBorderpx: 10px;
 $smallBorderpx: 5px;
 $marginHeader: 5px;
+$bigBorderpx: 10px;
+$medBorderpx: 7px;
+$smallBorderpx: 5px;
+$marginHeader: 5px;
+
+$navBarHeight: 30px;
+
+$boxShadowLabel: 2px 2px 3px #081c15;
+$boxShadowInput: 4px 2px 4px #081c15;
+$boxShadowBtn: 2px 2px 4px #081c15;
+$clientWindowBoxShadow: 3px 3px 2px #081c15;
+
+// $bg: #808c8d;
+// $component-bg: lightgray;
+// $highlight: #CF8EFA;
+// $accent: #67cec2;
+// $darkGray: #333838;
+// $medGray: #b6c0c0;
+// $accentMid: #235048;
+
+// $lightYellow: #fdfe97;
+
+// $accentDark: #273f3b;
+// $highlightDark: #5A2A7A;
