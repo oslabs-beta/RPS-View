@@ -21,7 +21,7 @@ This app allows you to track redis pub / sub messages with dummy clients. The ap
 
 ### Getting started
 
-To run the application
+#### To run the application
 
 - [ ] `npm install`
 - [ ] Redis server must be open. Run `redis-server` if you don't already have a server up for your project.
