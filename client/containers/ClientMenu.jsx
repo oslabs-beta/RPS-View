@@ -7,11 +7,9 @@
  * @description stateful container, has access to clientReducers
  * clientMenu -- loops through each client, gets custom style & renders passing custom style as prop
  * render individual client cards - need currClient and clients from client clientReducer
- * ***TO DO **** they also need access to channels from channels reducer and currChannel from channelsReducer
- * a client card needs setClient action
  *
  * ************************************
- */
+*/
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';

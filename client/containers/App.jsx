@@ -38,8 +38,6 @@ class App extends Component {
 
   componentDidMount(){
     this.ws.onopen = () => { 
-      console.log('Now connected'); 
-      // this.ws.send(JSON.stringify({hi:"hi"}))
       this.ws.onmessage = (event) => {
         const messages = JSON.parse(event.data);
         this.props.socketReceivedMessage(messages);

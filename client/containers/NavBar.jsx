@@ -57,21 +57,6 @@ class NavBar extends Component {
     }
   }
 
-  // ws = new WebSocket(URL)
-
-  // componentDidMount(){
-  //   this.ws.onopen = () => { 
-  //     console.log('Now connected'); 
-  //     // this.ws.send(JSON.stringify({hi:"hi"}))
-  //     this.ws.onmessage = (event) => {
-  //       const messages = JSON.parse(event.data);
-  //       this.props.socketReceivedMessage(messages);
-  //     };
-  //     };
-  // }
-
-  
-
  
   //trigger fetch request and add port to state when connect button is clicked
   handlePortSubmit = (event) => {
@@ -81,16 +66,13 @@ class NavBar extends Component {
   }
 
   handleChannelChange = (event, key) => {
-    //   console.log(this.state)
       this.setState({
           [key]: event.target.value
       })
   }
 
   handleChannelSubmit = event => {
-    //   console.log(this.state)
       event.preventDefault();
-      //TODO add check for repeated channels
       this.props.fetchAddChannel(this.state.channelText);
       this.props.addChannel(this.state.channelText)
       this.setState({
@@ -100,7 +82,6 @@ class NavBar extends Component {
   }
 
   render(){
-      console.log('navbar rendering, props are', this.props)
       //if client state is empty string, display 'input server ip' and connect
         //button should fetch connect
       //if port state is not empty, display port number and DISCONNECT
@@ -182,7 +163,6 @@ class NavBar extends Component {
             className="secondaryButton" 
             type="button" 
             onClick={() => {
-              console.log('add client button clicked!')
               this.props.fetchAddClient(
                 {type: this.state.type, clientId: this.props.nextClientId, ws: this.props.ws})
                 this.setState({...this.state, type: ''});
