@@ -41,8 +41,7 @@ clientController.unsubscribe = (req, res, next) => {
 clientController.subscribe = (req, res, next) => {
   const clientId = req.body.clientId
   const channelName = req.body.channelName
-  // console.log(clientId,channelName)
-  // console.log(subObj)
+  
   //check if client exist
   //if clientId matches client DB
     //call subscribe to redis with passed in channelName

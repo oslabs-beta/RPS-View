@@ -65,7 +65,6 @@ export const fetchAddClones = (stateObj) => (dispatch) => {
   })
   .then(res => {
     if (res.status === 200){
-      console.log('clients cloned!');
       if (stateObj.type === 'subscriber') {
         dispatch(wsMessage(stateObj))
       }
@@ -113,7 +112,6 @@ export const fetchMessage = (stateObj) => (dispatch) => {
   })
   .then ( response => {
     if(response.status === 200){
-      console.log('message published!')
       //dispatch publish middleware
       dispatch(getDate(stateObj))
     } else {
@@ -137,7 +135,6 @@ export const fetchSubscribe = (stateObj) => (dispatch) => {
   })
   .then( response => {
     if(response.status === 200) {
-      console.log('client subscribed')
       dispatch(getDate(stateObj))
     } else {
       dispatch(errorActions.errorHandler('Failed to subscribe!'))
@@ -176,14 +173,11 @@ export const fetchUnsubscribe = (stateObj) => (dispatch) => {
     }
   })
   .catch(err => {
-    console.log('in catch of fetchUnsubscribe, error is ', err)
     dispatch(errorActions.errorHandler('Failed to unsubscribe!'))
   })
 }
 
 export const socketReceivedMessage = (stateObj) => (dispatch) => {
-  //
-  console.log('socket is running')
   dispatch(getDate(stateObj))
 }
 
@@ -203,7 +197,6 @@ export const getDate = (stateObj) => (dispatch) => {
     dispatch(clientActions.unsubscribe(now));
   }
   else {
-    console.log('REACHED ELSE OF GETDATE')
     dispatch(clientActions.receivedMessage({...stateObj, now}));
   }
 }
@@ -223,11 +216,9 @@ export const fetchConnect = (port) => (dispatch) => {
   })
   .then(response => {
     if (response.status === 200) {
-      console.log('this is port', port);
       return response.json()
     } else dispatch(errorActions.errorHandler(`Failed to connect to ${port}`));
   }).then(data => {
-    // console.log(data.channels)
     dispatch(channelActions.portConnected({port, channels:data.channels}));
 
   })
@@ -241,7 +232,6 @@ export const fetchConnect = (port) => (dispatch) => {
 //data in form of 
 // {clientId: #, type: 'publisher' OR 'subscriber' OR '' defaults to subscriber}
 export const fetchAddClient = (data) => (dispatch) => {
-  console.log('running fetchAddClient, data: ', data)
   fetch('/menu/addClient', {
     method: 'POST', 
     headers: {
@@ -267,7 +257,6 @@ export const fetchAddClient = (data) => (dispatch) => {
     }
   })
   .catch(err => {
-    console.log('error in fetchAddClient', err)
     dispatch(dispatch(errorActions.errorHandler('Failed to addClient!')));
     return;
   })
@@ -299,7 +288,6 @@ export const fetchAddChannel = (channelName) => (dispatch) => {
   })
   .then(response => {
     if (response.status === 200) {
-      console.log("channel added");
       dispatch(channelActions.addChannel(channelName));
     } 
     else {

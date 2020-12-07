@@ -12,12 +12,7 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const WebSocket = require('ws')
-
-
-
-
-
+const WebSocket = require('ws');
 
 const socketServer = new WebSocket.Server({port:3030});
 
@@ -25,23 +20,11 @@ const socketServer = new WebSocket.Server({port:3030});
 socketServer.on('connection', function connection(ws) {
 
   // broadcast on web socket when receving a Redis PUB/SUB Event
-  // console.log(5)
-  // for(const key in subObj){
-  //   console.log(key)  
-    // subObj[key].on('message', function(channel, message){
-    //   console.log(message);
-    //   ws.send({
-    //     message: message,
-    //     key: key
-    //   });
-    // })
-  // }
 
   //websocket receives message from front end
   //accept an array of id's (run foreach)
   ws.on('message',(message)=>{
-    console.log(message)
-    console.log(JSON.parse(message))
+
     message = JSON.parse(message)
 
     //if message is array, this is a set of clients to add, 
@@ -50,12 +33,11 @@ socketServer.on('connection', function connection(ws) {
       for (let el of message) {
         
         subObj[el.clientId].on('message', function(channel, message){
-          // console.log(message);
           
           let sendId = el.clientId;
           socketServer.clients.forEach(client=>{
             // this.options.name = "yo"
-            console.log(this.clientId)
+
             if(client.readyState === WebSocket.OPEN){
               client.send(JSON.stringify({message, channel, clientId: this.clientId}));
             }
@@ -66,12 +48,10 @@ socketServer.on('connection', function connection(ws) {
     //single client
     else {
       subObj[message.clientId].on('message', function(channel, message){
-        // console.log(message);
         
         let sendId = message.clientId;
         socketServer.clients.forEach(client=>{
-          // this.options.name = "yo"
-          console.log(this.clientId)
+          
           if(client.readyState === WebSocket.OPEN){
             client.send(JSON.stringify({message, channel, clientId:this.clientId}));
           }
@@ -85,8 +65,7 @@ socketServer.on('connection', function connection(ws) {
 
   ws.on("close", function(){
     for(let key in subObj){
-      // console.log(key)
-      // subObj[key].removeListener('message',event)
+
       subObj[key].quit()
       delete subObj[key]
     }

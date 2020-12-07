@@ -14,21 +14,8 @@ import React from 'react';
 const MessageBox = (props) => {
   //determine whether type is "received" or "published"
 
-  //if received
-    //<p>RECEIVED</p>
-    //<p>by {channel} </p>
-    //<p>at DATE/TIME</p>
-    //<p>message</p>
-  
-    //if published
-    //<p>PUBLISHED</p>
-    //<p>to {channel} </p>
-    //<p>at DATE/TIME</p>
-    //<p>message</p>
-    console.log("Message Box test: ", props.timestamp);
   let theDate = props.timestamp.substr(0, 15);
   let theTime = props.timestamp.substr(16, 8);
-  // console.log("date/time ", theDate, " and ", theTime);
 
   if (props.type === "received") {
     return (
