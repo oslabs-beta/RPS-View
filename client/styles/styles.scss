@@ -1,16 +1,19 @@
 @import 'variables';
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,500;0,600;1,300&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,500;0,600;1,300&display=swap');
 // Note font-family Poppins
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+//font-family: 'Roboto', sans-serif;
 
 body {
 	background-color: $component-bg;
-	font-family: 'Poppins', 'sans-serif';
+	font-family: 'Roboto', sans-serif;
 	font-size: 0.9em;
 }
 
 button {
 	padding: 0.3em;
 	font-size: 100%;
+	font-family: 'Roboto', sans-serif;
 }
 
 input {
@@ -22,6 +25,7 @@ input {
 	background-color: $accent;
 	color: $darkGray;
 	border-style: groove;
+	font-family: 'Roboto', sans-serif;
 }
 
 .highlighted {
@@ -29,22 +33,26 @@ input {
 	background-color: $highlight;
 	color: $accent;
 	border-style: groove;
+	font-family: 'Roboto', sans-serif;
 }
 
 .highlighted:focus {
 	// outline: $highlightDark solid .1em !important;
+	font-family: 'Roboto', sans-serif;
 }
 
 .primaryButton {
 	background-color: $accent;
 	color: $accentDark;
 	border: none;
+	font-family: 'Roboto', sans-serif;
 }
 
 .secondaryButton {
 	background-color: $component-bg;
 	color: $accentDark;
 	border: none;
+	font-family: 'Roboto', sans-serif;
 }
 
 .dropDown {
@@ -52,6 +60,7 @@ input {
 	color: $dropdownColor;
 	border: none;
 	background-color: whitesmoke;
+	font-family: 'Roboto', sans-serif;
 }
 
 // .primaryButton:focus, .secondaryButton:focus {
@@ -81,6 +90,8 @@ input {
 			}
 		}
 		.channelLabel {
+			border-style: groove;
+			border-width: thin;
 			background-color: $accent;
 			color: $accentDark;
 			width: 100%;
@@ -89,7 +100,7 @@ input {
 			margin-bottom: 0.5px;
 			border-radius: $bigBorderpx;
 			margin-bottom: $marginHeader;
-			box-shadow: $boxShadowLabel;
+			// box-shadow: $boxShadowLabel;
 			// border: 2px solid $accentDark;
 		}
 		.channel {
@@ -105,6 +116,7 @@ input {
 					margin-bottom: 0.5px;
 					border-radius: $smallBorderpx;
 					overflow-wrap: break-word;
+					border: thin groove white;
 				}
 			}
 		}
@@ -133,7 +145,7 @@ input {
 						padding: 0;
 						border-top-left-radius: $borderpx;
 						border-bottom-left-radius: $borderpx;
-						box-shadow: $boxShadowInput;
+						// box-shadow: $boxShadowInput;
 						border: none;
 						width: 9em;
 					}
@@ -142,10 +154,11 @@ input {
 						padding: 0;
 						border-top-left-radius: $borderpx;
 						border-bottom-left-radius: $borderpx;
-						box-shadow: $boxShadowInput;
+						// box-shadow: $boxShadowInput;
 						border: none;
 						width: 9em;
 						background-color: $lightYellow;
+						text-align: center;
 					}
 					// border: 2px solid $accentDark;
 					.primaryButton {
@@ -153,8 +166,12 @@ input {
 						height: $navBarHeight;
 						border-top-right-radius: $borderpx;
 						border-bottom-right-radius: $borderpx;
-						box-shadow: $boxShadowBtn;
+						// box-shadow: $boxShadowBtn;
 						border: none;
+						border-top-style: groove;
+						border-right-style: groove;
+						border-bottom-style: groove;
+						border-width: thin;
 					}
 				}
 			}
@@ -171,7 +188,7 @@ input {
 					padding-top: 0;
 					padding-bottom: 0;
 					border: none;
-					box-shadow: $boxShadowInput;
+					// box-shadow: $boxShadowInput;
 					border-top-left-radius: $borderpx;
 					border-bottom-left-radius: $borderpx;
 				}
@@ -181,7 +198,11 @@ input {
 					padding-bottom: 0;
 					border-top-right-radius: $borderpx;
 					border-bottom-right-radius: $borderpx;
-					box-shadow: $boxShadowBtn;
+					// box-shadow: $boxShadowBtn;
+					border-top-style: groove;
+					border-right-style: groove;
+					border-bottom-style: groove;
+					border-width: thin;
 				}
 			}
 			.navRight {
@@ -193,7 +214,7 @@ input {
 					height: $navBarHeight;
 					border-top-left-radius: $smallBorderpx;
 					border-bottom-left-radius: $smallBorderpx;
-					box-shadow: $boxShadowInput;
+					// box-shadow: $boxShadowInput;
 				}
 				.secondaryButton {
 					height: $navBarHeight;
@@ -201,7 +222,11 @@ input {
 					padding-bottom: 0;
 					border-top-right-radius: $borderpx;
 					border-bottom-right-radius: $borderpx;
-					box-shadow: $boxShadowBtn;
+					// box-shadow: $boxShadowBtn;
+					border-top-style: groove;
+					border-right-style: groove;
+					border-bottom-style: groove;
+					border-width: thin;
 				}
 			}
 		}
@@ -211,7 +236,9 @@ input {
 			width: 45em;
 			margin-top: 2em;
 			border-radius: $bigBorderpx;
-			box-shadow: $clientWindowBoxShadow;
+			border-style: groove;
+			border-width: thin;
+			// box-shadow: $clientWindowBoxShadow;
 			.top {
 				display: flex;
 				flex-direction: row;
@@ -223,6 +250,8 @@ input {
 				padding-right: 0.8em;
 				border-top-left-radius: $bigBorderpx;
 				border-top-right-radius: $bigBorderpx;
+				border-bottom-style: groove;
+				border-width: thin;
 				.clientLabel {
 					margin-left: 10px;
 				}
@@ -237,7 +266,7 @@ input {
 				display: flex;
 				flex-direction: row;
 				justify-content: space-around;
-
+				color: white;
 				.messageLogDisplay {
 					display: flex;
 					flex-direction: column;
@@ -255,7 +284,7 @@ input {
 						margin-top: 10px;
 						.messageBox {
 							margin-bottom: 20px;
-							font-size: smaller;
+							font-size: small;
 							color: $darkGray;
 							padding-right: 15px;
 							p {
@@ -287,7 +316,7 @@ input {
 					display: flex;
 					flex-direction: column;
 					padding-right: 10px;
-					font-size: smaller;
+					font-size: small;
 				}
 			}
 			.bottom {
@@ -318,8 +347,10 @@ input {
 				.numClonesLabel {
 					margin-left: 17px;
 					font-size: smaller;
+					color: white;
 				}
 				.numClonesInput {
+					border-radius: $smallBorderpx;
 					width: 35px;
 					border: none;
 				}
@@ -344,6 +375,9 @@ input {
 					color: $darkGray;
 				}
 				#errorButton {
+					border-width: thin;
+					border-style: groove;
+					border-radius: $smallBorderpx;
 					width: 50%;
 					font-size: smaller;
 					background-color: $accent;
@@ -367,12 +401,13 @@ input {
 				text-align: center;
 				margin-bottom: $marginHeader;
 				border-radius: $bigBorderpx;
-				box-shadow: $boxShadowLabel;
+				border-width: thin;
+				border-style: groove;
 			}
 			.clientMiniLabel {
 				font-size: 0.8em;
 				text-align: center;
-				background-color: $notSite;
+				background-color: $clientWindow;
 				color: $darkGray;
 				// padding-top: -2em;
 				// padding-bottom: -2em;
@@ -380,6 +415,8 @@ input {
 				margin-top: 0.5px;
 				margin-bottom: 0.5px;
 				border-radius: $medBorderpx;
+				border-width: thin;
+				border-style: groove;
 				// border-bottom: .1em solid $darkGray;
 				.miniLabelText {
 					margin-top: 0.5em;
@@ -392,6 +429,7 @@ input {
 					margin-top: 0.5px;
 					margin-bottom: 0.5px;
 					border-radius: $smallBorderpx;
+					border: thin groove white;
 				}
 			}
 		}
