@@ -2,3 +2,4 @@ node_modules
 build
 dump.rdb
 package-lock.json
+./__tests__/dump.rdb

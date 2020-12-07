@@ -19,7 +19,7 @@ const initialState = {
   currClient: null,
   nextClientId: 1, //used to create a serial id for each id
   channel: '',
-  /**TODO change channels to a set instead of an array */
+  
   clients: {}, 
   /**will have the structure {id: 
    * {
@@ -58,7 +58,6 @@ const clientReducer = (state = initialState, action) => {
         channels.sort();
       }
 
-      //TODO add timestamp payload to function call
       //initialize a new message
       let subMessage = {
         channel: state.channel,

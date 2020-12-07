@@ -28,7 +28,8 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             //preset-env is overall environment, passing react narrows down scope of environment for transpilations
-            presets: ['@babel/preset-env', '@babel/preset-react']
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+            plugins: ['@babel/plugin-transform-runtime', '@babel/transform-async-to-generator'],
           }
         }
       },
@@ -64,7 +65,11 @@ module.exports = {
       },
     ]
   },
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
   plugins: [
     new MiniCssExtractPlugin(),
+    
   ]
 };
