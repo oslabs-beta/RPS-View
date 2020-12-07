@@ -51,18 +51,7 @@ menuController.connect = (req,res,next) => {
         redis.disconnect();
         console.error('Redis error:', err)
     })
-    // //send error or connect to frontend, stop server runtime
-    // redis.subscribe('sup', (error, count)=>{
-    //     //if error attach error as res locals and continue
-    //     if(error){
-            
-    //         return res.status(400).send('failed to connect');
-    //         // next();
-    //     }
-    //     //if no error add message connected to server
-    //     return res.status(200).json({channel:"hi"})
-    //     // next();
-    // })
+ 
 }
 
 //middle ware to add a given channel to the redis server given from global port
