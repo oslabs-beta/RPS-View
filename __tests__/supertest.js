@@ -48,4 +48,21 @@ describe('Route integration', () => {
 
     });
   });
+
+  describe('/client/unsubscribe', () => {
+    it('returns a 400 status and an "undefined input" message when input is undefined', () => {
+      const req = {
+        body: {
+          clientId: '1',
+          channelName: undefined
+        }
+      };
+      return request(server)
+        .post('/client/unsubscribe')
+        .send(req)
+        .expect('undefined input')
+        .expect(400)
+
+    })
+  })
 })
