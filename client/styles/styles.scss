@@ -123,19 +123,19 @@ input {
 				margin: 5px;
 				// border: 2px solid $accentDark;
 				.serverInput {
-					height: 100%;
+					height: $navBarHeight;
 					border-top-left-radius: $borderpx;
 					border-bottom-left-radius: $borderpx;
 					box-shadow: 4px 2px 4px #081c15;
 					border: none;
 					width: 9em;
 				}
-				.serverPort {
-					border-top-left-radius: $borderpx;
-					border-bottom-left-radius: $borderpx;
-					border: none;
-					width: 9em;
-				}
+				// .serverPort {
+				// 	border-top-left-radius: $borderpx;
+				// 	border-bottom-left-radius: $borderpx;
+				// 	border: none;
+				// 	width: 9em;
+				// }
 				.primaryButton {
 					height: 100%;
 					border-top-right-radius: $borderpx;
