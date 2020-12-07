@@ -26,7 +26,7 @@ const MessageBox = (props) => {
     //<p>at DATE/TIME</p>
     //<p>message</p>
     console.log("Message Box test: ", props.timestamp);
-  let theDate = props.timestamp.substr(0, 14);
+  let theDate = props.timestamp.substr(0, 15);
   let theTime = props.timestamp.substr(16, 8);
   // console.log("date/time ", theDate, " and ", theTime);
 

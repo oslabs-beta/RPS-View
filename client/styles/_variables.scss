@@ -1,5 +1,5 @@
 $component-bg: #262939; //client windows, error msg, client window, all messages
-$highlight: #ced8dd; //Erro message 'got it', channel & client highlights
+$highlight: #f1b630; //Erro message 'got it', channel & client highlights
 $accent: #1b1e2a; // channels, client, disconnect, connect BOX color
 $darkGray: #ffffff; //body background
 $medGray: #f1b630; //client title labels, pub & sub
@@ -9,11 +9,10 @@ $highlightDark: #f1b630; //PUBLISHED, SUBSCRIBED in recent message
 $dropdownColor: #30475e;
 
 $clientWindowMsg: #ffffff;
-$clientWindow: #ced8dd;
+$clientWindow: #373943;
 $pushMsg: #4384f7;
-$notSite: #acb5bd;
 
-$lightYellow: #f1b630; //Connect input highlight
+$lightYellow: #ffd980; //Connect input highlight
 
 $navBarHeight: 5em;
 $borderpx: 5px;
