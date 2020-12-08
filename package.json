@@ -6,7 +6,7 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
     "start": "concurrently \"cross-env NODE_ENV=production node server/server.js\" \"npm run electron\"",
-    "dev": "concurrently \"cross-env NODE_ENV=production webpack serve\" \"nodemon server/server.js\"",
+    "dev": "concurrently \"cross-env NODE_ENV=production webpack serve\" \"nodemon server/server.js\" \"wait-on http://localhost:8080 && npm run electron\"",
     "test": "jest --verbose --detectOpenHandles",
     "electron": "electron ."
   },
