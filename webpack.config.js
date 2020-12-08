@@ -1,5 +1,8 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const webpack = require("webpack");
+
+const mode = process.env.NODE_ENV;
 
 module.exports = {
   entry: path.resolve(__dirname, './client/index.js'),
@@ -70,6 +73,9 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(mode),
+    })
     
   ]
 };
