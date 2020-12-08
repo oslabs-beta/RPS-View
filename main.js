@@ -6,7 +6,7 @@ let mainWindow = null
 function main() {
   // express
   mainWindow = new BrowserWindow({ width: 1200, height: 800 })
-  mainWindow.loadURL(`http://localhost:8080/`)
+  mainWindow.loadURL(`http://localhost:3000/`)
   mainWindow.on('close', event => {
     mainWindow = null
   })

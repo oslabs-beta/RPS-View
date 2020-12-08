@@ -1,12 +1,12 @@
 {
-  "name": "rlbf",
+  "name": "rpsview",
   "version": "1.0.0",
-  "description": "",
+  "description": "Developer tool to visualize redis pub sub clients and track messages.",
   "main": "main.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
-    "start": "concurrently \"npm run dev\" \"wait-on http://localhost:8080 && npm run electron\"",
-    "dev": "concurrently \"cross-env NODE_ENV=development webpack serve\" \"nodemon server/server.js\"",
+    "start": "concurrently \"cross-env NODE_ENV=production node server/server.js\" \"npm run electron\"",
+    "dev": "concurrently \"cross-env NODE_ENV=production webpack serve\" \"nodemon server/server.js\"",
     "test": "jest --verbose --detectOpenHandles",
     "electron": "electron ."
   },
