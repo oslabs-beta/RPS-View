@@ -61,7 +61,7 @@ You can publish from the terminal or your application, and you should see the ne
 
 ### Contact
 
-Website: [LINK]
+Website: [http://www.rpsview.com/](http://www.rpsview.com/)
 
 Github: [https://github.com/oslabs-beta/RPS-View](https://github.com/oslabs-beta/RPS-View)
 
