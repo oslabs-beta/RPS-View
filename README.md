@@ -35,7 +35,21 @@ This app allows you to track redis pub / sub messages with dummy clients. The ap
 - Express - You must be running an Express server on port 3000 for the application to work
 - Redis-server - You must run a redis server - either in your application or on the command line to connect the app. Make sure you connect to the same port that your redis-server is running on. If no server is specified, the application will attempt to create a redis client on port 6379.
 
-### Examples
+### Demonstration
+
+#### Connecting
+The first thing you should do on RPS View is connect to the port on which your redis server is running. If no port is selected, the “Connect” Button will launch a  connection attempt on the default port for redis, ‘6379’.
+
+![.gif of connection process](gifs/connect2.gif)
+
+#### Adding channels and clients
+After you’ve connected, you should see any existing channels in your redis-server instance. You can add clients from there, and subscribe them to the channels. 
+
+![.gif of adding channels](gifs/addChannels.gif)
+
+
+#### Prublishing messages and viewing logs
+You can publish from the terminal or your application, and you should see the new messages propagate in the message log of the respective clients.
 
 
 
