@@ -1,6 +1,6 @@
 # RPS View - Beta version
 
-A web or desktop application to assist in visualization and monitoring of redis pub-sub clients.
+A web or desktop application to assist in visualization and monitoring of redis pub-sub clients. **Note: If you'd like to work on the electron bundling, move to the electron-staging branch.
 
 
 ### Problem
