@@ -1,5 +1,4 @@
 const { BrowserWindow, app } = require('electron')
-require('dotenv').config();
 // const express = require('./server/server.js')
 
 let mainWindow = null
