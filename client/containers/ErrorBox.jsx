@@ -32,12 +32,14 @@ class ErrorBox extends Component{
   }
 
   render() {
+    if (!this.props.errorMessage) return <></>;
     return (
       <div className="errorBox">
         <div className="errorComponents">
-          <p>{this.props.errorMessage}</p>
+          <p className="errorBoxMessage">{this.props.errorMessage}</p>
           <button 
-            className="errorButton" 
+            className="secondaryButton"
+            id="errorButton" 
             onClick={() => {this.props.clearError()}}>
               Got It
           </button>

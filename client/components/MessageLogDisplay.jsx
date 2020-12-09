@@ -13,11 +13,11 @@ import React from 'react';
 import MessageBox from './MessageBox.jsx';
 
 const MessageLogDisplay = (props) => {
-  // console.log(props);
   //props.log is an array of objects
   //for each message, display <div> with className = "messageBox"
   //need message, timestamp, type, channel  
   //need messages to display in reverse order (by time)
+  
 
   const messages = [];
   for (let i = props.log.length - 1; i >= 0; i--){
@@ -26,7 +26,7 @@ const MessageLogDisplay = (props) => {
   }
 
   return (
-    <div className = "MessageLogDisplay">
+    <div className = "allMessages">
       {messages}
     </div>
   )

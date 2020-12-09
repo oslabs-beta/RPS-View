@@ -8,6 +8,8 @@
  *
  * ************************************
  */
+
+// import {createAsyncThunk} from '@reduxjs/toolkit';
 import * as types from '../constants/actionTypes.js';
 import * as errorActions from './errorActions.js';
 import * as clientActions from './clientActions.js';
@@ -28,8 +30,72 @@ export const handleGoClick = (stateObj) => (dispatch) => {
       dispatch(fetchUnsubscribe(stateObj));
       return;
     default: 
+      dispatch(errorActions.errorHandler('Select an action to proceed'))
       return;
   }
+}
+
+//add clones, runs fetch to /addClonedClients,
+//sends arr of client obj in req.body
+//each should have type && number
+//stateObj  
+/**
+ * 
+ * @param 
+ * {num: this.state.num,
+    channels: this.props.client.channels,
+    nextClientId: this.props.nextClientId,
+    type: 'subscriber',
+    ws: this.props.ws,} stateObj 
+ */
+export const fetchAddClones = (stateObj) => (dispatch) => {
+  stateObj.arr = [];
+  let next = stateObj.nextClientId;
+  let type = stateObj.type || 'subscriber';
+  for (let i = 0; i < stateObj.num; i++ ) {
+    stateObj.arr.push({clientId: next, type});
+    next++;
+  }
+  fetch('/menu/addClonedClients', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(stateObj.arr)
+  })
+  .then(res => {
+    if (res.status === 200){
+      if (stateObj.type === 'subscriber') {
+        dispatch(wsMessage(stateObj))
+      }
+      
+    }else {
+      dispatch(errorActions.errorHandler('Failed to clone!'))
+    }
+  })
+  .catch( error => dispatch(errorActions.errorHandler('Failed to clone!')))
+};
+
+export const fetchSubscribeMany = (stateObj) => (dispatch) => {
+  fetch('/client/subscribeMany', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({clients: stateObj.arr, channels: stateObj.channels})
+  })
+  /**dispatch addclone clientaction */
+  .then(res => {
+    if (res.status === 200) {
+      dispatch(clientActions.cloneClient(stateObj.num));
+    } else {
+      dispatch(errorActions.errorHandler('Failed to subscribe clones!'));
+    }
+  })
+  /**dispatch global error message, passing "failed to subscribe clones!" */
+  .catch(err => {
+    dispatch(errorActions.errorHandler('Failed to subscribe clones!'));
+  })
 }
 
 export const fetchMessage = (stateObj) => (dispatch) => {
@@ -46,7 +112,6 @@ export const fetchMessage = (stateObj) => (dispatch) => {
   })
   .then ( response => {
     if(response.status === 200){
-      console.log('message published!')
       //dispatch publish middleware
       dispatch(getDate(stateObj))
     } else {
@@ -57,7 +122,7 @@ export const fetchMessage = (stateObj) => (dispatch) => {
 }
 
 export const fetchSubscribe = (stateObj) => (dispatch) => {
-  console.log(stateObj.currClient)
+  
   fetch("/client/subscribe", {
     method: 'POST',
     headers: {
@@ -70,14 +135,16 @@ export const fetchSubscribe = (stateObj) => (dispatch) => {
   })
   .then( response => {
     if(response.status === 200) {
-      console.log('client subscribed')
-      dispatch(clientActions.subscribe())
+      dispatch(getDate(stateObj))
     } else {
-      dispatch(errorActions.errorHandler('Failed to publish!'))
+      dispatch(errorActions.errorHandler('Failed to subscribe!'))
     }
     
   })
-  .catch( error => dispatch(errorActions.errorHandler('Failed to publish!')))
+  .catch( error => {
+    
+    dispatch(errorActions.errorHandler('Failed to subscribe!'))
+  })
 }
 
 //middleware to add on message event listener to backend for subscriber client
@@ -100,17 +167,17 @@ export const fetchUnsubscribe = (stateObj) => (dispatch) => {
   })
   .then( response => {
     if(response.status === 200) {
-      console.log('client unsubscribed :\(!')
-      dispatch(clientActions.unsubscribe())
+      dispatch(getDate(stateObj))
     } else {
       dispatch(errorActions.errorHandler('Failed to unsubscribe!'))
     }
   })
-  .catch(dispatch(errorActions.errorHandler('Failed to unsubscribe!')))
+  .catch(err => {
+    dispatch(errorActions.errorHandler('Failed to unsubscribe!'))
+  })
 }
 
 export const socketReceivedMessage = (stateObj) => (dispatch) => {
-  //
   dispatch(getDate(stateObj))
 }
 
@@ -118,10 +185,18 @@ export const socketReceivedMessage = (stateObj) => (dispatch) => {
 
 //message middleware - create new iso string for current time, then call dispatch for message
 export const getDate = (stateObj) => (dispatch) => {
-  const now = new Date(Date.now()).toISOString();
+  
+  const now = new Date(Date.now()).toString();
   if(stateObj.selectedAction === 'addMessage'){
     dispatch(clientActions.publishMessage(now));
-  }else{
+  }
+  else if(stateObj.selectedAction === 'subscribe') {
+    dispatch(clientActions.subscribe(now));
+  }
+  else if(stateObj.selectedAction === 'unsubscribe') {
+    dispatch(clientActions.unsubscribe(now));
+  }
+  else {
     dispatch(clientActions.receivedMessage({...stateObj, now}));
   }
 }
@@ -141,9 +216,11 @@ export const fetchConnect = (port) => (dispatch) => {
   })
   .then(response => {
     if (response.status === 200) {
-      console.log("port connected");
-      dispatch(channelActions.portConnected(port));
+      return response.json()
     } else dispatch(errorActions.errorHandler(`Failed to connect to ${port}`));
+  }).then(data => {
+    dispatch(channelActions.portConnected({port, channels:data.channels}));
+
   })
   .catch((error) => {
     dispatch(errorActions.errorHandler(`Failed to connect to ${port}`));
@@ -151,26 +228,26 @@ export const fetchConnect = (port) => (dispatch) => {
   
 }
 
-//fetchAddClient
+
 //data in form of 
-// {clientId: #, type: 'publisher' OR 'subscriber'}
+// {clientId: #, type: 'publisher' OR 'subscriber' OR '' defaults to subscriber}
 export const fetchAddClient = (data) => (dispatch) => {
-  
   fetch('/menu/addClient', {
     method: 'POST', 
     headers: {
       'Content-Type': 'application/json',
     },
     //check that below is for sure a string
-    body: JSON.stringify({type:data.type,clientId:data.clientId}),
+    body: JSON.stringify({type: data.type, clientId: data.clientId}),
   })
   .then(response => {
-    
+
     if (response.status === 200) {
-      if (data.type === 'subscriber') {
+
+      if (data.type === 'subscriber' || data.type === '') {
         dispatch(wsMessage(data));
       } else {
-        dispatch(clientActions.addClient())
+        dispatch(clientActions.addClient('publisher'))
       }
       
       return;
@@ -186,9 +263,17 @@ export const fetchAddClient = (data) => (dispatch) => {
 };
 
 export const wsMessage = (data) => dispatch => {
+  //check to see if arr of clients sent -- if so, send the arr (ws can add multiple clients if it receives array)
+  //this sends the client id through the websocket to add the connection to ws 
+  if (!data.arr) {
+    data.ws.send(JSON.stringify({clientId: data.clientId}));
+    dispatch(clientActions.addClient('subscriber'));
+  } else {
+    data.ws.send(JSON.stringify(data.arr));
+    dispatch(fetchSubscribeMany(data));
+    /**dispatch fetchSubscribeMany, then cloneClient */
+  }
   
-  data.ws.send(JSON.stringify({clientId:data.clientId}))
-  dispatch(clientActions.addClient())
 }
 
 
@@ -203,7 +288,6 @@ export const fetchAddChannel = (channelName) => (dispatch) => {
   })
   .then(response => {
     if (response.status === 200) {
-      console.log("channel added");
       dispatch(channelActions.addChannel(channelName));
     } 
     else {

@@ -12,7 +12,7 @@
 import React from 'react';
 
 const SubscribedChannelsDisplay = (props) => {
-  console.log("Subscribed Channels Display ", props)
+  
   //props will be an array of strings, each of which is a channel
   //for each string (i.e. element of array), add a <li> to a <ul>
   let channels = props.channels;

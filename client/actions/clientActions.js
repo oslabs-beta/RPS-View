@@ -22,12 +22,14 @@ import * as types from '../constants/actionTypes.js';
 
  /**TODO later: Add a cloneClient action */
 
-export const subscribe = () => ({
-  type: types.SUBSCRIBE
+export const subscribe = (messageData) => ({
+  type: types.SUBSCRIBE,
+  payload: messageData
 });
 
-export const unsubscribe = () => ({
-  type: types.UNSUBSCRIBE
+export const unsubscribe = (messageData) => ({
+  type: types.UNSUBSCRIBE,
+  payload: messageData
 });
 
 
@@ -41,8 +43,9 @@ export const receivedMessage = (messageData) => ({
   payload: messageData,
 });
 
-export const addClient = () => ({
+export const addClient = (pubOrSub) => ({
   type: types.ADD_CLIENT,
+  payload: pubOrSub,
 });
 
 export const setClient = (clientID) => ({
@@ -56,4 +59,9 @@ export const handleClientInput = (payload) => ({
   type: types.HANDLE_CLIENT_INPUT,
   payload: payload
 
-})
+});
+
+export const cloneClient = (number) => ({
+  type: types.CLONE_CLIENT,
+  payload: number,
+});

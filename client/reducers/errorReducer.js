@@ -11,7 +11,7 @@
 
  import * as types from "../constants/actionTypes";
 
- const intialState = {
+ const initialState = {
    errorMessage: '',
  }
 
@@ -34,7 +34,8 @@
           ...state,
           errorMessage: '',
         }
-
+      default:
+        return state;
     }
 }
 

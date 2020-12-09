@@ -1,5 +1,8 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const webpack = require("webpack");
+
+const mode = process.env.NODE_ENV;
 
 module.exports = {
   entry: path.resolve(__dirname, './client/index.js'),
@@ -28,9 +31,24 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             //preset-env is overall environment, passing react narrows down scope of environment for transpilations
-            presets: ['@babel/preset-env', '@babel/preset-react']
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+            plugins: ['@babel/plugin-transform-runtime', '@babel/transform-async-to-generator'],
           }
         }
+      },
+      //image loaders
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        exclude: /gifs/,
+        // loader: "file-loader?name=/static/RPS_View_logo.png",
+        use: [
+          {
+          loader: 'url-loader',
+          options: {
+            // outputPath: 'static',
+            limit: false,
+          }
+         }]
       },
       //style loaders
       {
@@ -51,7 +69,14 @@ module.exports = {
       },
     ]
   },
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
   plugins: [
     new MiniCssExtractPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(mode),
+    })
+    
   ]
 };

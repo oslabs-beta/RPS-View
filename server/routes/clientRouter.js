@@ -21,5 +21,7 @@ router.post('/subscribe', clientController.subscribe)
 //router for client publish
 router.post('/publish', clientController.publish)
 
+router.post('/subscribeMany', clientController.subscribeMany)
+
 
 module.exports = router; 
