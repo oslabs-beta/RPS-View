@@ -26,8 +26,8 @@ This app allows you to track redis pub / sub messages with dummy clients. The ap
 - [ ] `npm install`
 - [ ] Redis server must be open. Run `redis-server` if you don't already have a server up for your project.
 - [ ] `npm run build` prepares the webpack bundle and only needs to run once
-- [ ] `npm run start` opens the electron app, using port 3000 for the express server
-- [ ] If the electron app is closed at any point, `npm run start` will reopen it. 
+- [ ] `npm run start` runs the web app on local host 3000.
+- [ ] You can run `npm run start-electron` to run an electron application.
 - [ ] For development mode (hot reloading), run `npm run dev`. This will use proxy server 8080 in addition to port 3000.
 
 #### Important Setup Notes
