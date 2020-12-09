@@ -10,6 +10,7 @@ import store from "./store";
 // uncomment so that webpack can bundle styles
 // import styles from './scss/application.scss';
 
+
 render(
 
   <Provider store={store}>

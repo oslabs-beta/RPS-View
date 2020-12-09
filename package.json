@@ -1,21 +1,28 @@
 {
   "name": "rlbf",
   "version": "1.0.0",
-  "description": "",
+  "private": true,
+  "description": "RLBF",
   "main": "main.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
-    "start": "concurrently \"npm run dev\" \"wait-on http://localhost:8080 && npm run electron\"",
-    "dev": "concurrently \"cross-env NODE_ENV=development webpack serve\" \"nodemon server/server.js\"",
+    "start": "concurrently \"npm run dev\" \"wait-on http://localhost:3000 && npm run electron\"",
+    "dev": "concurrently \"cross-env NODE_ENV=production webpack serve\" \"nodemon server/server.js\"",
     "test": "jest --verbose --detectOpenHandles",
-    "electron": "electron ."
+    "electron": "electron .",
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --out=release-builds",
+    "package-win": "electron-packager . electron-tutorial-app --overwrite --asar --platform=win32 --arch=ia32 --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Electron Tutorial App\"",
+    "package-linux": "electron-packager . electron-tutorial-app --overwrite --asar=true --platform=linux --arch=x64 --prune=true --out=release-builds",
+    "dist": "electron-builder",
+    "postinstall": "electron-builder install-app-deps",
+    "prod-electron": "NODE_ENV=production electron ."
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/elisebare/RLBF.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "RLBF",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/elisebare/RLBF/issues"
   },
@@ -31,6 +38,9 @@
     "concurrently": "^5.3.0",
     "cross-env": "^7.0.2",
     "css-loader": "^5.0.1",
+    "electron": "^11.0.4",
+    "electron-builder": "^22.9.1",
+    "electron-packager": "^15.2.0",
     "file-loader": "^6.2.0",
     "jest": "^26.6.3",
     "mini-css-extract-plugin": "^1.3.1",
@@ -50,13 +60,14 @@
     "@babel/runtime": "^7.12.5",
     "babel-jest": "^26.6.3",
     "body-parser": "^1.19.0",
-    "electron": "^11.0.3",
+    "electron-is-dev": "^1.2.0",
     "express": "^4.17.1",
     "ioredis": "^4.19.2",
     "mongodb": "^3.6.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-redux": "^7.2.2",
+    "react-scripts": "^4.0.1",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
@@ -73,5 +84,48 @@
     "plugins": [
       "@babel/plugin-proposal-class-properties"
     ]
+  },
+  "build": {
+    "appId": "com.rpsview.app",
+    "productName": "RLBF",
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "identity": null
+    },
+    "dmg": {
+      "window": {
+        "width": 544,
+        "height": 408
+      },
+      "contents": [
+        {
+          "x": 145,
+          "y": 257
+        },
+        {
+          "x": 400,
+          "y": 255,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "eslintConfig": {
+      "extends": "react-app"
+    },
+    "browserslist": {
+      "production": [
+        ">0.2%",
+        "not dead",
+        "not op_mini all"
+      ],
+      "development": [
+        "last 1 chrome version",
+        "last 1 firefox version",
+        "last 1 safari version"
+      ]
+    }
   }
 }
