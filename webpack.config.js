@@ -1,4 +1,5 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require("webpack");
 
@@ -8,7 +9,7 @@ module.exports = {
   entry: path.resolve(__dirname, './client/index.js'),
   mode: process.env.NODE_ENV,
   output: {
-    filename: 'bundle.js',
+    filename: 'bundle.js', //bundle serves in template html
     path: path.resolve(__dirname, './build'),
   },
   //dev
@@ -73,9 +74,8 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(mode),
+    new HtmlWebpackPlugin({
+      template: './index.html'
     })
-    
   ]
 };
