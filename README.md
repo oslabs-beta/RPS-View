@@ -11,7 +11,7 @@ Testing your Redis pub sub clients in development requires multiple redis cli cl
 
 This app allows you to track redis pub / sub messages with dummy clients. The app uses
 
-- Express erver
+- Express server
 - Web sockets on 3030 to send messages to clients
 - Redis IO to connect and subscribe clients
 - Redux/React front end to manage state
