@@ -1,36 +1,31 @@
-# RPS View - Beta version
+# RPS View - Electron Packager
 
-A web or desktop application to assist in visualization and monitoring of redis pub-sub clients.
+An electron packager for RPS View
 
 
 ## Problem
 
-Testing your Redis pub sub clients in development requires multiple redis cli clients. Our tool allows you to create publishers and subscribers and channels in one place and monitor receipt of messages.
+Currently RPS View has Repository for running the app from electron or localhost, but needs a repository for bundling and distributing a electron app.
 
-## App description
+## Repo description
 
-This app allows you to track redis pub / sub messages with dummy clients. The app uses
-
-- Express erver
-- Web sockets on 3030 to send messages to clients
-- Redis IO to connect and subscribe clients
-- Redux/React front end to manage state
-- Redux Thunk middleware for fetch requests, asynchronous actions, and web socket message handling
-- Jest & Supertest for unit tests and integration testing
-- Electron for desktop cabailities
+This repository allows you to bundle the electron app into downloadable form for Linux and Mac. The package bundles within the release-builds folder.
 
 ## Getting started
 
-### To run the application
+### To bundle the application
 
 - [ ] `npm install`
-- [ ] Redis server must be open. Run `redis-server` if you don't already have a server up for your project.
-- [ ] `npm run build` prepares the webpack bundle and only needs to run once
-- [ ] `npm run start` opens the electron app, using port 3000 for the express server
-- [ ] If the electron app is closed at any point, `npm run start` will reopen it. 
-- [ ] For development mode (hot reloading), run `npm run dev`. This will use proxy server 8080 in addition to port 3000.
+- [ ] `npm run build` prepares the webpack bundle, which will allow us to package the most recent version of the app.
+- [ ] `npm run package-mac` will package the electron app into a usable form for Mac OS
+- [ ] `npm run package-linux` will package the electron app into a usable form for Linux OS
+- [ ] `npm run package-win` Work in progress that will download into a usable form for Windows
+- [ ] `npm run electron` will open the electron app. Allows the developer to view their code before bundling.
+
 
 ### Important Setup Notes
+
+For testing the app within electron the following steps must be run.
 
 - Express - You must be running an Express server on port 3000 for the application to work
 - Redis-server - You must run a redis server - either in your application or on the command line to connect the app. Make sure you connect to the same port that your redis-server is running on. If no server is specified, the application will attempt to create a redis client on port 6379.
