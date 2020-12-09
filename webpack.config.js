@@ -3,8 +3,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require("webpack");
 
-const mode = process.env.NODE_ENV;
-
 module.exports = {
   entry: path.resolve(__dirname, './client/index.js'),
   mode: process.env.NODE_ENV,
@@ -17,7 +15,7 @@ module.exports = {
     publicPath: '/build/', //matches the path for the production output
     proxy: {
       '/**': {
-        target: 'http://localhost:3000' //will this affect web socket ports?
+        target: 'http://localhost:3000' 
       }
     }
   },
@@ -40,12 +38,12 @@ module.exports = {
       //image loaders
       {
         test: /\.(png|jpe?g|gif)$/i,
-        // loader: "file-loader?name=/static/RPS_View_logo.png",
+        exclude: /gifs/,
+
         use: [
           {
           loader: 'url-loader',
           options: {
-            // outputPath: 'static',
             limit: false,
           }
          }]
