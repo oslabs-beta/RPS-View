@@ -6,13 +6,13 @@
   "main": "main.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
-    "start": "concurrently \"node server/server.js\" \"wait-on http://localhost:3000 && npm run electron\"",
-    "dev": "concurrently \"cross-env NODE_ENV=development webpack serve\" \"nodemon server/server.js\"",
+    "start": "concurrently \"npm run dev\" \"wait-on http://localhost:3000 && npm run electron\"",
+    "dev": "concurrently \"cross-env NODE_ENV=development webpack serve\" \"nodemon main.js\"",
     "test": "jest --verbose --detectOpenHandles",
-    "electron": "NODE_ENV=production electron .",
-    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --out=release-builds",
-    "package-win": "electron-packager . electron-tutorial-app --overwrite --asar --platform=win32 --arch=ia32 --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"RPS View\"",
-    "package-linux": "electron-packager . electron-tutorial-app --overwrite --asar=true --platform=linux --arch=x64 --prune=true --out=release-builds",
+    "electron": "electron .",
+    "package-mac": "electron-packager . RPS-View --overwrite --platform=darwin --arch=x64 --icon=icon.icns --prune=true --out=release-builds",
+    "package-win": "electron-packager . RPS-View --overwrite --asar --platform=win32 --arch=ia32 --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"RPS-View\"",
+    "package-linux": "electron-packager . RPS-View --overwrite --asar=true --platform=linux --arch=x64 --prune=true --out=release-builds",
     "dist": "electron-builder",
     "postinstall": "electron-builder install-app-deps",
     "prod-electron": "NODE_ENV=production electron ."
@@ -86,14 +86,39 @@
     ]
   },
   "build": {
+    "files": [
+      {
+        "from": ".",
+        "to": ".",
+        "filter": [
+          "electron",
+          "images",
+          "node_modules",
+          "main.js",
+          "package.json",
+          "gif"
+        ]
+      },
+      {
+        "from": "./build",
+        "to": ".",
+        "filter": ["**/*"]
+    }
+    ],
+    "directories": {
+      "buildResources": "assets"
+    },
     "appId": "com.rpsview.app",
     "productName": "rpsview",
     "mac": {
+      "category": "public.app-category.productivity",
+      "icon": "icon.png",
       "target": [
-        "dmg"
-      ],
-      "identity": null
+        "dmg",
+        "zip"
+      ]
     },
+    "extends": null,
     "dmg": {
       "window": {
         "width": 544,
@@ -111,21 +136,7 @@
           "path": "/Applications"
         }
       ]
-    },
-    "eslintConfig": {
-      "extends": "react-app"
-    },
-    "browserslist": {
-      "production": [
-        ">0.2%",
-        "not dead",
-        "not op_mini all"
-      ],
-      "development": [
-        "last 1 chrome version",
-        "last 1 firefox version",
-        "last 1 safari version"
-      ]
     }
+    
   }
 }
