@@ -39,6 +39,7 @@ module.exports = {
       //image loaders
       {
         test: /\.(png|jpe?g|gif)$/i,
+        exclude: /gifs/,
         // loader: "file-loader?name=/static/RPS_View_logo.png",
         use: [
           {
