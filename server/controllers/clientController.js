@@ -32,7 +32,7 @@ clientController.unsubscribe = (req, res, next) => {
       if(error) {
         return res.status(400).send('unable to unsubscribe');
       } 
-      return res.status(200).send(clientId+ 'Successfully unsubscribed to ' + channelName + '. Cleint is now subscribed to '+ count +'channels');
+      return res.status(200).send(clientId+ 'Successfully unsubscribed to ' + channelName + '. Client is now subscribed to '+ count +'channels');
     })
   }
 };
@@ -57,7 +57,7 @@ clientController.subscribe = (req, res, next) => {
       if(error) {
         return res.status(400).send('failed to subscribe');
       } 
-      return res.status(200).send(clientId+ 'Successfully subscribed to ' + channelName + '. Cleint is now subscribed to '+ count +'channels');
+      return res.status(200).send(clientId+ 'Successfully subscribed to ' + channelName + '. Client is now subscribed to '+ count +'channels');
     })
   }
 
