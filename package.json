@@ -24,9 +24,9 @@
   "author": "RLBF",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/elisebare/RLBF/issues"
+    "url": "https://github.com/oslabs-beta/RPS-View/issues"
   },
-  "homepage": "https://github.com/elisebare/RLBF#readme",
+  "homepage": "https://github.com/oslabs-beta/RPS-View#readme",
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
@@ -109,7 +109,7 @@
       "buildResources": "assets"
     },
     "appId": "com.rpsview.app",
-    "productName": "RLBF",
+    "productName": "rpsview",
     "mac": {
       "category": "public.app-category.productivity",
       "icon": "icon.png",

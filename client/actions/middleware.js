@@ -217,13 +217,13 @@ export const fetchConnect = (port) => (dispatch) => {
   .then(response => {
     if (response.status === 200) {
       return response.json()
-    } else dispatch(errorActions.errorHandler(`Failed to connect to ${port}`));
+    } else dispatch(errorActions.errorHandler(`Failed to connect to ${port || '6379'}`));
   }).then(data => {
     dispatch(channelActions.portConnected({port, channels:data.channels}));
 
   })
   .catch((error) => {
-    dispatch(errorActions.errorHandler(`Failed to connect to ${port}`));
+    dispatch(errorActions.errorHandler(`Failed to connect to ${port || '6379'}`));
   })
   
 }
@@ -232,7 +232,6 @@ export const fetchConnect = (port) => (dispatch) => {
 //data in form of 
 // {clientId: #, type: 'publisher' OR 'subscriber' OR '' defaults to subscriber}
 export const fetchAddClient = (data) => (dispatch) => {
-  console.log('running fetchAddClient, data: ', data)
   fetch('http://localhost:3000/menu/addClient', {
     method: 'POST', 
     headers: {
