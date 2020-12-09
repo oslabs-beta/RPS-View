@@ -3,11 +3,11 @@
 A web or desktop application to assist in visualization and monitoring of redis pub-sub clients.
 
 
-### Problem
+## Problem
 
 Testing your Redis pub sub clients in development requires multiple redis cli clients. Our tool allows you to create publishers and subscribers and channels in one place and monitor receipt of messages.
 
-### App description
+## App description
 
 This app allows you to track redis pub / sub messages with dummy clients. The app uses
 
@@ -19,9 +19,9 @@ This app allows you to track redis pub / sub messages with dummy clients. The ap
 - Jest & Supertest for unit tests and integration testing
 - Electron for desktop cabailities
 
-### Getting started
+## Getting started
 
-#### To run the application
+### To run the application
 
 - [ ] `npm install`
 - [ ] Redis server must be open. Run `redis-server` if you don't already have a server up for your project.
@@ -30,38 +30,47 @@ This app allows you to track redis pub / sub messages with dummy clients. The ap
 - [ ] If the electron app is closed at any point, `npm run start` will reopen it. 
 - [ ] For development mode (hot reloading), run `npm run dev`. This will use proxy server 8080 in addition to port 3000.
 
-#### Important Setup Notes
+### Important Setup Notes
 
 - Express - You must be running an Express server on port 3000 for the application to work
 - Redis-server - You must run a redis server - either in your application or on the command line to connect the app. Make sure you connect to the same port that your redis-server is running on. If no server is specified, the application will attempt to create a redis client on port 6379.
 
-### Demonstration
+## Demonstration
 
-#### Connecting
+### Connecting
 The first thing you should do on RPS View is connect to the port on which your redis server is running. If no port is selected, the “Connect” Button will launch a  connection attempt on the default port for redis, ‘6379’.
 
 ![.gif of connection process](gifs/connect2.gif)
 
-#### Adding channels and clients
-After you’ve connected, you should see any existing channels in your redis-server instance. You can add clients from there, and subscribe them to the channels. 
+### Adding channels and clients
+After you’ve connected, you should see any existing channels in your redis-server instance on the channels menu to the left; you can also create new channels using the top menu bar.  
 
 ![.gif of adding channels](gifs/addChannels.gif)
 
+You can also add new clients (both publishers and subscribers) from the top menu bar. 
 
-#### Prublishing messages and viewing logs
-You can publish from the terminal or your application, and you should see the new messages propagate in the message log of the respective clients.
+![.gif of adding clients](gifs/addPubAndSubClients.gif)
+
+If you click on a particular subscriber in the client menu on the left, the client window will appear. From here, you can subscribe to and unsubscribe from any channel, as well as clone the current subscriber to easily create multiple clients with the same channel subscriptions.
+
+![.gif of subscribe and clone](gifs/subscribeAndClone.gif)
 
 
+### Publishing messages and viewing logs
+You can publish from the terminal, from your application, or using a publisher's client window. You should see the new messages propagate in the message log of all clients currently subscribed to that channel.
 
-### How to contribute
+![.gif of publishing](gifs/publishMessages.gif)
+
+
+## How to contribute
 
 - We're an open source project, and we're open to new contributions. 
 - Add an issue to the github issues before starting a new feature.
 - Make pull requests to staging with issue referenced in the PR.
 
-### Contact
+## Contact
 
-Website: [LINK]
+Website: [http://www.rpsview.com/](http://www.rpsview.com/)
 
 Github: [https://github.com/oslabs-beta/RPS-View](https://github.com/oslabs-beta/RPS-View)
 
