@@ -5,9 +5,10 @@
   "main": "main.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
-    "start": "concurrently \"cross-env NODE_ENV=production node server/server.js\" \"npm run electron\"",
+    "start": "concurrently \"cross-env NODE_ENV=production node server/server.js\"",
     "dev": "concurrently \"cross-env NODE_ENV=development webpack serve\" \"nodemon server/server.js\"",
     "test": "jest --verbose --detectOpenHandles",
+    "start-electron": "concurrently \"cross-env NODE_ENV=production node server/server.js\" \"npm run electron\"",
     "electron": "electron ."
   },
   "repository": {
