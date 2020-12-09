@@ -7,7 +7,7 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
     "start": "concurrently \"npm run dev\" \"wait-on http://localhost:3000 && npm run electron\"",
-    "dev": "concurrently \"cross-env NODE_ENV=production webpack serve\" \"nodemon server/server.js\"",
+    "dev": "concurrently \"cross-env NODE_ENV=development webpack serve\" \"nodemon main.js\"",
     "test": "jest --verbose --detectOpenHandles",
     "electron": "electron .",
     "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --out=release-builds",
