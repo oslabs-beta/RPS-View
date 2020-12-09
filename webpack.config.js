@@ -1,6 +1,9 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const webpack = require("webpack");
+
+const mode = process.env.NODE_ENV;
 
 module.exports = {
   entry: path.resolve(__dirname, './client/index.js'),

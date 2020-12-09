@@ -7,7 +7,12 @@
 body {
 	background-color: $component-bg;
 	font-family: 'Roboto', sans-serif;
-	font-size: 0.9em;
+  font-size: 0.9em;
+  background-image: url('../../static/RPS_View_logo.png');
+  background-size: 350px 350px;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  min-height: 500px;
 }
 
 button {
@@ -142,7 +147,8 @@ input {
 
 					.serverInput {
 						height: $navBarHeight;
-						padding: 0;
+            padding: 0;
+            padding-left: 0.5em;
 						border-top-left-radius: $borderpx;
 						border-bottom-left-radius: $borderpx;
 						// box-shadow: $boxShadowInput;
@@ -183,7 +189,7 @@ input {
 				align-content: center;
 				.channelInput {
 					height: $navBarHeight;
-					padding-left: 0.3em;
+					padding-left: 0.5em;
 					padding-right: 0.3em;
 					padding-top: 0;
 					padding-bottom: 0;

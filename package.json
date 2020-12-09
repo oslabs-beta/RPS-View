@@ -1,8 +1,8 @@
 {
-  "name": "rlbf",
+  "name": "rpsview",
   "version": "1.0.0",
   "private": true,
-  "description": "RLBF",
+  "description": "RPS View is a new developer tool to visualize redis pub sub relationships in application development.",
   "main": "main.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/elisebare/RLBF.git"
+    "url": "git+https://github.com/oslabs-beta/RPS-View"
   },
   "author": "RLBF",
   "license": "MIT",

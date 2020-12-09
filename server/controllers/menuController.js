@@ -35,21 +35,19 @@ menuController.connect = (req,res,next) => {
     //use subscribe in order to test connection
     let redis = new Redis(globalPort)
     //catch connection error with try catch
-    // console.log(subObj)
+
     redis.pubsub('channels', (err, channels)=>{
-        console.log("i am inside redis pubsub")
+
         if(err){
             
             return res.status(400).send('failed to connect');
             // next();
         }
         //if no error add message connected to server
-        console.log("we're returning 200")
         return res.status(200).json({channels:channels})
     })
     redis.on('error', (err) => {
         redis.disconnect();
-        console.error('Redis error:', err)
     })
  
 }
@@ -77,8 +75,7 @@ menuController.addChannel = (req,res,next) => {
 
 //add client to redis
 menuController.addClient = (req, res, next) => {
-    
-    // console.log(req.body);
+
     //if clientId from fetch body is incorrect, send back invalid input
     if(req.body.clientId === undefined){
         return res.status(200).send('invalid inputs');
@@ -133,7 +130,6 @@ menuController.addClonedClients = (req, res, next) => {
         redis.subscribe('sup', (error, count)=>{
             //if error trying to add client, server is not connected
             if(error){
-                console.log('hi')
                 return res.status(400).send('server not connected');
 
             }
@@ -153,7 +149,6 @@ menuController.addClonedClients = (req, res, next) => {
                 subObj[id].subscribe('sup', (error, count)=>{
                     //if error attach error as res locals and continue
                     if(error){
-                        console.log('hi2')
                         return res.status(400).send('failed to connect');
                     }
                 })
@@ -176,9 +171,7 @@ menuController.addClonedClients = (req, res, next) => {
 menuController.test = (req,res,next) => {
     let redis = new Redis(globalPort);
     redis.pubsub('channels', (err, channels) => {
-        if (err) {
-            console.log
-        } else {
+        if (!err) {
             console.log('Channels:', channels); // array
         }
         return next()
