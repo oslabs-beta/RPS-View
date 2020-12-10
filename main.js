@@ -70,9 +70,9 @@ function createWindow() {
 
   const expressapp = express();
 
-  const menuRouter = require('./server/routes/menuRouter');
-  const clientRouter = require('./server/routes/clientRouter');
-  const { subObj } = require('./server/controllers/menuController');
+  const menuRouter = require(path.resolve(__dirname,'./server/routes/menuRouter'));
+  const clientRouter = require(path.resolve(__dirname,'./server/routes/clientRouter'));
+  const { subObj } = require(path.resolve(__dirname,'./server/controllers/menuController'));
 
 
   //handle parsing request body
@@ -103,7 +103,7 @@ function createWindow() {
         }
   });
 
-  mainWindow.loadURL(process.env.NODE_ENV === 'development' ? 'http://localhost:8080' : `file://${path.join(__dirname, './build/index.html')}`);
+  mainWindow.loadURL(process.env.NODE_ENV === 'development' ? 'http://localhost:8080' : `file://${path.resolve(__dirname, './build/index.html')}`);
       
 
   mainWindow.setMenu(null);
