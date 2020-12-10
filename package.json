@@ -91,12 +91,11 @@
         "from": ".",
         "to": ".",
         "filter": [
-          "electron",
-          "images",
           "node_modules",
           "main.js",
           "package.json",
-          "gif"
+          "server",
+          "build"
         ]
       },
       {
@@ -105,21 +104,18 @@
         "filter": ["**/*"]
     }
     ],
-    "directories": {
-      "buildResources": "assets"
-    },
     "appId": "com.rpsview.app",
     "productName": "rpsview",
     "mac": {
       "category": "public.app-category.productivity",
       "icon": "icon.png",
       "target": [
-        "dmg",
-        "zip"
+        "dmg"
       ]
     },
     "extends": null,
     "dmg": {
+      "background": "Rps-view.tif",
       "window": {
         "width": 544,
         "height": 408
@@ -137,6 +133,5 @@
         }
       ]
     }
-    
   }
 }
